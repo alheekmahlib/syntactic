@@ -10,6 +10,19 @@ ThemeData pinkTheme = lightTheme.copyWith(
     primaryColorLight: const Color(0xFFFFFBF8),
     canvasColor: const Color(0xFFFFEEDC),
     scaffoldBackgroundColor: const Color(0xFFFAF8F0),
+    colorScheme: const ColorScheme(
+      brightness: Brightness.light,
+      primary: Color(0xFF77554C),
+      onPrimary: Color(0xffE6DAC8),
+      secondary: Color(0xFFFFFBF8),
+      onSecondary: Color(0xffFFFFFE),
+      error: Color(0xFFFFEEDC),
+      onError: Color(0xFFFFEEDC),
+      background: Color(0xffFFFFFE),
+      onBackground: Color(0xffF7F1EC),
+      surface: Color(0xFFC39B7B),
+      onSurface: Color(0xFFFAF8F0),
+    ),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(
         color: Colors.black87,
@@ -26,11 +39,26 @@ ThemeData halloweenTheme = lightTheme.copyWith(
 );
 
 ThemeData darkBlueTheme = ThemeData.dark().copyWith(
-  primaryColor: const Color(0xFF1E1E2C),
-  scaffoldBackgroundColor: const Color(0xFF2D2D44),
-  textTheme: const TextTheme(
-    bodyLarge: TextStyle(
-      color: Color(0xFF33E1Ed),
+    primaryColorDark: const Color(0xFF77554C),
+    primaryColor: const Color(0xFFC39B7B),
+    primaryColorLight: const Color(0xFFFFFBF8),
+    canvasColor: const Color(0xFFFFEEDC),
+    scaffoldBackgroundColor: const Color(0xFFFAF8F0),
+    colorScheme: const ColorScheme(
+      brightness: Brightness.light,
+      primary: Color(0xffE6DAC8),
+      onPrimary: Color(0xFF77554C),
+      secondary: Color(0xFFFFFBF8),
+      onSecondary: Color(0xffFFFFFE),
+      error: Color(0xFFFFEEDC),
+      onError: Color(0xFFFFEEDC),
+      background: Color(0xFFFFEEDC),
+      onBackground: Color(0xffF7F1EC),
+      surface: Color(0xFFC39B7B),
+      onSurface: Color(0xFFFAF8F0),
     ),
-  ),
-);
+    textTheme: const TextTheme(
+      bodyLarge: TextStyle(
+        color: Colors.black87,
+      ),
+    ));

@@ -1,0 +1,56 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:syntactic/presentation/controllers/general_controller.dart';
+
+import '../../../../core/services/services_locator.dart';
+import '../../../../core/widgets/widgets.dart';
+import '../../../controllers/books_controller.dart';
+
+class ExplanationPoem extends StatelessWidget {
+  final int chapterNumber;
+
+  const ExplanationPoem({super.key, required this.chapterNumber});
+
+  @override
+  Widget build(BuildContext context) {
+    final bookCtrl = sl<BooksController>();
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          beigeContainer(
+            context,
+            width: 100,
+            color: Theme.of(context).colorScheme.surface,
+            Text(
+              'الشرح',
+              style: TextStyle(
+                fontSize: 17.0,
+                fontFamily: 'kufi',
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+            child: Obx(() {
+              return Text(
+                bookCtrl.book.value!.chapters![chapterNumber].explanation!,
+                style: TextStyle(
+                  fontSize: sl<GeneralController>().fontSizeArabic.value,
+                  fontFamily: 'naskh',
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                textAlign: TextAlign.justify,
+              );
+            }),
+          ),
+        ],
+      ),
+    );
+  }
+}

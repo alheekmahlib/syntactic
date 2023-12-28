@@ -1,0 +1,180 @@
+{
+  "appName": "سُنتي",
+  "@appName": {
+    "description": "The App Name"
+  },
+  "lastRead": "آخر قراءة",
+  "@lastRead": {
+    "description": "The Last Read"
+  },
+  "appLang": "لغة التطبيق",
+  "@appLang": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lang": "العربية",
+  "@lang": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bookmark": "المفضلة",
+  "@bookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "search": "البحث",
+  "@search": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchHintText": "إبحث عن الحديث",
+  "@searchHintText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastSearch": "آخر بحث",
+  "@lastSearch": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "save": "حفظ",
+  "@save": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "changeTheme": "تغيير النمط",
+  "@changeTheme": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "brown": "النمط البني",
+  "@brown": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dark": "النمط الداكن",
+  "@dark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "books": "الكتب",
+  "@books": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "home": "الرئيسية",
+  "@home": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copiedHadith": "تم نسخ الحديث",
+  "@copiedHadith": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareText": "كنص",
+  "@shareText": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareImage": "كصورة",
+  "@shareImage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareImageWTrans": "كصورة مع محتوى إضافي",
+  "@shareImageWTrans": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "readMore": "إقرأ المزيد",
+  "@readMore": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "readLess": "إقرأ أقل",
+  "@readLess": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutBook": "عن الكتاب",
+  "@aboutBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Saturday": "السبت",
+  "@Saturday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sunday": "الأحد",
+  "@Sunday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Monday": "الاثنين",
+  "@Monday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Tuesday": "الثلاثاء",
+  "@Tuesday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Wednesday": "الأربعاء",
+  "@Wednesday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Thursday": "الخميس",
+  "@Thursday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Friday": "الجمعة",
+  "@Friday": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "morning": "صبحكم الله بالخير",
+  "@morning": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "evening": "مساكم الله بالخير",
+  "@evening": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dailyHadith": "حديث اليوم",
+  "@dailyHadith": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "skip": "تخطي",
+  "@skip": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ourApps": "تطبيقاتنا",
+  "@ourApps": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutQuranApp3": "◉ يُمَكِنُكَ هذا التطبيق من قراءة القرآن كما لو كنت تقرأ في المصحف، ويمكنك القراءة بالوضع العَمودي والأفقي.\n◉ كما يُمْكِنُكَ القراءة بالوضع المتغير الذي يمكنك من تكبير وتصغير كما تريد.\n◉ يحتوي التطبيق على خاصية البحث النصي في آيات القرآن من خلال البحث اللحظي وعرض النتائج مع الصفحات بالإضافة إلى إمكانية الذهاب للصفحة\n◉ إضافة فواصل للقراءة بحيث يتمكن القارئ من حفظ الصفحة والعودة لها متى شاء.\n◉ إضافة ملاحظات.\n◉ الاستماع لكل آية بصوت عدد من القراء.\n◉ يتيح التطبيق التفسير لكل آية، كما يُمْكِنُكَ التغيير بين التفاسير كما يُمْكِنُكَ تغيير حجم خط التفسير.\n◉ فهرس للسور.\n◉ التنقل بين السّور بسهولة.\n◉ يتيح التطبيق قراءة علامات الوقف.\n◉ يُمْكِنُكَ التطبيق من قراءة حصن المسلم كاملًا ومقسم بحسب الأذكار بحيث يسهل على القارئ التنقل بين الأقسام، كما يُمْكِنُكَ إضافة أي ذكر إلى المفضلة.\n◉ يتيح التطبيق للقارئ القراءة تغيير أنماط الألوان ومنها النمط الداكن والذي يغير لون الخلفية باللون الأسود والخطوط البيضاء لتعطي القارئ الراحة التامة عند القراءة في أجواء منخفضة الإضاءة.",
+  "@about_app3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutAzkaryApp3": "◉ يتيح لك هذا التطبيق القابلية لحفظ الأذكار المفضلة لديك في قائمة خاصة، مما يجعلها سهلة الوصول والاستعراض في أي وقت.\n◉ بإمكانك التحكم بحجم الخط وتكبيره أو تصغيره حسب رغبتك للقراءة الأكثر راحة.\n◉ كما يقدم التطبيق ثلاثة أنماط لواجهة المستخدم - الأخضر، الأزرق، والداكن - مما يعطيك القدرة لتخصيص شكل التطبيق وفقا لتفضيلاتك.\n◉ ما يميز \"أذكاري من الكتاب والسنة\" أيضا، هو إمكانية مشاركة الأذكار بسهولة مع الأصدقاء والعائلة.\n◉ يمكنك المشاركة بالنص مباشرة أو بإرسال صورة تحتوي على الذكر، مما يجعل تجربة التواصل والتفاعل مع الآخرين أكثر غنى وعمقا.\n◉ يمكنك تحديد الأوقات التي تفضل فيها قراءة الأذكار، وسوف يقوم التطبيق بتذكيرك في تلك الأوقات بدقة.",
+  "@aboutAzkaryApp3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copied": "تم النسخ",
+  "@copied": {
+    "type": "text",
+    "placeholders": {}
+  }
+}

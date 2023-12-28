@@ -1,5 +1,16 @@
+import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:syntactic/presentation/controllers/settings_controller.dart';
+import 'package:syntactic/presentation/controllers/share_controller.dart';
+
+import '../../presentation/controllers/audio_controller.dart';
+import '../../presentation/controllers/bookmarks_controller.dart';
+import '../../presentation/controllers/books_controller.dart';
+import '../../presentation/controllers/general_controller.dart';
+import '../../presentation/controllers/ourApps_controller.dart';
+import '../../presentation/screens/bookmark/data/data_source/object_box.dart';
+import '../../presentation/screens/bookmark/data/models/objectbox.g.dart';
 
 final sl = GetIt.instance;
 
@@ -9,21 +20,38 @@ class ServicesLocator {
         sl.registerSingleton<SharedPreferences>(v);
       });
 
-  // Future<void> setupHive() async {
-  //   await Hive.initFlutter();
-  //   Hive.registerAdapter(BookmarkAdapter());
-  //   await Hive.openBox<Bookmark>(AssetsData.bookmarkBox);
-  // }
+  Future<void> _initObjectBox() async {
+    final objectBox = await ObjectBox.create();
+    sl.registerSingleton<ObjectBox>(objectBox);
+
+    final store = await openStore();
+    sl.registerSingleton<Store>(store);
+  }
 
   Future<void> init() async {
-    await Future.wait([
-      _initPrefs(),
-      // setupHive(),
-    ]);
+    await Future.wait([_initPrefs(), _initObjectBox()]);
 
     // Controllers
-    // sl.registerLazySingleton<GeneralController>(
-    //     () => Get.put<GeneralController>(GeneralController(), permanent: true));
+    sl.registerLazySingleton<GeneralController>(
+        () => Get.put<GeneralController>(GeneralController(), permanent: true));
+
+    sl.registerLazySingleton<SettingsController>(() =>
+        Get.put<SettingsController>(SettingsController(), permanent: true));
+
+    sl.registerLazySingleton<ShareController>(
+        () => Get.put<ShareController>(ShareController(), permanent: true));
+
+    sl.registerLazySingleton<OurAppsController>(
+        () => Get.put<OurAppsController>(OurAppsController(), permanent: true));
+
+    sl.registerLazySingleton<BooksController>(
+        () => Get.put<BooksController>(BooksController(), permanent: true));
+
+    sl.registerLazySingleton<AudioController>(
+        () => Get.put<AudioController>(AudioController(), permanent: true));
+
+    sl.registerLazySingleton<BookmarksController>(() =>
+        Get.put<BookmarksController>(BookmarksController(), permanent: true));
 
     // UiHelper.rateMyApp.init();
     //

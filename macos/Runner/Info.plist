@@ -28,5 +28,9 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>com.apple.security.application-groups</key>
+    <array>
+    <string>FGDTDLOBXDJ.demo</string>
+    </array>
 </dict>
 </plist>

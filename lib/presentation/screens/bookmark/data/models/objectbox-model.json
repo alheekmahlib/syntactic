@@ -1,0 +1,57 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:3374879889184435037",
+      "lastPropertyId": "6:5767770104390448199",
+      "name": "BookmarkModel",
+      "properties": [
+        {
+          "id": "1:586483998139000553",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1596187711746495686",
+          "name": "bookName",
+          "type": 9
+        },
+        {
+          "id": "3:1342975893026305934",
+          "name": "chapterName",
+          "type": 9
+        },
+        {
+          "id": "4:9189828036336032795",
+          "name": "poemText",
+          "type": 9
+        },
+        {
+          "id": "5:3945754557396822674",
+          "name": "chapterNumber",
+          "type": 6
+        },
+        {
+          "id": "6:5767770104390448199",
+          "name": "date",
+          "type": 10
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:3374879889184435037",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
