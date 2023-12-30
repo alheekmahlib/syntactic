@@ -26,7 +26,7 @@ class LanguageList extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'kufi',
                 fontSize: 18,
-                color: Theme.of(context).primaryColorDark,
+                color: Theme.of(context).primaryColorLight,
               ),
             ),
           ),

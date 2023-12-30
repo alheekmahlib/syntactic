@@ -9,6 +9,7 @@ import '../../presentation/controllers/bookmarks_controller.dart';
 import '../../presentation/controllers/books_controller.dart';
 import '../../presentation/controllers/general_controller.dart';
 import '../../presentation/controllers/ourApps_controller.dart';
+import '../../presentation/controllers/search_controller.dart';
 import '../../presentation/screens/bookmark/data/data_source/object_box.dart';
 import '../../presentation/screens/bookmark/data/models/objectbox.g.dart';
 
@@ -52,6 +53,9 @@ class ServicesLocator {
 
     sl.registerLazySingleton<BookmarksController>(() =>
         Get.put<BookmarksController>(BookmarksController(), permanent: true));
+
+    sl.registerLazySingleton<SearchControllers>(
+        () => Get.put<SearchControllers>(SearchControllers(), permanent: true));
 
     // UiHelper.rateMyApp.init();
     //

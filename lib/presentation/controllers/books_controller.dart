@@ -11,21 +11,37 @@ class BooksController extends GetxController {
   var book = Rxn<Book>();
   RxInt selectedPoemIndex = (-1).obs;
   final selectedPair = <int, bool>{}.obs;
+  RxList<BookName> booksName = <BookName>[].obs;
   int pairStartIndex = -1;
   RxInt selectedIndex = (-1).obs;
   RxInt chapterNumber = 1.obs;
   RxString bookName = ''.obs;
+  RxInt bookNumber = 0.obs;
 
   @override
   void onInit() {
     super.onInit();
+    loadBooksName();
     loadBook();
+  }
+
+  Future<void> loadBooksName() async {
+    try {
+      String data = await rootBundle.loadString('assets/json/bookName.json');
+      List<dynamic> booksData = json.decode(data)['books'];
+      List<BookName> bookList =
+          booksData.map((json) => BookName.fromJson(json)).toList();
+      booksName.assignAll(bookList);
+    } catch (e) {
+      // Handle errors
+      print("Error loading books: $e");
+    }
   }
 
   void loadBook() async {
     try {
-      String jsonData = await rootBundle.loadString('assets/json/agrumiya.json',
-          cache: false);
+      String jsonData = await rootBundle
+          .loadString('assets/json/${bookNumber.value}.json', cache: false);
       var decodedData = jsonDecode(jsonData);
       book.value = Book.fromJson(decodedData);
     } catch (e) {

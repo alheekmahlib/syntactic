@@ -176,5 +176,15 @@
   "@copied": {
     "type": "text",
     "placeholders": {}
+  },
+  "chapterBook": "বইয়ের অধ্যায়গুলি।",
+  "@chapterBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scienceSyntax": "ব্যাকরণ বিজ্ঞান।",
+  "@scienceSyntax": {
+    "type": "text",
+    "placeholders": {}
   }
 }

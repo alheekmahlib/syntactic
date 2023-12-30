@@ -16,13 +16,16 @@ class HijriDate extends StatelessWidget {
     general.updateGreeting();
     return Column(
       children: [
-        greeting(context),
         SizedBox(
-          height: 150,
+          height: 160,
           width: 250,
           child: Stack(
             alignment: Alignment.center,
             children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: greeting(context),
+              ),
               Container(
                 height: 110,
                 width: 260,

@@ -13,13 +13,15 @@ import '../widgets/book_details.dart';
 import '../widgets/chapters_build.dart';
 
 class DetailsScreen extends StatelessWidget {
+  final int bookNumber;
   final String bookName;
-  const DetailsScreen({super.key, required this.bookName});
+  const DetailsScreen(
+      {super.key, required this.bookName, required this.bookNumber});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    final bookCtrl = sl<BooksController>();
+    return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         centerTitle: true,
@@ -43,7 +45,7 @@ class DetailsScreen extends StatelessWidget {
         leadingWidth: 56,
       ),
       body: Obx(() {
-        var book = sl<BooksController>().book.value;
+        var book = bookCtrl.book.value;
         if (book == null) {
           return const Center(child: CircularProgressIndicator());
         } else {
@@ -54,7 +56,7 @@ class DetailsScreen extends StatelessWidget {
                     const EdgeInsets.only(top: 120.0, right: 24.0, left: 24.0),
                 child: Column(
                   children: [
-                    BookDetails(bookName: bookName),
+                    BookDetails(bookNumber: bookNumber, bookName: bookName),
                     const Gap(32),
                     const ChaptersBuild()
                   ],
@@ -64,6 +66,6 @@ class DetailsScreen extends StatelessWidget {
           );
         }
       }),
-    ));
+    );
   }
 }

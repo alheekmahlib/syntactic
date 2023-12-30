@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:syntactic/presentation/controllers/audio_controller.dart';
 
@@ -51,10 +52,10 @@ class PoemsBuild extends StatelessWidget {
                               alignment: Alignment.centerRight,
                               child: Text(
                                 poem.poems![index].firstPoem!,
-                                style: const TextStyle(
-                                  fontSize: 20.0,
+                                style: TextStyle(
+                                  fontSize: 22.0.sp,
                                   fontFamily: 'naskh',
-                                  color: Colors.black,
+                                  color: Theme.of(context).primaryColorLight,
                                 ),
                               ),
                             ),
@@ -62,10 +63,10 @@ class PoemsBuild extends StatelessWidget {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 poem.poems![index].secondPoem!,
-                                style: const TextStyle(
-                                  fontSize: 20.0,
+                                style: TextStyle(
+                                  fontSize: 22.0.sp,
                                   fontFamily: 'naskh',
-                                  color: Colors.black,
+                                  color: Theme.of(context).primaryColorLight,
                                 ),
                               ),
                             ),

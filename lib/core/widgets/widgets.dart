@@ -330,7 +330,12 @@ Widget container(BuildContext context, Widget myWidget, bool show,
   );
 }
 
-Widget customClose(BuildContext context, {var close}) {
+Widget customClose(
+  BuildContext context, {
+  var close,
+  Color? color,
+  Color? color2,
+}) {
   return Semantics(
     button: true,
     label: 'Close',
@@ -344,9 +349,11 @@ Widget customClose(BuildContext context, {var close}) {
         children: [
           Icon(Icons.close_outlined,
               size: 32,
-              color: Theme.of(context).colorScheme.secondary.withOpacity(.5)),
+              color: color ??
+                  Theme.of(context).colorScheme.secondary.withOpacity(.5)),
           Icon(Icons.close_outlined,
-              size: 16, color: Theme.of(context).colorScheme.secondary),
+              size: 16,
+              color: color2 ?? Theme.of(context).colorScheme.secondary),
         ],
       ),
     ),

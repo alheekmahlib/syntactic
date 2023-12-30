@@ -4,38 +4,38 @@
   "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
   "entities": [
     {
-      "id": "1:3374879889184435037",
-      "lastPropertyId": "6:5767770104390448199",
+      "id": "1:2707594022700497880",
+      "lastPropertyId": "6:9038785900599313422",
       "name": "BookmarkModel",
       "properties": [
         {
-          "id": "1:586483998139000553",
+          "id": "1:8154918382132883467",
           "name": "id",
           "type": 6,
           "flags": 1
         },
         {
-          "id": "2:1596187711746495686",
+          "id": "2:924141956585272061",
           "name": "bookName",
           "type": 9
         },
         {
-          "id": "3:1342975893026305934",
+          "id": "3:3676506214505927617",
           "name": "chapterName",
           "type": 9
         },
         {
-          "id": "4:9189828036336032795",
+          "id": "4:7243237338801334951",
           "name": "poemText",
           "type": 9
         },
         {
-          "id": "5:3945754557396822674",
+          "id": "5:5871506908965403",
           "name": "chapterNumber",
           "type": 6
         },
         {
-          "id": "6:5767770104390448199",
+          "id": "6:9038785900599313422",
           "name": "date",
           "type": 10
         }
@@ -43,7 +43,7 @@
       "relations": []
     }
   ],
-  "lastEntityId": "1:3374879889184435037",
+  "lastEntityId": "1:2707594022700497880",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

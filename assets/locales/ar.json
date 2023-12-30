@@ -176,5 +176,15 @@
   "@copied": {
     "type": "text",
     "placeholders": {}
+  },
+  "chapterBook": "أبواب الكتاب",
+  "@chapterBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scienceSyntax": "علم النحو",
+  "@scienceSyntax": {
+    "type": "text",
+    "placeholders": {}
   }
 }

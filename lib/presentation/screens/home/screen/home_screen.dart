@@ -12,41 +12,39 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // sl<OnboardingController>().startOnboarding();
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: Padding(
-          padding: const EdgeInsets.only(top: 16.0, right: 16.0, left: 16.0),
-          child: orientation(
-              context,
-              ListView(
-                padding: EdgeInsets.zero,
-                children: const [
-                  HijriDate(),
-                  Gap(16),
-                  LastRead(),
-                  Gap(32),
-                  BooksBuild()
-                ],
-              ),
-              ListView(
-                padding: EdgeInsets.zero,
-                children: const [
-                  Row(
-                    children: [
-                      Expanded(child: LastRead()),
-                      SizedBox(
-                        width: 32.0,
-                      ),
-                      Expanded(child: HijriDate()),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 32.0,
-                  )
-                ],
-              )),
-        ),
+    return Container(
+      color: Theme.of(context).colorScheme.secondary,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: orientation(
+            context,
+            ListView(
+              padding: EdgeInsets.zero,
+              children: const [
+                HijriDate(),
+                Gap(16),
+                LastRead(),
+                Gap(32),
+                BooksBuild()
+              ],
+            ),
+            ListView(
+              padding: EdgeInsets.zero,
+              children: const [
+                Row(
+                  children: [
+                    Expanded(child: LastRead()),
+                    SizedBox(
+                      width: 32.0,
+                    ),
+                    Expanded(child: HijriDate()),
+                  ],
+                ),
+                SizedBox(
+                  height: 32.0,
+                )
+              ],
+            )),
       ),
     );
   }

@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pie_menu/pie_menu.dart';
-import 'package:syntactic/presentation/controllers/audio_controller.dart';
-import 'package:syntactic/presentation/screens/books/widgets/explanation_poem.dart';
-import 'package:syntactic/presentation/screens/books/widgets/poems_build.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/svg_picture.dart';
@@ -12,6 +9,8 @@ import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/books_controller.dart';
 import '../../../controllers/general_controller.dart';
 import '../widgets/audio_widget.dart';
+import '/presentation/controllers/audio_controller.dart';
+import '/presentation/screens/books/widgets/poems_build.dart';
 
 class ReadView extends StatelessWidget {
   final int chapterNumber;
@@ -23,8 +22,7 @@ class ReadView extends StatelessWidget {
     final audioCtrl = sl<AudioController>();
     bookCtrl.chapterNumber.value = chapterNumber;
     audioCtrl.createPlayList();
-    return SafeArea(
-        child: Directionality(
+    return Directionality(
       textDirection: TextDirection.rtl,
       child: PieCanvas(
         child: Scaffold(
@@ -84,10 +82,12 @@ class ReadView extends StatelessWidget {
                                       Column(
                                         children: [
                                           Container(
-                                            width: 200,
                                             alignment: Alignment.center,
                                             padding: const EdgeInsets.symmetric(
-                                                vertical: 3.0),
+                                                vertical: 4.0,
+                                                horizontal: 16.0),
+                                            margin: const EdgeInsets.symmetric(
+                                                horizontal: 40.0),
                                             decoration: BoxDecoration(
                                                 color: Theme.of(context)
                                                     .colorScheme
@@ -121,13 +121,13 @@ class ReadView extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: hDivider(context,
-                                width: MediaQuery.sizeOf(context).width),
-                          ),
-                          ExplanationPoem(chapterNumber: chapterIndex),
+                          // Padding(
+                          //   padding:
+                          //       const EdgeInsets.symmetric(horizontal: 8.0),
+                          //   child: hDivider(context,
+                          //       width: MediaQuery.sizeOf(context).width),
+                          // ),
+                          // ExplanationPoem(chapterNumber: chapterIndex),
                         ],
                       );
                     });
@@ -143,6 +143,6 @@ class ReadView extends StatelessWidget {
           ),
         ),
       ),
-    ));
+    );
   }
 }

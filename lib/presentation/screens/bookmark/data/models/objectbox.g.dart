@@ -20,38 +20,38 @@ export 'package:objectbox/objectbox.dart'; // so that callers only have to impor
 
 final _entities = <ModelEntity>[
   ModelEntity(
-      id: const IdUid(1, 3374879889184435037),
+      id: const IdUid(1, 2707594022700497880),
       name: 'BookmarkModel',
-      lastPropertyId: const IdUid(6, 5767770104390448199),
+      lastPropertyId: const IdUid(6, 9038785900599313422),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
-            id: const IdUid(1, 586483998139000553),
+            id: const IdUid(1, 8154918382132883467),
             name: 'id',
             type: 6,
             flags: 1),
         ModelProperty(
-            id: const IdUid(2, 1596187711746495686),
+            id: const IdUid(2, 924141956585272061),
             name: 'bookName',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(3, 1342975893026305934),
+            id: const IdUid(3, 3676506214505927617),
             name: 'chapterName',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(4, 9189828036336032795),
+            id: const IdUid(4, 7243237338801334951),
             name: 'poemText',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(5, 3945754557396822674),
+            id: const IdUid(5, 5871506908965403),
             name: 'chapterNumber',
             type: 6,
             flags: 0),
         ModelProperty(
-            id: const IdUid(6, 5767770104390448199),
+            id: const IdUid(6, 9038785900599313422),
             name: 'date',
             type: 10,
             flags: 0)
@@ -87,7 +87,7 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(1, 3374879889184435037),
+      lastEntityId: const IdUid(1, 2707594022700497880),
       lastIndexId: const IdUid(0, 0),
       lastRelationId: const IdUid(0, 0),
       lastSequenceId: const IdUid(0, 0),

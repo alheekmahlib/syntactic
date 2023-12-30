@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final isPlatformDark =
         WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
-    final initTheme = isPlatformDark ? darkTheme : pinkTheme;
+    final initTheme = isPlatformDark ? darkBrownTheme : brownTheme;
     return ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,

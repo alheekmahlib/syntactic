@@ -14,7 +14,8 @@ class BooksBuild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bookCtrl = sl<BooksController>();
-    return SizedBox(
+    return Container(
+      color: Theme.of(context).colorScheme.secondary,
       height: MediaQuery.sizeOf(context).height,
       width: MediaQuery.sizeOf(context).width,
       child: Stack(
@@ -27,53 +28,65 @@ class BooksBuild extends StatelessWidget {
               height: MediaQuery.sizeOf(context).height,
               width: MediaQuery.sizeOf(context).width,
               color: Theme.of(context).colorScheme.surface.withOpacity(.15),
-              Wrap(
-                children: List.generate(
-                  1,
-                  (index) => Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 32.0, horizontal: 32.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.to(
-                              const DetailsScreen(
-                                bookName: 'نظم الآجرومية',
-                              ),
-                              transition: Transition.downToUp);
-                          bookCtrl.bookName.value = 'نظم الآجرومية';
-                        },
-                        child: Stack(
-                          children: [
-                            Hero(
-                                tag: 'book-tag',
-                                child: book_cover(context,
-                                    index: index + 1,
-                                    height: 138.h,
-                                    width: 176.w)),
-                            Transform.translate(
-                              offset: const Offset(-7, 25),
-                              child: SizedBox(
-                                height: 150,
-                                width: 90,
-                                child: Text(
-                                  'نظم الآجرومية',
-                                  style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontFamily: 'kufi',
-                                      fontWeight: FontWeight.bold,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      height: 1.5),
-                                  textAlign: TextAlign.center,
+              Obx(() {
+                return bookCtrl.booksName.isEmpty
+                    ? const Center(child: CircularProgressIndicator())
+                    : Wrap(
+                        alignment: WrapAlignment.center,
+                        children: List.generate(
+                          bookCtrl.booksName.length,
+                          (index) => Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 32.0, horizontal: 32.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  bookCtrl.bookNumber.value = index;
+                                  bookCtrl.loadBook();
+                                  Get.to(
+                                      DetailsScreen(
+                                        bookNumber: index + 1,
+                                        bookName:
+                                            bookCtrl.booksName[index].name,
+                                      ),
+                                      transition: Transition.downToUp);
+                                  bookCtrl.bookName.value =
+                                      bookCtrl.booksName[index].name;
+                                },
+                                child: SizedBox(
+                                  height: 160.h,
+                                  width: 100.w,
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Hero(
+                                          tag: 'book-tag:${index + 1}',
+                                          child: book_cover(context,
+                                              index: index + 1,
+                                              height: 138.h,
+                                              width: 176.w)),
+                                      SizedBox(
+                                        height: 90.h,
+                                        width: 90.w,
+                                        child: Text(
+                                          bookCtrl.booksName[index].name,
+                                          style: TextStyle(
+                                              fontSize: 16.0.sp,
+                                              fontFamily: 'kufi',
+                                              fontWeight: FontWeight.bold,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
+                                              height: 1.5),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ],
+                              )),
                         ),
-                      )),
-                ),
-              ),
+                      );
+              }),
             ),
           ),
           Transform.translate(

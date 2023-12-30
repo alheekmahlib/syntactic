@@ -176,5 +176,15 @@
   "@copied": {
     "type": "text",
     "placeholders": {}
+  },
+  "chapterBook": "Chapters of the book",
+  "@chapterBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scienceSyntax": "The science of syntax",
+  "@scienceSyntax": {
+    "type": "text",
+    "placeholders": {}
   }
 }

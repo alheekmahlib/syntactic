@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../presentation/screens/ourApp/ourApps_screen.dart';
 import '../utils/constants/svg_picture.dart';
 import 'language_list.dart';
+import 'theme_change.dart';
 import 'widgets.dart';
 
 class SettingsList extends StatelessWidget {
@@ -22,7 +23,7 @@ class SettingsList extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 16.0),
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
             decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(.7),
                 borderRadius: const BorderRadius.all(
                   Radius.circular(8.0),
                 )),
@@ -33,7 +34,7 @@ class SettingsList extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'kufi',
                     fontSize: 18,
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
                 const LanguageList(),
@@ -46,7 +47,7 @@ class SettingsList extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(.7),
                 borderRadius: const BorderRadius.all(
                   Radius.circular(8.0),
                 )),
@@ -57,73 +58,67 @@ class SettingsList extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'kufi',
                     fontSize: 18,
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
-                // whiteContainer(context, const ThemeChange(), width: width)
+                whiteContainer(context, const ThemeChange(), width: width)
               ],
             ),
           ),
           Padding(
               padding: const EdgeInsets.all(16.0),
-              child: beigeContainer(
-                context,
-                whiteContainer(
-                    context,
-                    whiteContainer(
-                      context,
-                      InkWell(
-                        child: SizedBox(
-                          height: 45,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                  flex: 2,
-                                  child: alheekmah_logo(context,
-                                      width: 60.0,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .surface)),
-                              vDivider(context),
-                              Expanded(
-                                flex: 8,
-                                child: Text(
-                                  'ourApps'.tr,
-                                  style: TextStyle(
-                                    fontFamily: 'kufi',
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color:
-                                        Theme.of(context).colorScheme.surface,
-                                  ),
-                                ),
-                              ),
-                              const Spacer(),
-                              Expanded(
-                                flex: 1,
-                                child: Icon(
-                                  Icons.arrow_forward_ios_outlined,
-                                  color: Theme.of(context).colorScheme.surface,
-                                ),
-                              ),
-                              const Spacer(),
-                              Expanded(
-                                flex: 1,
-                                child: Icon(
-                                  Icons.arrow_forward_ios_outlined,
-                                  color: Theme.of(context).colorScheme.surface,
-                                  size: 18,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        onTap: () {
-                          Get.to(const OurApps(),
-                              transition: Transition.downToUp);
-                        },
-                      ),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+                decoration: BoxDecoration(
+                    color:
+                        Theme.of(context).colorScheme.onSurface.withOpacity(.7),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(4.0),
                     )),
+                child: whiteContainer(
+                  context,
+                  InkWell(
+                    child: SizedBox(
+                      height: 45,
+                      child: Row(
+                        children: [
+                          Expanded(
+                              flex: 2,
+                              child: alheekmah_logo(context,
+                                  width: 60.0,
+                                  color:
+                                      Theme.of(context).colorScheme.surface)),
+                          vDivider(context),
+                          Expanded(
+                            flex: 8,
+                            child: Text(
+                              'ourApps'.tr,
+                              style: TextStyle(
+                                fontFamily: 'kufi',
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.surface,
+                              ),
+                            ),
+                          ),
+                          const Spacer(),
+                          Expanded(
+                            flex: 1,
+                            child: Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              color: Theme.of(context).colorScheme.surface,
+                              size: 18,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    onTap: () {
+                      Get.to(const OurApps(), transition: Transition.downToUp);
+                    },
+                  ),
+                ),
               )),
         ],
       ),
