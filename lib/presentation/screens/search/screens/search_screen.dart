@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:syntactic/presentation/controllers/books_controller.dart';
 import 'package:syntactic/presentation/screens/books/screen/read_view.dart';
 
 import '../../../../core/services/services_locator.dart';
@@ -8,6 +10,7 @@ import '../../../../core/utils/constants/svg_picture.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/search_controller.dart';
 import '../data/models/search_result_model.dart';
+import '../widgets/search_options.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -15,6 +18,8 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final searchCtrl = sl<SearchControllers>();
+    final bookCtrl = sl<BooksController>();
+    bookCtrl.loadBook();
     return Container(
       decoration: BoxDecoration(color: Theme.of(context).colorScheme.secondary),
       child: Padding(
@@ -48,83 +53,118 @@ class SearchScreen extends StatelessWidget {
             ),
             Container(
               height: 80,
-              width: orientation(context, MediaQuery.sizeOf(context).width * .8,
+              width: orientation(context, MediaQuery.sizeOf(context).width * .9,
                   MediaQuery.sizeOf(context).width * .5),
               margin: const EdgeInsets.only(top: 32.0),
               child: Column(
                 children: [
-                  TextField(
-                    controller: searchCtrl.textSearchController,
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      fontFamily: 'kufi',
-                      fontWeight: FontWeight.w600,
-                      color:
-                          Theme.of(context).colorScheme.primary.withOpacity(.7),
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'searchHintText'.tr,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Theme.of(context).primaryColorDark,
-                            width: 1),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Theme.of(context).primaryColorDark,
-                            width: 1),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      hintStyle: TextStyle(
-                        fontSize: 14.0,
-                        fontFamily: 'kufi',
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context)
-                            .colorScheme
-                            .primary
-                            .withOpacity(.3),
-                      ),
-                      filled: true,
-                      fillColor: Theme.of(context)
-                          .colorScheme
-                          .surface
-                          .withOpacity(.12),
-                      prefixIcon: Container(
-                        height: 20,
-                        padding: const EdgeInsets.all(10.0),
-                        child: search(context),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          Icons.close,
-                          color: Theme.of(context).colorScheme.primary,
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Expanded(
+                        flex: 8,
+                        child: SizedBox(
+                          height: 50,
+                          child: TextField(
+                            controller: searchCtrl.textSearchController,
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              fontFamily: 'kufi',
+                              fontWeight: FontWeight.w600,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(.7),
+                            ),
+                            decoration: InputDecoration(
+                              hintText: 'searchHintText'.tr,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Theme.of(context).primaryColorDark,
+                                    width: 1),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Theme.of(context).primaryColorDark,
+                                    width: 1),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              hintStyle: TextStyle(
+                                fontSize: 14.0,
+                                fontFamily: 'kufi',
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .primary
+                                    .withOpacity(.3),
+                              ),
+                              filled: true,
+                              fillColor: Theme.of(context)
+                                  .colorScheme
+                                  .surface
+                                  .withOpacity(.12),
+                              prefixIcon: Container(
+                                height: 20,
+                                padding: const EdgeInsets.all(10.0),
+                                child: search(context),
+                              ),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  Icons.close,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                onPressed: () {
+                                  searchCtrl.clearList();
+                                },
+                              ),
+                              labelText: 'searchHintText'.tr,
+                              labelStyle: TextStyle(
+                                fontSize: 14.0,
+                                fontFamily: 'kufi',
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .primary
+                                    .withOpacity(.5),
+                              ),
+                            ),
+                            onSubmitted: (query) async {
+                              await searchCtrl.addSearchItem(query);
+                              searchCtrl.textSearchController.clear();
+                            },
+                            onChanged: (query) {
+                              searchCtrl.search(query);
+                            },
+                            onTapOutside: (event) {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                          ),
                         ),
-                        onPressed: () {
-                          searchCtrl.clearList();
-                        },
                       ),
-                      labelText: 'searchHintText'.tr,
-                      labelStyle: TextStyle(
-                        fontSize: 14.0,
-                        fontFamily: 'kufi',
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context)
-                            .colorScheme
-                            .primary
-                            .withOpacity(.5),
+                      const Gap(16),
+                      Expanded(
+                        flex: 2,
+                        child: GestureDetector(
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            padding: const EdgeInsets.all(10.0),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColorDark,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(8.0),
+                              ),
+                            ),
+                            child: setting_lines(context),
+                          ),
+                          onTap: () {
+                            Get.bottomSheet(const SearchOptions(),
+                                isScrollControlled: false);
+                          },
+                        ),
                       ),
-                    ),
-                    onSubmitted: (query) async {
-                      await searchCtrl.addSearchItem(query);
-                      searchCtrl.textSearchController.clear();
-                    },
-                    onChanged: (query) {
-                      searchCtrl.search(query);
-                    },
-                    onTapOutside: (event) {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                    },
+                    ],
                   ),
                   hDivider(context,
                       width: MediaQuery.sizeOf(context).width * .8),
@@ -256,6 +296,7 @@ class SearchScreen extends StatelessWidget {
                     : ListView.builder(
                         itemCount: searchCtrl.searchResults.length,
                         itemBuilder: (context, index) {
+                          bookCtrl.loadBook();
                           SearchResult result = searchCtrl.searchResults[index];
                           return GestureDetector(
                             onTap: () => Get.to(

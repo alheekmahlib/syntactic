@@ -45,6 +45,7 @@ dependencies:
   objectbox: ^2.4.0
   objectbox_flutter_libs: any
   diacritic: ^0.1.5
+  group_button: ^5.3.3
 
 dev_dependencies:
   flutter_test:

@@ -33,6 +33,7 @@ class SelectMenu extends StatelessWidget {
         radius: 50,
         buttonSize: 45,
         customAngle: 90,
+        overlayColor: Theme.of(context).colorScheme.secondary.withOpacity(.8),
         buttonThemeHovered: PieButtonTheme(
             backgroundColor:
                 Theme.of(context).colorScheme.surface.withOpacity(.8),

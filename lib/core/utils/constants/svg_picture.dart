@@ -192,3 +192,11 @@ Widget frame(BuildContext context, {double? height, double? width}) {
     width: width,
   );
 }
+
+setting_lines(BuildContext context, {double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/setting_lines.svg',
+    height: height,
+    width: width,
+  );
+}

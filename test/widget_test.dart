@@ -9,14 +9,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:syntactic/core/utils/helpers/languages/dependency_inj.dart'
     as dep;
+import 'package:syntactic/core/widgets/theme_service.dart';
 import 'package:syntactic/my_app.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     Map<String, Map<String, String>> languages = await dep.init();
+    final themeService = await ThemeService.instance;
+    var initTheme = themeService.initial;
     // Build our app and trigger a frame.
     await tester.pumpWidget(MyApp(
       languages: languages,
+      theme: initTheme,
     ));
 
     // Verify that our counter starts at 0.

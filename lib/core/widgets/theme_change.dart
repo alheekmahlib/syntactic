@@ -1,6 +1,7 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:syntactic/core/widgets/theme_service.dart';
 
 import '../utils/helpers/theme_config.dart';
 
@@ -56,12 +57,20 @@ class ThemeChange extends StatelessWidget {
                   ],
                 ),
               ),
-              onTapDown: (details) {
+              onTapDown: (details) async {
                 switcher.changeTheme(
                   theme: brownTheme,
                   isReversed: false,
                   offset: details.localPosition,
                 );
+                final themeName =
+                    ThemeModelInheritedNotifier.of(context).theme == brownTheme
+                        ? 'light'
+                        : 'dark';
+                final service = await ThemeService.instance
+                  ..save(themeName);
+                final theme = service.getByName(themeName);
+                switcher.changeTheme(theme: theme);
               },
             ),
             InkWell(
@@ -108,12 +117,21 @@ class ThemeChange extends StatelessWidget {
                   ],
                 ),
               ),
-              onTapDown: (details) {
+              onTapDown: (details) async {
                 switcher.changeTheme(
                   theme: darkBrownTheme,
                   isReversed: true,
                   offset: details.localPosition,
                 );
+                final themeName =
+                    ThemeModelInheritedNotifier.of(context).theme ==
+                            darkBrownTheme
+                        ? 'dark'
+                        : 'light';
+                final service = await ThemeService.instance
+                  ..save(themeName);
+                final theme = service.getByName(themeName);
+                switcher.changeTheme(theme: theme);
               },
             ),
           ],
