@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:syntactic/presentation/controllers/books_controller.dart';
-import 'package:syntactic/presentation/screens/books/screen/read_view.dart';
+import 'package:syntactic/presentation/screens/books/poems_screen/screens/poems_read_view.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
@@ -300,7 +300,8 @@ class SearchScreen extends StatelessWidget {
                           SearchResult result = searchCtrl.searchResults[index];
                           return GestureDetector(
                             onTap: () => Get.to(
-                                ReadView(chapterNumber: result.chapterIndex),
+                                PoemsReadView(
+                                    chapterNumber: result.chapterIndex),
                                 transition: Transition.downToUp),
                             child: Container(
                               height: 95,

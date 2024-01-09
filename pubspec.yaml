@@ -70,8 +70,9 @@ flutter:
     - assets/icons/
     - assets/lottie/
     - assets/json/bookName.json
-    - assets/json/0.json
-    - assets/json/1.json
+    - assets/json/poems/0.json
+    - assets/json/poems/1.json
+    - assets/json/books/0.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

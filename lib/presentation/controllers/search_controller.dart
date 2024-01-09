@@ -95,7 +95,7 @@ class SearchControllers extends GetxController {
   // }
 
   void search(String query) {
-    if (bookCtrl.book.value == null || query.isEmpty) {
+    if (bookCtrl.poem.value == null || query.isEmpty) {
       searchResults.clear();
       return;
     }
@@ -103,7 +103,7 @@ class SearchControllers extends GetxController {
     final normalizedQuery = removeDiacritics(query.trim().toLowerCase());
 
     searchResults.assignAll(
-        bookCtrl.book.value!.chapters!.asMap().entries.expand((entry) {
+        bookCtrl.poem.value!.chapters!.asMap().entries.expand((entry) {
       final chapterIndex = entry.key;
       final chapter = entry.value;
 
@@ -117,7 +117,7 @@ class SearchControllers extends GetxController {
                   .contains(normalizedQuery))
           .map((poem) => SearchResult(
               chapterIndex: chapterIndex,
-              bookName: bookCtrl.book.value!.bookName!,
+              bookName: bookCtrl.poem.value!.bookName!,
               chapterTitle: chapter.chapterTitle!,
               poemNumber: poem.poemNumber!,
               explanation: chapter.explanation!,

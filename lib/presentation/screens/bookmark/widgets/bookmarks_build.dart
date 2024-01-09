@@ -6,7 +6,7 @@ import '../../../../core/services/services_locator.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/bookmarks_controller.dart';
 import '../../../controllers/books_controller.dart';
-import '../../books/screen/read_view.dart';
+import '../../books/poems_screen/screens/poems_read_view.dart';
 
 class BookmarksBuild extends StatelessWidget {
   const BookmarksBuild({super.key});
@@ -37,7 +37,7 @@ class BookmarksBuild extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () {
                         Get.to(
-                            ReadView(
+                            PoemsReadView(
                                 chapterNumber: bookCtrl.chapterNumber.value),
                             transition: Transition.downToUp);
                       },

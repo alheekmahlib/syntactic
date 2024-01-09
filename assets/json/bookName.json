@@ -2,11 +2,18 @@
   "books": [
     {
       "number": 1,
+      "bookType": "poemBooks",
       "name": "نظم الآجرومية"
     },
     {
       "number": 2,
+      "bookType": "poemBooks",
       "name": "ألفية\nابن مالك"
+    },
+    {
+      "number": 1,
+      "bookType": "book",
+      "name": "متن الآجرومية"
     }
   ]
 }

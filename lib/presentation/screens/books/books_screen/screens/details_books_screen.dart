@@ -3,19 +3,19 @@ import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/svg_picture.dart';
-import '../../../controllers/books_controller.dart';
-import '../../../controllers/general_controller.dart';
-import '../../bookmark/data/models/bookmarks_models.dart';
-import '../../bookmark/data/models/objectbox.g.dart';
+import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/svg_picture.dart';
+import '../../../../controllers/books_controller.dart';
+import '../../../../controllers/general_controller.dart';
+import '../../../bookmark/data/models/bookmarks_models.dart';
+import '../../../bookmark/data/models/objectbox.g.dart';
 import '../widgets/book_details.dart';
-import '../widgets/chapters_build.dart';
+import '../widgets/books_chapter_build.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsBooksScreen extends StatelessWidget {
   final int bookNumber;
   final String bookName;
-  const DetailsScreen(
+  const DetailsBooksScreen(
       {super.key, required this.bookName, required this.bookNumber});
 
   @override
@@ -58,7 +58,7 @@ class DetailsScreen extends StatelessWidget {
                   children: [
                     BookDetails(bookNumber: bookNumber, bookName: bookName),
                     const Gap(32),
-                    const ChaptersBuild()
+                    const BooksChapterBuild()
                   ],
                 ),
               )

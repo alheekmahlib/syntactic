@@ -30,6 +30,7 @@ class AudioController extends GetxController {
   var activeButton = RxString('');
   RxDouble audioWidgetPosition = (-240.0).obs;
   final bookCtrl = sl<BooksController>();
+  StreamSubscription<PlayerState>? playerStateSubscription;
 
   late final chapterList = ConcatenatingAudioSource(
     // Start loading next item just before reaching it
@@ -43,44 +44,60 @@ class AudioController extends GetxController {
   createPlayList() {
     final bookCtrl = sl<BooksController>();
     int poemLength = bookCtrl
-        .book.value!.chapters![bookCtrl.chapterNumber.value].poems!.length;
+        .poem.value!.chapters![bookCtrl.chapterNumber.value].poems!.length;
     chaptersPlayList = List.generate(poemLength, (i) {
       poemNumber.value = i + 1;
       return AudioSource.uri(
         Uri.parse(
-            '${Constants.audioUrl}${bookCtrl.chapterNumber.value + 1}/${poemNumber.value}.mp3'),
+            '${Constants.audioUrl}${bookCtrl.bookNumber}/${bookCtrl.chapterNumber.value + 1}/${poemNumber.value}.mp3'),
       );
     });
     print(
-        '${Constants.audioUrl}${bookCtrl.chapterNumber.value}/${poemNumber.value}.mp3');
+        '${Constants.audioUrl}${bookCtrl.bookNumber}/${bookCtrl.chapterNumber.value}/${poemNumber.value}.mp3');
   }
 
   Future<void> changeAudioSource(int chapterNumber, int poemNumber) async {
     print(
-        'changeAudioSource: ${Constants.audioUrl}${chapterNumber + 1}/$poemNumber.mp3');
+        'changeAudioSource: ${Constants.audioUrl}${bookCtrl.bookNumber}/${chapterNumber + 1}/$poemNumber.mp3');
     await audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(
-        '${Constants.audioUrl}${chapterNumber + 1}/$poemNumber.mp3')));
+        '${Constants.audioUrl}${bookCtrl.bookNumber}/${chapterNumber + 1}/$poemNumber.mp3')));
   }
 
-  Future<void> seekToNext() async {
-    int poemLength = bookCtrl
-        .book.value!.chapters![bookCtrl.chapterNumber.value].poems!.length;
-    audioPlayer.playerStateStream.listen((playerState) async {
+  Future<void> subscribeToPlayerState() async {
+    int poemLength = bookCtrl.poem.value!
+        .chapters![bookCtrl.chapterNumber.value].poems!.last.poemNumber!;
+    playerStateSubscription =
+        audioPlayer.playerStateStream.listen((playerState) async {
       if (playerState.processingState == ProcessingState.completed) {
         if (poemNumber.value >= poemLength) {
           await audioPlayer.stop();
         } else {
-          poemNumber.value += 1;
+          // poemNumber.value += 1;
           bookCtrl.selectedPoemIndex.value += 1;
           await audioPlayer.seekToNext();
-          changeAudioSource(bookCtrl.chapterNumber.value, poemNumber.value);
+          await changeAudioSource(
+              bookCtrl.chapterNumber.value, poemNumber.value += 1);
         }
       }
     });
   }
 
+  Future<void> seekToNextPoem() async {
+    int poemLength = bookCtrl.poem.value!
+        .chapters![bookCtrl.chapterNumber.value].poems!.last.poemNumber!;
+    if (poemNumber.value >= poemLength) {
+      await audioPlayer.stop();
+    } else {
+      // poemNumber.value += 1;
+      bookCtrl.selectedPoemIndex.value += 1;
+      await audioPlayer.seekToNext();
+      await changeAudioSource(
+          bookCtrl.chapterNumber.value, poemNumber.value += 1);
+    }
+  }
+
   Future<void> seekToPrevious() async {
-    int firstPoem = bookCtrl.book.value!.chapters![bookCtrl.chapterNumber.value]
+    int firstPoem = bookCtrl.poem.value!.chapters![bookCtrl.chapterNumber.value]
         .poems!.first.poemNumber!;
     if (poemNumber.value <= firstPoem) {
       await audioPlayer.stop();
@@ -99,6 +116,7 @@ class AudioController extends GetxController {
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
     initConnectivity();
+    await subscribeToPlayerState();
   }
 
   Stream<PositionData> get positionDataStream =>
@@ -114,6 +132,7 @@ class AudioController extends GetxController {
     audioPlayer.dispose();
     _connectivitySubscription.cancel();
     audioPlayer.pause();
+    playerStateSubscription!.cancel();
     super.onClose();
   }
 

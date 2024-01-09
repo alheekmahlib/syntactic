@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/svg_picture.dart';
-import '../../../../core/widgets/text_overflow_detector.dart';
-import '../../../../core/widgets/widgets.dart';
-import '../../../controllers/books_controller.dart';
+import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/svg_picture.dart';
+import '../../../../../core/widgets/text_overflow_detector.dart';
+import '../../../../../core/widgets/widgets.dart';
+import '../../../../controllers/books_controller.dart';
 
 class BookDetails extends StatelessWidget {
   final int bookNumber;
@@ -17,7 +17,7 @@ class BookDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var book = sl<BooksController>().book.value;
+    var book = sl<BooksController>().detailsCtrl;
     return Stack(
       alignment: Alignment.topCenter,
       children: [
@@ -85,7 +85,7 @@ class BookDetails extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     Hero(
-                        tag: 'book-tag',
+                        tag: 'book-tag:$bookName',
                         child: book_cover(context,
                             index: bookNumber, height: 138.h, width: 176.w)),
                     Transform.translate(

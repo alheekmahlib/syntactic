@@ -28,7 +28,7 @@ class PlayButton extends StatelessWidget {
             },
             child: play_logo(context, height: 24),
           );
-        } else if (processingState != ProcessingState.completed) {
+        } else {
           return GestureDetector(
             child: Icon(
               Icons.pause,
@@ -38,16 +38,6 @@ class PlayButton extends StatelessWidget {
             onTap: () {
               audioCtrl.audioPlayer.pause();
             },
-          );
-        } else {
-          return GestureDetector(
-            child: Icon(
-              Icons.replay,
-              size: 24.0,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            onTap: () => audioCtrl.audioPlayer.seek(Duration.zero,
-                index: audioCtrl.audioPlayer.effectiveIndices!.first),
           );
         }
       },

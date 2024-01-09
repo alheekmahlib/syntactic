@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:syntactic/presentation/controllers/audio_controller.dart';
 
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/widgets/widgets.dart';
-import '../../../controllers/books_controller.dart';
-import 'select_menu.dart';
+import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/widgets/widgets.dart';
+import '../../../../controllers/books_controller.dart';
+import '../../widgets/select_menu.dart';
 
 class PoemsBuild extends StatelessWidget {
   final int chapterNumber;
@@ -22,9 +22,9 @@ class PoemsBuild extends StatelessWidget {
       child: Obx(() {
         return Column(
           children: List.generate(
-              bookCtrl.book.value!.chapters![chapterNumber].poems!.length,
+              bookCtrl.poem.value!.chapters![chapterNumber].poems!.length,
               (index) {
-            final poem = bookCtrl.book.value!.chapters![chapterNumber];
+            final poem = bookCtrl.poem.value!.chapters![chapterNumber];
             return SelectMenu(
               index: poem.poems![index].poemNumber!,
               poem: poem.poems![index],

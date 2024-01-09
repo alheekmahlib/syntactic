@@ -186,5 +186,10 @@
   "@scienceSyntax": {
     "type": "text",
     "placeholders": {}
+  },
+  "poetry": "النظم",
+  "@poetry": {
+    "type": "text",
+    "placeholders": {}
   }
 }

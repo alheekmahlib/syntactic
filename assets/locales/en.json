@@ -186,5 +186,10 @@
   "@scienceSyntax": {
     "type": "text",
     "placeholders": {}
+  },
+  "poetry": "Poetry",
+  "@poetry": {
+    "type": "text",
+    "placeholders": {}
   }
 }

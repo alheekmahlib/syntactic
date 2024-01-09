@@ -64,11 +64,13 @@ class Poem {
 
 class BookName {
   int number;
+  String bookType;
   String name;
 
-  BookName({required this.name, required this.number});
+  BookName({required this.name, required this.bookType, required this.number});
 
   factory BookName.fromJson(Map<String, dynamic> json) {
-    return BookName(number: json['number'], name: json['name']);
+    return BookName(
+        number: json['number'], bookType: json['bookType'], name: json['name']);
   }
 }

@@ -3,18 +3,18 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pie_menu/pie_menu.dart';
 
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/utils/constants/svg_picture.dart';
-import '../../../../core/widgets/widgets.dart';
-import '../../../controllers/books_controller.dart';
-import '../../../controllers/general_controller.dart';
-import '../widgets/audio_widget.dart';
+import '../../../../../core/services/services_locator.dart';
+import '../../../../../core/utils/constants/svg_picture.dart';
+import '../../../../../core/widgets/widgets.dart';
+import '../../../../controllers/books_controller.dart';
+import '../../../../controllers/general_controller.dart';
+import '../../widgets/audio_widget.dart';
+import '../widgets/poems_build.dart';
 import '/presentation/controllers/audio_controller.dart';
-import '/presentation/screens/books/widgets/poems_build.dart';
 
-class ReadView extends StatelessWidget {
+class PoemsReadView extends StatelessWidget {
   final int chapterNumber;
-  const ReadView({super.key, required this.chapterNumber});
+  const PoemsReadView({super.key, required this.chapterNumber});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class ReadView extends StatelessWidget {
             children: [
               Obx(() {
                 return PageView.builder(
-                    itemCount: bookCtrl.book.value!.chapters!.length,
+                    itemCount: bookCtrl.poem.value!.chapters!.length,
                     onPageChanged: (chapterIndex) {
                       bookCtrl.chapterNumber.value = chapterIndex;
                       audioCtrl.createPlayList();
@@ -97,7 +97,7 @@ class ReadView extends StatelessWidget {
                                                         Radius.circular(4))),
                                             child: Text(
                                               bookCtrl
-                                                  .book
+                                                  .poem
                                                   .value!
                                                   .chapters![chapterIndex]
                                                   .chapterTitle!,

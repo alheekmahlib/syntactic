@@ -3,17 +3,16 @@ import 'package:pie_menu/pie_menu.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../controllers/bookmarks_controller.dart';
-import '../modals/chapter_model.dart';
 import '/core/utils/constants/svg_picture.dart';
 import '/presentation/controllers/audio_controller.dart';
 import '/presentation/controllers/books_controller.dart';
 
 class SelectMenu extends StatelessWidget {
   final int index;
-  final Poem poem;
-  final Chapter chapters;
+  var poem;
+  var chapters;
   final Widget myWidget;
-  const SelectMenu(
+  SelectMenu(
       {super.key,
       required this.index,
       required this.poem,
@@ -75,7 +74,7 @@ class SelectMenu extends StatelessWidget {
           onSelect: () {
             bookCtrl.selectedPoemIndex.value = -1;
             bookmarkCtrl.addBookmark(
-                bookCtrl.bookName.value,
+                bookCtrl.currentBookName.value,
                 chapters.chapterTitle!,
                 poem.firstPoem!,
                 bookCtrl.chapterNumber.value);

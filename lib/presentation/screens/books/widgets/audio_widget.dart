@@ -132,7 +132,7 @@ class AudioWidget extends StatelessWidget {
                         const Gap(20),
                         GestureDetector(
                           onTap: () async {
-                            await audioCtrl.seekToNext();
+                            await audioCtrl.seekToNextPoem();
                           },
                           child: RotatedBox(
                             quarterTurns: 90,

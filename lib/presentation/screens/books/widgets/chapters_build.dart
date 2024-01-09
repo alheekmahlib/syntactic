@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/books_controller.dart';
-import '../screen/read_view.dart';
+import '../poems_screen/screens/poems_read_view.dart';
 
 class ChaptersBuild extends StatelessWidget {
   const ChaptersBuild({super.key});
@@ -44,15 +44,15 @@ class ChaptersBuild extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 16.0),
                     child: Column(
                       children: List.generate(
-                          bookCtrl.book.value!.chapters!.length, (index) {
-                        final chapter = bookCtrl.book.value!.chapters![index];
+                          bookCtrl.poem.value!.chapters!.length, (index) {
+                        final chapter = bookCtrl.poem.value!.chapters![index];
                         return Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16.0, vertical: 4.0),
                           child: GestureDetector(
                             onTap: () {
                               bookCtrl.chapterNumber.value = index;
-                              Get.to(ReadView(
+                              Get.to(PoemsReadView(
                                 chapterNumber: index,
                               ));
                             },

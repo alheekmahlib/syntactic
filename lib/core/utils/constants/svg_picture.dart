@@ -51,7 +51,7 @@ search(BuildContext context, {double? height, double? width, Color? color}) {
 
 book_cover(BuildContext context, {int? index, double? height, double? width}) {
   return SvgPicture.asset(
-    'assets/svg/book$index.svg',
+    index!.isEven ? 'assets/svg/book2.svg' : 'assets/svg/book1.svg',
     height: height,
     width: width,
   );

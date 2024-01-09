@@ -39,7 +39,7 @@ class ExplanationPoem extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
             child: Obx(() {
               return Text(
-                bookCtrl.book.value!.chapters![chapterNumber].explanation!,
+                bookCtrl.poem.value!.chapters![chapterNumber].explanation!,
                 style: TextStyle(
                   fontSize: sl<GeneralController>().fontSizeArabic.value,
                   fontFamily: 'naskh',
