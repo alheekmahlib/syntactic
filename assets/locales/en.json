@@ -191,5 +191,10 @@
   "@poetry": {
     "type": "text",
     "placeholders": {}
+  },
+  "page": "Page",
+  "@page": {
+    "type": "text",
+    "placeholders": {}
   }
 }

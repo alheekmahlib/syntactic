@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:syntactic/presentation/controllers/general_controller.dart';
 
 import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/widgets/widgets.dart';
+import '../../../../../core/widgets/beige_container.dart';
 import '../../../../controllers/books_controller.dart';
 import '../../widgets/select_menu.dart';
 
@@ -22,6 +22,7 @@ class PagesBuild extends StatelessWidget {
         index: book.pageNumber!,
         poem: book,
         chapters: book,
+        book: bookCtrl.book.value!,
         myWidget: GestureDetector(
           onLongPress: () {
             // audioCtrl.poemNumber.value = book.pageNumber!;
@@ -31,24 +32,39 @@ class PagesBuild extends StatelessWidget {
             // audioCtrl.poemNumber.value = book.poemNumber!;
             bookCtrl.selectedPoemIndex.value = -1;
           },
-          child: beigeContainer(
-            context,
+          child: BeigeContainer(
             width: MediaQuery.sizeOf(context).width,
             // color: bookCtrl.colorSelection(context, index),
-            Padding(
+            myWidget: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-                child: Obx(() {
-                  return Text(
-                    book.pageText!,
-                    style: TextStyle(
-                        fontSize: sl<GeneralController>().fontSizeArabic.value,
-                        fontFamily: 'naskh',
-                        color: Theme.of(context).primaryColorLight,
-                        height: 2),
-                    textAlign: TextAlign.justify,
-                  );
-                })),
+                child: Column(
+                  children: [
+                    Obx(() {
+                      return Text(
+                        book.pageText!,
+                        style: TextStyle(
+                            fontSize:
+                                sl<GeneralController>().fontSizeArabic.value,
+                            fontFamily: 'naskh',
+                            color: Theme.of(context).primaryColorLight,
+                            height: 2),
+                        textAlign: TextAlign.justify,
+                      );
+                    }),
+                    Text(
+                      sl<GeneralController>()
+                          .arabicNumbers
+                          .convert(book.pageNumber!),
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontFamily: 'naskh',
+                          color: Theme.of(context).primaryColorLight,
+                          height: 2),
+                      textAlign: TextAlign.justify,
+                    )
+                  ],
+                )),
           ),
         ),
       ),

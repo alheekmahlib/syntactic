@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:syntactic/presentation/screens/bookmark/widgets/bookmarks_build.dart';
 
-import '../../../../core/widgets/widgets.dart';
+import '../../../../core/widgets/beige_container.dart';
 import '../widgets/bookmarks_title.dart';
 
 class BookmarksScreen extends StatelessWidget {
@@ -22,12 +22,11 @@ class BookmarksScreen extends StatelessWidget {
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-            child: beigeContainer(
-              context,
+            child: BeigeContainer(
               height: height,
               width: width,
               color: Theme.of(context).colorScheme.surface.withOpacity(.15),
-              const SingleChildScrollView(
+              myWidget: const SingleChildScrollView(
                 child: Column(
                   children: [BookmarksTitle(), BookmarksBuild(), Gap(16)],
                 ),

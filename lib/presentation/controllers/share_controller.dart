@@ -7,11 +7,13 @@ import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../core/services/services_locator.dart';
+import 'books_controller.dart';
+
 class ShareController extends GetxController {
-  final ScreenshotController hadithScreenController = ScreenshotController();
-  final ScreenshotController translateScreenController = ScreenshotController();
-  Uint8List? hadithToImageBytes;
-  Uint8List? translateToImageBytes;
+  final ScreenshotController ayahScreenController = ScreenshotController();
+  final ScreenshotController tafseerScreenController = ScreenshotController();
+  Uint8List? ayahToImageBytes;
   RxString? translateName;
   RxString currentTranslate = 'Nothing'.obs;
   RxString? textTafseer;
@@ -19,52 +21,33 @@ class ShareController extends GetxController {
   RxInt shareTransValue = 0.obs;
   RxString trans = 'en'.obs;
 
-  Future<void> createAndShowHadithImage() async {
+  Future<void> createAndShowVerseImage() async {
     try {
-      final Uint8List? imageBytes = await hadithScreenController.capture();
-      hadithToImageBytes = imageBytes;
+      final Uint8List? imageBytes = await ayahScreenController.capture();
+      ayahToImageBytes = imageBytes;
       update();
     } catch (e) {
-      debugPrint('Error capturing hadith image: $e');
+      debugPrint('Error capturing verse image: $e');
     }
   }
 
-  Future<void> createAndShowTafseerImage() async {
-    try {
-      final Uint8List? imageBytes = await translateScreenController.capture();
-      translateToImageBytes = imageBytes;
-      update();
-    } catch (e) {
-      debugPrint('Error capturing hadith image: $e');
-    }
-  }
-
-  shareText(String hadithText, hadithName, int hadithNumber) {
+  shareText(String bookName, String chapterTitle, String pageText,
+      String firstPoem, String secondPoem, int pageNumber) {
+    final bookCtrl = sl<BooksController>();
     Share.share(
-        '﴿$hadithText﴾ '
-        '[$hadithName-'
-        '$hadithNumber]',
-        subject: '$hadithName');
+        '$bookName\n'
+        '$chapterTitle\n\n'
+        '${bookCtrl.loadPoemBooks ? '$firstPoem\n$secondPoem\n' : pageText}\n'
+        '$pageNumber',
+        subject: bookName);
   }
 
-  Future<void> shareHadithWithTranslate() async {
-    /// FIXME: can't be null!
-    if (translateToImageBytes! != null) {
+  Future<void> shareVerse() async {
+    if (ayahToImageBytes! != null) {
       final directory = await getTemporaryDirectory();
       final imagePath =
-          await File('${directory.path}/hadith_tafseer_image.png').create();
-      await imagePath.writeAsBytes(translateToImageBytes!);
-      await Share.shareXFiles([XFile((imagePath.path))], text: 'appName'.tr);
-    }
-  }
-
-  Future<void> shareVerse(BuildContext context) async {
-    /// FIXME: can't be null!
-    if (hadithToImageBytes! != null) {
-      final directory = await getTemporaryDirectory();
-      final imagePath =
-          await File('${directory.path}/hadith_image.png').create();
-      await imagePath.writeAsBytes(hadithToImageBytes!);
+          await File('${directory.path}/verse_image.png').create();
+      await imagePath.writeAsBytes(ayahToImageBytes!);
       await Share.shareXFiles([XFile((imagePath.path))], text: 'appName'.tr);
     }
   }

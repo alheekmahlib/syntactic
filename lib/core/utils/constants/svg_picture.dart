@@ -158,7 +158,7 @@ play_backgraond(BuildContext context,
   );
 }
 
-syntactic_logo(BuildContext context, {double? height, double? width}) {
+Widget syntactic_logo(BuildContext context, {double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/syntactic.svg',
     height: height,
@@ -196,6 +196,14 @@ Widget frame(BuildContext context, {double? height, double? width}) {
 setting_lines(BuildContext context, {double? height, double? width}) {
   return SvgPicture.asset(
     'assets/svg/setting_lines.svg',
+    height: height,
+    width: width,
+  );
+}
+
+sharing(BuildContext context, {double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/sharing.svg',
     height: height,
     width: width,
   );

@@ -1,11 +1,13 @@
 class BooksModel {
   String? bookName;
   String? aboutBook;
+  String? bookType;
   List<BooksPages>? pages;
 
   BooksModel({
     this.bookName,
     this.aboutBook,
+    this.bookType,
     this.pages,
   });
 
@@ -13,6 +15,7 @@ class BooksModel {
     return BooksModel(
       bookName: json['bookName'],
       aboutBook: json['aboutBook'],
+      bookType: json['bookType'],
       pages: (json['pages'] as List<dynamic>?)
           ?.map((chapterJson) => BooksPages.fromJson(chapterJson))
           .toList(),

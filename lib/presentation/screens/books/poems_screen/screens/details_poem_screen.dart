@@ -57,7 +57,11 @@ class DetailsPoemScreen extends StatelessWidget {
                     const EdgeInsets.only(top: 120.0, right: 24.0, left: 24.0),
                 child: Column(
                   children: [
-                    BookDetails(bookNumber: bookNumber, bookName: bookName),
+                    BookDetails(
+                      bookNumber: bookNumber,
+                      bookName: bookName,
+                      bookType: 'poetry',
+                    ),
                     const Gap(32),
                     const ChaptersBuild()
                   ],

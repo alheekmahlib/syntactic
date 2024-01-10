@@ -7,6 +7,7 @@ import 'package:syntactic/presentation/screens/books/poems_screen/screens/poems_
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/utils/constants/svg_picture.dart';
+import '../../../../core/widgets/beige_container.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/search_controller.dart';
 import '../data/models/search_result_model.dart';
@@ -208,13 +209,12 @@ class SearchScreen extends StatelessWidget {
                                               item.query;
                                           searchCtrl.search(item.query);
                                         },
-                                        child: beigeContainer(
-                                          context,
+                                        child: BeigeContainer(
                                           color: Theme.of(context)
                                               .colorScheme
                                               .surface
                                               .withOpacity(.15),
-                                          Row(
+                                          myWidget: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
@@ -300,7 +300,7 @@ class SearchScreen extends StatelessWidget {
                           SearchResult result = searchCtrl.searchResults[index];
                           return GestureDetector(
                             onTap: () => Get.to(
-                                PoemsReadView(
+                                () => PoemsReadView(
                                     chapterNumber: result.chapterIndex),
                                 transition: Transition.downToUp),
                             child: Container(
@@ -314,15 +314,14 @@ class SearchScreen extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 16.0),
-                                    child: beigeContainer(
-                                      context,
+                                    child: BeigeContainer(
                                       height: 125,
                                       width: 380,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .surface
                                           .withOpacity(.15),
-                                      Row(
+                                      myWidget: Row(
                                         children: [
                                           Expanded(
                                             flex: 3,

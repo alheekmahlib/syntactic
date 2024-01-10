@@ -30,7 +30,11 @@ class ServicesLocator {
   }
 
   Future<void> init() async {
-    await Future.wait([_initPrefs(), _initObjectBox()]);
+    await Future.wait([
+      _initPrefs(),
+      _initObjectBox(),
+      // sl<BookmarksController>().getAndSetBookmarks()
+    ]);
 
     // Controllers
     sl.registerLazySingleton<GeneralController>(
@@ -51,12 +55,10 @@ class ServicesLocator {
     sl.registerLazySingleton<AudioController>(
         () => Get.put<AudioController>(AudioController(), permanent: true));
 
-    sl.registerLazySingleton<BookmarksController>(() =>
-        Get.put<BookmarksController>(BookmarksController(), permanent: true));
-
     sl.registerLazySingleton<SearchControllers>(
         () => Get.put<SearchControllers>(SearchControllers(), permanent: true));
-
+    sl.registerLazySingleton<BookmarksController>(() =>
+        Get.put<BookmarksController>(BookmarksController(), permanent: true));
     // UiHelper.rateMyApp.init();
     //
     // if (Platform.isWindows || Platform.isLinux) {

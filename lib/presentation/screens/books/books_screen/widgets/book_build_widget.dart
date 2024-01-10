@@ -57,10 +57,10 @@ class BookBuildWidget extends StatelessWidget {
                             bookCtrl.bookNumber.value = index;
                             bookCtrl.loadBook();
                             Get.to(
-                                DetailsBooksScreen(
-                                  bookNumber: index + 1,
-                                  bookName: bookCtrl.books[index].name,
-                                ),
+                                () => DetailsBooksScreen(
+                                      bookNumber: index + 1,
+                                      bookName: bookCtrl.books[index].name,
+                                    ),
                                 transition: Transition.downToUp);
                             bookCtrl.currentBookName.value =
                                 bookCtrl.books[index].name;

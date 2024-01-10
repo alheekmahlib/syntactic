@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 
 import '../../../core/services/services_locator.dart';
 import '../../../core/utils/constants/svg_picture.dart';
+import '../../../core/widgets/beige_container.dart';
+import '../../../core/widgets/white_container.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../controllers/general_controller.dart';
 import '/presentation/controllers/ourApps_controller.dart';
@@ -111,11 +113,9 @@ class OurApps extends StatelessWidget {
                                 width: 80.0,
                               ),
                               const Gap(16),
-                              beigeContainer(
-                                  context,
-                                  whiteContainer(
-                                    context,
-                                    const Padding(
+                              BeigeContainer(
+                                  myWidget: WhiteContainer(
+                                    myWidget: const Padding(
                                       padding: EdgeInsets.all(8.0),
                                       child: Text(
                                         'فعليكم بسُنَّتي وسُنَّةِ الخُلَفاءِ الرَّاشِدينَ المَهْدِيِّينَ',
@@ -135,9 +135,8 @@ class OurApps extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 4,
-                      child: whiteContainer(
-                        context,
-                        const OurAppsBuild(),
+                      child: WhiteContainer(
+                        myWidget: const OurAppsBuild(),
                         height: 300.0,
                         width: MediaQuery.sizeOf(context).width,
                       ),

@@ -13,6 +13,12 @@ class BookmarkModel {
 
   int? chapterNumber;
 
+  int? bookNumber;
+
+  String? bookType;
+
+  int? poemNumber;
+
   @Property(type: PropertyType.date) // Store as int in milliseconds
   DateTime? date;
 

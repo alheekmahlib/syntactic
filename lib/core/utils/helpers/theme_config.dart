@@ -21,7 +21,7 @@ ThemeData brownTheme = lightTheme.copyWith(
       background: Color(0xffFFFFFE),
       onBackground: Color(0xffF7F1EC),
       surface: Color(0xFFC39B7B),
-      onSurface: Color(0xFF77554C),
+      onSurface: Color(0xFFC39B7B),
     ),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(
@@ -46,7 +46,7 @@ ThemeData darkBrownTheme = darkTheme.copyWith(
       background: Color(0xFF181818),
       onBackground: Color(0xffF7F1EC),
       surface: Color(0xFFC39B7B),
-      onSurface: Color(0xFF77554C),
+      onSurface: Color(0xFFC39B7B),
     ),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(

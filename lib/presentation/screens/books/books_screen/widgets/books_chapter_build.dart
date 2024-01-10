@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/widgets/widgets.dart';
+import '../../../../../core/widgets/beige_container.dart';
+import '../../../../../core/widgets/white_container.dart';
 import '../../../../controllers/books_controller.dart';
 import '../screens/books_read_view.dart';
 
@@ -16,10 +17,9 @@ class BooksChapterBuild extends StatelessWidget {
     return Obx(() {
       return Stack(
         children: [
-          beigeContainer(
-              context,
+          BeigeContainer(
               color: Theme.of(context).colorScheme.surface.withOpacity(.15),
-              Column(
+              myWidget: Column(
                 children: [
                   Container(
                     height: 32,
@@ -54,14 +54,13 @@ class BooksChapterBuild extends StatelessWidget {
                             child: GestureDetector(
                               onTap: () {
                                 bookCtrl.chapterNumber.value = index;
-                                Get.to(BooksReadView(
-                                  chapterNumber: index,
-                                ));
+                                Get.to(() => BooksReadView(
+                                      chapterNumber: index,
+                                    ));
                               },
-                              child: beigeContainer(
-                                  context,
+                              child: BeigeContainer(
                                   color: Theme.of(context).colorScheme.surface,
-                                  Row(
+                                  myWidget: Row(
                                     children: [
                                       Expanded(
                                         flex: 1,
@@ -75,19 +74,18 @@ class BooksChapterBuild extends StatelessWidget {
                                       ),
                                       Expanded(
                                           flex: 9,
-                                          child: whiteContainer(
-                                              context,
-                                              Text(
-                                                chapter.chapterTitle!,
-                                                style: TextStyle(
-                                                  fontSize: 18.0.sp,
-                                                  fontFamily: 'naskh',
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .primary,
-                                                ),
-                                              )))
+                                          child: WhiteContainer(
+                                              myWidget: Text(
+                                            chapter.chapterTitle!,
+                                            style: TextStyle(
+                                              fontSize: 18.0.sp,
+                                              fontFamily: 'naskh',
+                                              fontWeight: FontWeight.w500,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
+                                            ),
+                                          )))
                                     ],
                                   )),
                             ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/widgets.dart';
+import '../../../../core/widgets/white_container.dart';
 
 class CheckBoxTile extends StatelessWidget {
   const CheckBoxTile({
@@ -16,9 +16,8 @@ class CheckBoxTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return whiteContainer(
-        context,
-        Transform.translate(
+    return WhiteContainer(
+        myWidget: Transform.translate(
           offset: const Offset(20, -7),
           child: SizedBox(
             width: MediaQuery.sizeOf(context).width * .6,

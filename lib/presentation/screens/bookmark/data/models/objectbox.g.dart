@@ -20,38 +20,53 @@ export 'package:objectbox/objectbox.dart'; // so that callers only have to impor
 
 final _entities = <ModelEntity>[
   ModelEntity(
-      id: const IdUid(1, 2707594022700497880),
+      id: const IdUid(1, 7387622209622666994),
       name: 'BookmarkModel',
-      lastPropertyId: const IdUid(6, 9038785900599313422),
+      lastPropertyId: const IdUid(9, 6265346933542070064),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
-            id: const IdUid(1, 8154918382132883467),
+            id: const IdUid(1, 8542618733521865481),
             name: 'id',
             type: 6,
             flags: 1),
         ModelProperty(
-            id: const IdUid(2, 924141956585272061),
+            id: const IdUid(2, 6996624009477939210),
             name: 'bookName',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(3, 3676506214505927617),
+            id: const IdUid(3, 2037171793519172405),
             name: 'chapterName',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(4, 7243237338801334951),
+            id: const IdUid(4, 699784428932096108),
             name: 'poemText',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(5, 5871506908965403),
+            id: const IdUid(5, 6773047628597726103),
             name: 'chapterNumber',
             type: 6,
             flags: 0),
         ModelProperty(
-            id: const IdUid(6, 9038785900599313422),
+            id: const IdUid(6, 6302257326672783317),
+            name: 'bookNumber',
+            type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(7, 3390384826245683196),
+            name: 'bookType',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(8, 7057423159557604464),
+            name: 'poemNumber',
+            type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(9, 6265346933542070064),
             name: 'date',
             type: 10,
             flags: 0)
@@ -87,7 +102,7 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(1, 2707594022700497880),
+      lastEntityId: const IdUid(1, 7387622209622666994),
       lastIndexId: const IdUid(0, 0),
       lastRelationId: const IdUid(0, 0),
       lastSequenceId: const IdUid(0, 0),
@@ -118,13 +133,19 @@ ModelDefinition getObjectBoxModel() {
           final poemTextOffset = object.poemText == null
               ? null
               : fbb.writeString(object.poemText!);
-          fbb.startTable(7);
+          final bookTypeOffset = object.bookType == null
+              ? null
+              : fbb.writeString(object.bookType!);
+          fbb.startTable(10);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, bookNameOffset);
           fbb.addOffset(2, chapterNameOffset);
           fbb.addOffset(3, poemTextOffset);
           fbb.addInt64(4, object.chapterNumber);
-          fbb.addInt64(5, object.date?.millisecondsSinceEpoch);
+          fbb.addInt64(5, object.bookNumber);
+          fbb.addOffset(6, bookTypeOffset);
+          fbb.addInt64(7, object.poemNumber);
+          fbb.addInt64(8, object.date?.millisecondsSinceEpoch);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -132,7 +153,7 @@ ModelDefinition getObjectBoxModel() {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
           final dateValue =
-              const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 14);
+              const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 20);
           final object = BookmarkModel()
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0)
             ..bookName = const fb.StringReader(asciiOptimization: true)
@@ -143,6 +164,12 @@ ModelDefinition getObjectBoxModel() {
                 .vTableGetNullable(buffer, rootOffset, 10)
             ..chapterNumber =
                 const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 12)
+            ..bookNumber =
+                const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 14)
+            ..bookType = const fb.StringReader(asciiOptimization: true)
+                .vTableGetNullable(buffer, rootOffset, 16)
+            ..poemNumber =
+                const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 18)
             ..date = dateValue == null
                 ? null
                 : DateTime.fromMillisecondsSinceEpoch(dateValue);
@@ -176,7 +203,19 @@ class BookmarkModel_ {
   static final chapterNumber =
       QueryIntegerProperty<BookmarkModel>(_entities[0].properties[4]);
 
+  /// see [BookmarkModel.bookNumber]
+  static final bookNumber =
+      QueryIntegerProperty<BookmarkModel>(_entities[0].properties[5]);
+
+  /// see [BookmarkModel.bookType]
+  static final bookType =
+      QueryStringProperty<BookmarkModel>(_entities[0].properties[6]);
+
+  /// see [BookmarkModel.poemNumber]
+  static final poemNumber =
+      QueryIntegerProperty<BookmarkModel>(_entities[0].properties[7]);
+
   /// see [BookmarkModel.date]
   static final date =
-      QueryIntegerProperty<BookmarkModel>(_entities[0].properties[5]);
+      QueryIntegerProperty<BookmarkModel>(_entities[0].properties[8]);
 }

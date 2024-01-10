@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:syntactic/presentation/controllers/general_controller.dart';
 
 import '../../../../core/services/services_locator.dart';
-import '../../../../core/widgets/widgets.dart';
+import '../../../../core/widgets/beige_container.dart';
 import '../../../controllers/books_controller.dart';
 
 class ExplanationPoem extends StatelessWidget {
@@ -19,11 +19,10 @@ class ExplanationPoem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          beigeContainer(
-            context,
+          BeigeContainer(
             width: 100,
             color: Theme.of(context).colorScheme.surface,
-            Text(
+            myWidget: Text(
               'الشرح',
               style: TextStyle(
                 fontSize: 17.0,

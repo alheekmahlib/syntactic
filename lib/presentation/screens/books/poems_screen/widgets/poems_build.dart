@@ -4,9 +4,10 @@ import 'package:get/get.dart';
 import 'package:syntactic/presentation/controllers/audio_controller.dart';
 
 import '../../../../../core/services/services_locator.dart';
-import '../../../../../core/widgets/widgets.dart';
+import '../../../../../core/widgets/beige_container.dart';
 import '../../../../controllers/books_controller.dart';
 import '../../widgets/select_menu.dart';
+import 'poem_bookmark_widget.dart';
 
 class PoemsBuild extends StatelessWidget {
   final int chapterNumber;
@@ -29,6 +30,7 @@ class PoemsBuild extends StatelessWidget {
               index: poem.poems![index].poemNumber!,
               poem: poem.poems![index],
               chapters: poem,
+              poemBook: bookCtrl.poem.value!,
               myWidget: GestureDetector(
                 onLongPress: () {
                   audioCtrl.poemNumber.value = poem.poems![index].poemNumber!;
@@ -38,42 +40,48 @@ class PoemsBuild extends StatelessWidget {
                   audioCtrl.poemNumber.value = poem.poems![index].poemNumber!;
                   bookCtrl.selectedPoemIndex.value = -1;
                 },
-                child: Obx(() {
-                  return beigeContainer(
-                    context,
-                    width: MediaQuery.sizeOf(context).width,
-                    color: bookCtrl.colorSelection(context, index),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 4.0),
-                        child: Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                poem.poems![index].firstPoem!,
-                                style: TextStyle(
-                                  fontSize: 22.0.sp,
-                                  fontFamily: 'naskh',
-                                  color: Theme.of(context).primaryColorLight,
+                child: BeigeContainer(
+                  width: MediaQuery.sizeOf(context).width,
+                  color: bookCtrl.colorSelection(context, index),
+                  myWidget: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: PoemsBookmarkWidget(
+                            poemIndex: poem.poems![index].poemNumber! - 1),
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 4.0),
+                          child: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  poem.poems![index].firstPoem!,
+                                  style: TextStyle(
+                                    fontSize: 22.0.sp,
+                                    fontFamily: 'naskh',
+                                    color: Theme.of(context).primaryColorLight,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                poem.poems![index].secondPoem!,
-                                style: TextStyle(
-                                  fontSize: 22.0.sp,
-                                  fontFamily: 'naskh',
-                                  color: Theme.of(context).primaryColorLight,
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  poem.poems![index].secondPoem!,
+                                  style: TextStyle(
+                                    fontSize: 22.0.sp,
+                                    fontFamily: 'naskh',
+                                    color: Theme.of(context).primaryColorLight,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        )),
-                  );
-                }),
+                            ],
+                          )),
+                    ],
+                  ),
+                ),
               ),
             );
           }),

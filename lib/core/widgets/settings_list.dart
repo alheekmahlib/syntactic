@@ -5,6 +5,7 @@ import '../../presentation/screens/ourApp/ourApps_screen.dart';
 import '../utils/constants/svg_picture.dart';
 import 'language_list.dart';
 import 'theme_change.dart';
+import 'white_container.dart';
 import 'widgets.dart';
 
 class SettingsList extends StatelessWidget {
@@ -61,7 +62,7 @@ class SettingsList extends StatelessWidget {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
-                whiteContainer(context, const ThemeChange(), width: width)
+                WhiteContainer(myWidget: const ThemeChange(), width: width)
               ],
             ),
           ),
@@ -76,9 +77,8 @@ class SettingsList extends StatelessWidget {
                     borderRadius: const BorderRadius.all(
                       Radius.circular(4.0),
                     )),
-                child: whiteContainer(
-                  context,
-                  InkWell(
+                child: WhiteContainer(
+                  myWidget: InkWell(
                     child: SizedBox(
                       height: 45,
                       child: Row(
@@ -115,7 +115,8 @@ class SettingsList extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      Get.to(const OurApps(), transition: Transition.downToUp);
+                      Get.to(() => const OurApps(),
+                          transition: Transition.downToUp);
                     },
                   ),
                 ),

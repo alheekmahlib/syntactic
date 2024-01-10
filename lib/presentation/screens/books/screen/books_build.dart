@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
-import '../../../../core/widgets/widgets.dart';
+import '../../../../core/widgets/beige_container.dart';
 import '../books_screen/widgets/book_build_widget.dart';
 import '../poems_screen/widgets/poem_build_widget.dart';
 import '/presentation/controllers/books_controller.dart';
@@ -22,12 +22,11 @@ class BooksBuild extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: beigeContainer(
-              context,
+            child: BeigeContainer(
               height: MediaQuery.sizeOf(context).height,
               width: MediaQuery.sizeOf(context).width,
               color: Theme.of(context).colorScheme.surface.withOpacity(.15),
-              const Column(
+              myWidget: const Column(
                 children: [
                   PoemBuildWidget(),
                   BookBuildWidget(),

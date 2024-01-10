@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:group_button/group_button.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/widgets/beige_container.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/books_controller.dart';
 import '../../../controllers/search_controller.dart';
@@ -47,9 +48,8 @@ class SearchOptions extends StatelessWidget {
               ),
             ),
             Flexible(
-              child: beigeContainer(
-                  context,
-                  ListView(
+              child: BeigeContainer(
+                  myWidget: ListView(
                     children: [
                       Align(
                         alignment: Alignment.centerRight,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/widgets/beige_container.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/bookmarks_controller.dart';
 
@@ -25,12 +26,11 @@ class LastRead extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: beigeContainer(
-                  context,
+                child: BeigeContainer(
                   height: 125,
                   width: 380,
                   color: Theme.of(context).colorScheme.surface.withOpacity(.15),
-                  Row(
+                  myWidget: Row(
                     children: [
                       Expanded(
                         flex: 3,
@@ -48,8 +48,8 @@ class LastRead extends StatelessWidget {
                       vDivider(context, height: 50),
                       Expanded(
                         flex: 8,
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
                             bookmarkCtrl.getLastPoemText!,
                             style: TextStyle(
@@ -58,7 +58,7 @@ class LastRead extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                                 color: Theme.of(context).colorScheme.primary,
                                 height: 1.5),
-                            maxLines: 3,
+                            maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.justify,
                             textDirection: TextDirection.rtl,
@@ -107,6 +107,8 @@ class LastRead extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                   ),
                 ),

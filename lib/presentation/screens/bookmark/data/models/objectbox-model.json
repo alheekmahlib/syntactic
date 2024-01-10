@@ -4,38 +4,53 @@
   "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
   "entities": [
     {
-      "id": "1:2707594022700497880",
-      "lastPropertyId": "6:9038785900599313422",
+      "id": "1:7387622209622666994",
+      "lastPropertyId": "9:6265346933542070064",
       "name": "BookmarkModel",
       "properties": [
         {
-          "id": "1:8154918382132883467",
+          "id": "1:8542618733521865481",
           "name": "id",
           "type": 6,
           "flags": 1
         },
         {
-          "id": "2:924141956585272061",
+          "id": "2:6996624009477939210",
           "name": "bookName",
           "type": 9
         },
         {
-          "id": "3:3676506214505927617",
+          "id": "3:2037171793519172405",
           "name": "chapterName",
           "type": 9
         },
         {
-          "id": "4:7243237338801334951",
+          "id": "4:699784428932096108",
           "name": "poemText",
           "type": 9
         },
         {
-          "id": "5:5871506908965403",
+          "id": "5:6773047628597726103",
           "name": "chapterNumber",
           "type": 6
         },
         {
-          "id": "6:9038785900599313422",
+          "id": "6:6302257326672783317",
+          "name": "bookNumber",
+          "type": 6
+        },
+        {
+          "id": "7:3390384826245683196",
+          "name": "bookType",
+          "type": 9
+        },
+        {
+          "id": "8:7057423159557604464",
+          "name": "poemNumber",
+          "type": 6
+        },
+        {
+          "id": "9:6265346933542070064",
           "name": "date",
           "type": 10
         }
@@ -43,7 +58,7 @@
       "relations": []
     }
   ],
-  "lastEntityId": "1:2707594022700497880",
+  "lastEntityId": "1:7387622209622666994",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

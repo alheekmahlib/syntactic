@@ -57,10 +57,10 @@ class PoemBuildWidget extends StatelessWidget {
                             bookCtrl.bookNumber.value = index;
                             bookCtrl.loadBook();
                             Get.to(
-                                DetailsPoemScreen(
-                                  bookNumber: index + 1,
-                                  bookName: bookCtrl.poemBooks[index].name,
-                                ),
+                                () => DetailsPoemScreen(
+                                      bookNumber: index + 1,
+                                      bookName: bookCtrl.poemBooks[index].name,
+                                    ),
                                 transition: Transition.downToUp);
                             bookCtrl.currentBookName.value =
                                 bookCtrl.poemBooks[index].name;

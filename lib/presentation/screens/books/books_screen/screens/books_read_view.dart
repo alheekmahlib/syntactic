@@ -5,12 +5,15 @@ import 'package:pie_menu/pie_menu.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_picture.dart';
+import '../../../../../core/widgets/beige_container.dart';
 import '../../../../../core/widgets/widgets.dart';
 import '../../../../controllers/books_controller.dart';
 import '../../../../controllers/general_controller.dart';
 import '../../widgets/audio_widget.dart';
+import '../widgets/books_bookmark_widget.dart';
 import '../widgets/pages_build.dart';
 import '/presentation/controllers/audio_controller.dart';
+import '/presentation/screens/books/books_screen/widgets/books_chapter_title.dart';
 
 class BooksReadView extends StatelessWidget {
   final int chapterNumber;
@@ -20,8 +23,8 @@ class BooksReadView extends StatelessWidget {
   Widget build(BuildContext context) {
     final bookCtrl = sl<BooksController>();
     final audioCtrl = sl<AudioController>();
-    bookCtrl.chapterNumber.value = chapterNumber;
 
+    bookCtrl.chapterNumber.value = chapterNumber;
     return Directionality(
       textDirection: TextDirection.rtl,
       child: PieCanvas(
@@ -52,83 +55,73 @@ class BooksReadView extends StatelessWidget {
           ),
           body: Stack(
             children: [
-              Obx(() {
-                return PageView.builder(
-                    itemCount: bookCtrl.book.value!.pages!.length,
-                    onPageChanged: (chapterIndex) {
-                      bookCtrl.chapterNumber.value = chapterIndex;
-                    },
-                    controller: PageController(
-                        initialPage: bookCtrl.chapterNumber.value),
-                    itemBuilder: (context, chapterIndex) {
-                      final chapter = bookCtrl.book.value!.pages![chapterIndex];
-                      return SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: beigeContainer(
-                                    context,
-                                    width: MediaQuery.sizeOf(context).width,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .surface
-                                        .withOpacity(.15),
-                                    Column(
-                                      children: [
-                                        chapter.chapterTitle != null &&
-                                                chapter.chapterTitle!.isNotEmpty
-                                            ? Container(
-                                                alignment: Alignment.center,
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 4.0,
-                                                        horizontal: 16.0),
-                                                margin:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 40.0),
-                                                decoration: BoxDecoration(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .surface,
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                            Radius.circular(
-                                                                4))),
-                                                child: Text(
-                                                  bookCtrl
-                                                      .book
-                                                      .value!
-                                                      .pages![chapterIndex]
-                                                      .chapterTitle!,
-                                                  style: TextStyle(
-                                                    fontSize: 17.0,
-                                                    fontFamily: 'kufi',
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .secondary,
-                                                  ),
-                                                  textAlign: TextAlign.center,
+              FutureBuilder(
+                  future: bookCtrl.loadBook(),
+                  builder: (context, snap) {
+                    return snap.connectionState != ConnectionState.done ||
+                            bookCtrl.book.value == null
+                        ? const Center(
+                            child: CircularProgressIndicator.adaptive())
+                        : PageView.builder(
+                            itemCount: bookCtrl.book.value!.pages!.length,
+                            onPageChanged: (chapterIndex) {
+                              bookCtrl.chapterNumber.value = chapterIndex;
+                            },
+                            controller: PageController(
+                                initialPage: bookCtrl.chapterNumber.value),
+                            itemBuilder: (context, chapterIndex) {
+                              return SingleChildScrollView(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0),
+                                        child: BeigeContainer(
+                                            width: MediaQuery.sizeOf(context)
+                                                .width,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .surface
+                                                .withOpacity(.15),
+                                            myWidget: Column(
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                      flex: 9,
+                                                      child: BooksChapterTitle(
+                                                          chapterIndex:
+                                                              chapterIndex),
+                                                    ),
+                                                    Expanded(
+                                                      flex: 1,
+                                                      child:
+                                                          BooksBookmarkWidget(
+                                                        chapterIndex:
+                                                            chapterIndex,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              )
-                                            : const SizedBox.shrink(),
-                                        PagesBuild(
-                                          chapterNumber: chapterIndex,
-                                        ),
-                                      ],
-                                    )),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    });
-              }),
+                                                PagesBuild(
+                                                  chapterNumber: chapterIndex,
+                                                ),
+                                              ],
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
+                  }),
               Obx(() => AnimatedPositioned(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeInOut,

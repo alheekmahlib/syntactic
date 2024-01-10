@@ -24,6 +24,9 @@ class BooksController extends GetxController {
   List<BookName> loadedBooks = [];
   bool loadPoemBooks = true;
 
+  BookName? get currentPoemBook =>
+      loadedBooks.firstWhereOrNull((book) => book.number == bookNumber.value);
+
   void separateBooksByTypes() {
     for (var b in booksName) {
       b.bookType == 'book' ? books.add(b) : poemBooks.add(b);
@@ -149,10 +152,20 @@ class BooksController extends GetxController {
         : Colors.transparent;
   }
 
-  Future<void> copy(BuildContext context, String poemTextOne,
-      String poemTextTwo, String chapterText) async {
-    await Clipboard.setData(
-            ClipboardData(text: '$chapterText\n\n$poemTextOne\n$poemTextTwo'))
+  Future<void> copyPoem(BuildContext context, String poemTextOne,
+      String poemTextTwo, String chapterText, String bookName) async {
+    await Clipboard.setData(ClipboardData(
+            text: '$bookName\n$chapterText\n\n$poemTextOne\n$poemTextTwo'))
         .then((value) => customSnackBar(context, 'copied'.tr));
   }
+
+  Future<void> copyBook(BuildContext context, String bookName,
+      String chapterText, String pageText, String pageNumber) async {
+    await Clipboard.setData(ClipboardData(
+            text:
+                '$bookName\n$chapterText\n\n$pageText\n${'page'.tr}: $pageNumber'))
+        .then((value) => customSnackBar(context, 'copied'.tr));
+  }
+
+  Future<void> getCurrentBook() async => await loadBook();
 }

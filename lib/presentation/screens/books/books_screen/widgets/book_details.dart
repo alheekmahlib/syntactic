@@ -5,15 +5,19 @@ import 'package:get/get.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_picture.dart';
+import '../../../../../core/widgets/beige_container.dart';
 import '../../../../../core/widgets/text_overflow_detector.dart';
-import '../../../../../core/widgets/widgets.dart';
 import '../../../../controllers/books_controller.dart';
 
 class BookDetails extends StatelessWidget {
   final int bookNumber;
   final String bookName;
+  final String bookType;
   const BookDetails(
-      {super.key, required this.bookName, required this.bookNumber});
+      {super.key,
+      required this.bookName,
+      required this.bookNumber,
+      required this.bookType});
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +25,11 @@ class BookDetails extends StatelessWidget {
     return Stack(
       alignment: Alignment.topCenter,
       children: [
-        beigeContainer(
-          context,
+        BeigeContainer(
           // height: 290,
           width: 380,
           color: Theme.of(context).colorScheme.surface.withOpacity(.15),
-          Column(
+          myWidget: Column(
             children: [
               Align(
                 alignment: Alignment.topLeft,
@@ -115,7 +118,7 @@ class BookDetails extends StatelessWidget {
                       color: Theme.of(context).colorScheme.surface,
                       borderRadius: const BorderRadius.all(Radius.circular(4))),
                   child: Text(
-                    'scienceSyntax'.tr,
+                    bookType.tr,
                     style: TextStyle(
                       fontSize: 16.0,
                       fontFamily: 'kufi',

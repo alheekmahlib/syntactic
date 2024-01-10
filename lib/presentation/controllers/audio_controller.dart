@@ -112,11 +112,11 @@ class AudioController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    createPlayList();
+    sl<BooksController>().loadPoemBooks ? createPlayList() : null;
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
     initConnectivity();
-    await subscribeToPlayerState();
+    sl<BooksController>().loadPoemBooks ? await subscribeToPlayerState() : null;
   }
 
   Stream<PositionData> get positionDataStream =>

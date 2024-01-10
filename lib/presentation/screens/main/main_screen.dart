@@ -27,20 +27,13 @@ class MainScreen extends StatelessWidget {
     final settings = sl<SettingsController>();
     // settings.loadLang();
     general.updateGreeting();
-    bool isNeedSafeArea = MediaQuery.viewPaddingOf(context).bottom > 0;
     return Directionality(
       textDirection: TextDirection.rtl,
       child: ThemeSwitchingArea(
         child: Scaffold(
           extendBody: false,
           backgroundColor: Theme.of(context).colorScheme.background,
-          body: Padding(
-            padding: orientation(
-                context,
-                isNeedSafeArea
-                    ? const EdgeInsets.only(top: 64.0)
-                    : const EdgeInsets.only(top: 16.0),
-                const EdgeInsets.all(0)),
+          body: SafeArea(
             child: SliderDrawer(
               key: sl<GeneralController>().key,
               splashColor: Theme.of(context).colorScheme.background,

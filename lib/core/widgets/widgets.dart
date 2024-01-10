@@ -83,37 +83,6 @@ Widget greeting(BuildContext context) {
   );
 }
 
-Widget beigeContainer(BuildContext context, Widget myWidget,
-    {double? height, double? width, Color? color}) {
-  return Container(
-    height: height,
-    width: width,
-    padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 2.0),
-    decoration: BoxDecoration(
-        color: color,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(4.0),
-        )),
-    child: myWidget,
-  );
-}
-
-Widget whiteContainer(BuildContext context, Widget myWidget,
-    {double? height, double? width}) {
-  return Container(
-    height: height,
-    width: width,
-    margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-    decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(4.0),
-        )),
-    child: myWidget,
-  );
-}
-
 Widget fontSizeDropDown(BuildContext context) {
   return PopupMenuButton(
     position: PopupMenuPosition.under,
