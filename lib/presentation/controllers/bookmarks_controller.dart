@@ -44,12 +44,12 @@ class BookmarksController extends GetxController {
     var allBookmarks = bookmarks.getAll();
 
     if (allBookmarks.isEmpty) {
-      return "لا يوجد";
+      return "notAvailable".tr;
     }
 
     var lastBookmark = allBookmarks.last;
     return lastBookmark.chapterName!.isEmpty
-        ? "لا يوجد"
+        ? "notAvailable".tr
         : lastBookmark.chapterName!;
   }
 
@@ -57,22 +57,26 @@ class BookmarksController extends GetxController {
     var allBookmarks = bookmarks.getAll();
 
     if (allBookmarks.isEmpty) {
-      return "لا يوجد";
+      return "notAvailable".tr;
     }
 
     var lastBookmark = allBookmarks.last;
-    return lastBookmark.bookName!.isEmpty ? "لا يوجد" : lastBookmark.bookName!;
+    return lastBookmark.bookName!.isEmpty
+        ? "notAvailable".tr
+        : lastBookmark.bookName!;
   }
 
   String? get getLastPoemText {
     var allBookmarks = bookmarks.getAll();
 
     if (allBookmarks.isEmpty) {
-      return "لا يوجد";
+      return "notAvailable".tr;
     }
 
     var lastBookmark = allBookmarks.last;
-    return lastBookmark.poemText!.isEmpty ? "لا يوجد" : lastBookmark.poemText!;
+    return lastBookmark.poemText!.isEmpty
+        ? "notAvailable".tr
+        : lastBookmark.poemText!;
   }
 
   void addBookmark(String bookName, String chapterName, String poemText,

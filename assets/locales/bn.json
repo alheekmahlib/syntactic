@@ -27,7 +27,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "searchHintText": "হাদিসে অনুসন্ধান",
+  "searchHintText": "বইগুলিতে অনুসন্ধান",
   "@searchHintText": {
     "type": "text",
     "placeholders": {}
@@ -269,6 +269,11 @@
   },
   "aboutAppTitle5": "কনটেন্ট শেয়ার করা হচ্ছে টেক্সট বা ইমেজ হিসেবে:",
   "@aboutAppTitle5": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notAvailable": "পাওয়া যায়নি",
+  "@notAvailable": {
     "type": "text",
     "placeholders": {}
   }

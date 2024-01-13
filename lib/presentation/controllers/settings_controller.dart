@@ -19,17 +19,18 @@ class SettingsController extends GetxController {
     String? langCode = sl<SharedPreferences>().getString("lang");
     String? langName = sl<SharedPreferences>().getString("lang_name");
 
-    debugPrint(
-        'Lang code: $langCode'); // Add this line to debug the value of langCode
+    debugPrint('Lang code: $langCode');
 
-    if (langCode!.isEmpty) {
+    if (langCode == null || langCode.isEmpty) {
       initialLang = const Locale('ar', 'AE');
     } else {
       initialLang = Locale(
           langCode, ''); // Make sure langCode is not null or invalid here
     }
 
-    languageName.value = langName!;
+    if (langName != null) {
+      languageName.value = langName;
+    }
 
     debugPrint('get lang $initialLang');
   }

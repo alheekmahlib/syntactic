@@ -27,7 +27,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "searchHintText": "Search To Hadith",
+  "searchHintText": "Search in Books",
   "@searchHintText": {
     "type": "text",
     "placeholders": {}
@@ -269,6 +269,11 @@
   },
   "aboutAppTitle5": "Sharing Content as Text or Image:",
   "@aboutAppTitle5": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notAvailable": "Not Available",
+  "@notAvailable": {
     "type": "text",
     "placeholders": {}
   }

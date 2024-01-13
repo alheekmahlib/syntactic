@@ -27,7 +27,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "searchHintText": "إبحث عن الحديث",
+  "searchHintText": "إبحث في الكت",
   "@searchHintText": {
     "type": "text",
     "placeholders": {}
@@ -269,6 +269,11 @@
   },
   "aboutAppTitle5": "مشاركة المحتوى كنص أو كصورة:",
   "@aboutAppTitle5": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notAvailable": "لا يوجد",
+  "@notAvailable": {
     "type": "text",
     "placeholders": {}
   }
