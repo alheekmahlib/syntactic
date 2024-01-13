@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '/presentation/screens/main/main_screen.dart';
 import 'core/utils/helpers/languages/app_constants.dart';
 import 'core/utils/helpers/languages/localization_controller.dart';
 import 'core/utils/helpers/languages/messages.dart';
+import 'presentation/screens/splashScreen/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
   final Map<String, Map<String, String>> languages;
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
                     theme: myTheme,
                     home: const Directionality(
                       textDirection: TextDirection.rtl,
-                      child: MainScreen(),
+                      child: SplashScreen(),
                     ),
                   );
                 });

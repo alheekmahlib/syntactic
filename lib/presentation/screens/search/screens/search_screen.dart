@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:syntactic/presentation/controllers/books_controller.dart';
-import 'package:syntactic/presentation/screens/books/poems_screen/screens/poems_read_view.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
@@ -10,8 +7,11 @@ import '../../../../core/utils/constants/svg_picture.dart';
 import '../../../../core/widgets/beige_container.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/search_controller.dart';
+import '../../books/books_screen/screens/books_read_view.dart';
 import '../data/models/search_result_model.dart';
-import '../widgets/search_options.dart';
+import '/core/utils/constants/extensions.dart';
+import '/presentation/controllers/books_controller.dart';
+import '/presentation/screens/books/poems_screen/screens/poems_read_view.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -20,7 +20,6 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final searchCtrl = sl<SearchControllers>();
     final bookCtrl = sl<BooksController>();
-    bookCtrl.loadBook();
     return Container(
       decoration: BoxDecoration(color: Theme.of(context).colorScheme.secondary),
       child: Padding(
@@ -54,7 +53,8 @@ class SearchScreen extends StatelessWidget {
             ),
             Container(
               height: 80,
-              width: orientation(context, MediaQuery.sizeOf(context).width * .9,
+              width: context.customOrientation(
+                  MediaQuery.sizeOf(context).width * .9,
                   MediaQuery.sizeOf(context).width * .5),
               margin: const EdgeInsets.only(top: 32.0),
               child: Column(
@@ -143,28 +143,28 @@ class SearchScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Gap(16),
-                      Expanded(
-                        flex: 2,
-                        child: GestureDetector(
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            padding: const EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColorDark,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(8.0),
-                              ),
-                            ),
-                            child: setting_lines(context),
-                          ),
-                          onTap: () {
-                            Get.bottomSheet(const SearchOptions(),
-                                isScrollControlled: false);
-                          },
-                        ),
-                      ),
+                      // const Gap(16),
+                      // Expanded(
+                      //   flex: 2,
+                      //   child: GestureDetector(
+                      //     child: Container(
+                      //       height: 50,
+                      //       width: 50,
+                      //       padding: const EdgeInsets.all(10.0),
+                      //       decoration: BoxDecoration(
+                      //         color: Theme.of(context).primaryColorDark,
+                      //         borderRadius: const BorderRadius.all(
+                      //           Radius.circular(8.0),
+                      //         ),
+                      //       ),
+                      //       child: setting_lines(context),
+                      //     ),
+                      //     onTap: () {
+                      //       Get.bottomSheet(const SearchOptions(),
+                      //           isScrollControlled: false);
+                      //     },
+                      //   ),
+                      // ),
                     ],
                   ),
                   hDivider(context,
@@ -296,13 +296,18 @@ class SearchScreen extends StatelessWidget {
                     : ListView.builder(
                         itemCount: searchCtrl.searchResults.length,
                         itemBuilder: (context, index) {
-                          bookCtrl.loadBook();
                           SearchResult result = searchCtrl.searchResults[index];
                           return GestureDetector(
-                            onTap: () => Get.to(
-                                () => PoemsReadView(
-                                    chapterNumber: result.chapterIndex),
-                                transition: Transition.downToUp),
+                            onTap: () {
+                              bookCtrl.currentBookName.value = result.bookName;
+                              Get.to(
+                                  () => result.bookType == 'poemBooks'
+                                      ? PoemsReadView(
+                                          chapterNumber: result.chapterIndex)
+                                      : BooksReadView(
+                                          chapterNumber: result.chapterIndex),
+                                  transition: Transition.downToUp);
+                            },
                             child: Container(
                               height: 95,
                               width: 380,
@@ -341,24 +346,20 @@ class SearchScreen extends StatelessWidget {
                                           vDivider(context, height: 50),
                                           Expanded(
                                             flex: 8,
-                                            child: FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              child: Text(
-                                                result.firstPoem,
-                                                style: TextStyle(
-                                                    fontSize: 22.0,
-                                                    fontFamily: 'naskh',
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
-                                                    height: 1.5),
-                                                maxLines: 3,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.justify,
-                                                textDirection:
-                                                    TextDirection.rtl,
-                                              ),
+                                            child: Text(
+                                              result.firstPoem,
+                                              style: TextStyle(
+                                                  fontSize: 22.0,
+                                                  fontFamily: 'naskh',
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                  height: 1.5),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.justify,
+                                              textDirection: TextDirection.rtl,
                                             ),
                                           ),
                                         ],

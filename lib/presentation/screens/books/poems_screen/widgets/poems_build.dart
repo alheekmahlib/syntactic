@@ -20,17 +20,17 @@ class PoemsBuild extends StatelessWidget {
     final audioCtrl = sl<AudioController>();
     return Padding(
       padding: const EdgeInsets.only(top: 32.0),
-      child: Obx(() {
-        return Column(
-          children: List.generate(
-              bookCtrl.poem.value!.chapters![chapterNumber].poems!.length,
-              (index) {
-            final poem = bookCtrl.poem.value!.chapters![chapterNumber];
+      child: Column(
+        children: List.generate(
+            bookCtrl.currentPoemBook!.chapters![chapterNumber].poems!.length,
+            (index) {
+          final poem = bookCtrl.currentPoemBook!.chapters![chapterNumber];
+          return Obx(() {
             return SelectMenu(
               index: poem.poems![index].poemNumber!,
               poem: poem.poems![index],
               chapters: poem,
-              poemBook: bookCtrl.poem.value!,
+              poemBook: bookCtrl.currentPoemBook!,
               myWidget: GestureDetector(
                 onLongPress: () {
                   audioCtrl.poemNumber.value = poem.poems![index].poemNumber!;
@@ -48,7 +48,8 @@ class PoemsBuild extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: PoemsBookmarkWidget(
-                            poemIndex: poem.poems![index].poemNumber! - 1),
+                            poemIndex: poem.poems![index].poemNumber! - 1,
+                            bookType: bookCtrl.currentPoemBook!.bookType!),
                       ),
                       Padding(
                           padding: const EdgeInsets.symmetric(
@@ -84,9 +85,9 @@ class PoemsBuild extends StatelessWidget {
                 ),
               ),
             );
-          }),
-        );
-      }),
+          });
+        }),
+      ),
     );
   }
 }

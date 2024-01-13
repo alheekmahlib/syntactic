@@ -28,7 +28,7 @@ class BookmarksController extends GetxController {
   bool findBookBookmarks(int index) {
     final bookCtrl = sl<BooksController>();
     final query = (bookmarks.query(BookmarkModel_.chapterNumber
-            .equals(bookCtrl.book.value!.pages![index].pageNumber!)))
+            .equals(bookCtrl.detailsCtrl.value!.pages![index].pageNumber!)))
         .build();
     query.find();
     return true;
@@ -99,7 +99,6 @@ class BookmarksController extends GetxController {
     separateBookType(index)
         ? bookCtrl.loadPoemBooks = true
         : bookCtrl.loadPoemBooks = false;
-    await bookCtrl.loadBook();
     Get.to(
         () => separateBookType(index)
             ? PoemsReadView(

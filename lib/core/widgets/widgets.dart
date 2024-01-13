@@ -8,12 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:syntactic/presentation/controllers/audio_controller.dart';
+import 'package:syntactic/core/utils/constants/extensions.dart';
 
 import '../../presentation/controllers/general_controller.dart';
 import '../services/services_locator.dart';
 import '../utils/constants/shared_preferences_constants.dart';
 import '../utils/constants/svg_picture.dart';
+import '/presentation/controllers/audio_controller.dart';
 
 orientation(BuildContext context, var n1, n2) {
   Orientation orientation = MediaQuery.orientationOf(context);
@@ -31,9 +32,9 @@ screenModalBottomSheet(BuildContext context, Widget child) {
       context: context,
       constraints: BoxConstraints(
           maxWidth: platformView(
-              orientation(context, wid, wid * .7), wid / 1 / 2 * 1.5),
-          maxHeight:
-              orientation(context, hei * .9, platformView(hei, hei * 3 / 4))),
+              context.customOrientation(wid, wid * .7), wid / 1 / 2 * 1.5),
+          maxHeight: context.customOrientation(
+              hei * .9, platformView(hei, hei * 3 / 4))),
       elevation: 0.0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -54,9 +55,10 @@ optionsModalBottomSheet(BuildContext context, Widget child, {double? height}) {
   showModalBottomSheet(
       context: context,
       constraints: BoxConstraints(
-          maxWidth: platformView(orientation(context, wid, wid * .5), wid * .5),
+          maxWidth:
+              platformView(context.customOrientation(wid, wid * .5), wid * .5),
           maxHeight: height ??
-              orientation(context, hei * .5, platformView(hei, hei * .5))),
+              context.customOrientation(hei * .5, platformView(hei, hei * .5))),
       elevation: 0.0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -274,7 +276,7 @@ Widget container(BuildContext context, Widget myWidget, bool show,
                   offset: const Offset(0, -10),
                   child: Opacity(
                     opacity: .05,
-                    child: syntactic_logo(
+                    child: syntactic(
                       context,
                       width: MediaQuery.sizeOf(context).width,
                     ),

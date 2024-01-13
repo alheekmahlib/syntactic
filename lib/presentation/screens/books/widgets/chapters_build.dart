@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/services/services_locator.dart';
@@ -44,8 +43,9 @@ class ChaptersBuild extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 16.0),
                     child: Column(
                       children: List.generate(
-                          bookCtrl.poem.value!.chapters!.length, (index) {
-                        final chapter = bookCtrl.poem.value!.chapters![index];
+                          bookCtrl.currentPoemBook!.chapters!.length, (index) {
+                        final chapter =
+                            bookCtrl.currentPoemBook!.chapters![index];
                         return Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16.0, vertical: 4.0),
@@ -76,7 +76,7 @@ class ChaptersBuild extends StatelessWidget {
                                             myWidget: Text(
                                           chapter.chapterTitle!,
                                           style: TextStyle(
-                                            fontSize: 18.0.sp,
+                                            fontSize: 22.0,
                                             fontFamily: 'naskh',
                                             fontWeight: FontWeight.w500,
                                             color: Theme.of(context)

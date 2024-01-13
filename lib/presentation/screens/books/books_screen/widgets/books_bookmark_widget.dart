@@ -7,13 +7,16 @@ import '../../../../controllers/bookmarks_controller.dart';
 
 class BooksBookmarkWidget extends StatelessWidget {
   final int chapterIndex;
-  const BooksBookmarkWidget({super.key, required this.chapterIndex});
+  final String bookType;
+  const BooksBookmarkWidget(
+      {super.key, required this.chapterIndex, required this.bookType});
 
   @override
   Widget build(BuildContext context) {
     final bookmarkCtrl = sl<BookmarksController>();
-    return Obx(() => bookmarkCtrl.allBookmarks.firstWhereOrNull(
-                (bookmark) => bookmark.chapterNumber == chapterIndex + 1) !=
+    return Obx(() => bookmarkCtrl.allBookmarks.firstWhereOrNull((bookmark) =>
+                bookmark.chapterNumber == chapterIndex + 1 &&
+                bookmark.bookType == bookType) !=
             null
         ? bookmark_logo(context,
             height: 22, color: Theme.of(context).colorScheme.surface)

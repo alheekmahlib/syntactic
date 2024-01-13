@@ -196,5 +196,80 @@
   "@page": {
     "type": "text",
     "placeholders": {}
+  },
+  "share": "App Sharing",
+  "@share": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "email": "Contact Us",
+  "@email": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "facebook": "Follow us on Facebook",
+  "@facebook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutApp": "About the App",
+  "@aboutApp": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutAppDetails": "The 'Nahwi' app is an application that provides specialized content in Arabic grammar rules. Here is a brief explanation of the features of this application:",
+  "@aboutAppDetails": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutApp1": "The application features a simple and user-friendly interface, making it easy for users to navigate and efficiently use the content of the books.",
+  "@aboutApp1": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutApp2": "The application allows users to add bookmarks to important pages and refer back to them later, making it easy for users to resume their reading and revisit key information.",
+  "@aboutApp2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutApp3": "The application offers the feature of listening to the content of some books, allowing users to experience listening to texts instead of reading them.",
+  "@aboutApp3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutApp4": "The application allows users to easily copy the content of the books, facilitating copy-paste operations for later reference.",
+  "@aboutApp4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutApp5": "The application provides the feature of sharing content as text or as an image, allowing users to share information with others in multiple ways.",
+  "@aboutApp5": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutAppTitle1": "Easy-to-Use Interface:",
+  "@aboutAppTitle1": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutAppTitle2": "Adding and Referencing Bookmarks Anytime:",
+  "@aboutAppTitle2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutAppTitle3": "Listening to Content of Some Books:",
+  "@aboutAppTitle3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutAppTitle4": "Copying Content:",
+  "@aboutAppTitle4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutAppTitle5": "Sharing Content as Text or Image:",
+  "@aboutAppTitle5": {
+    "type": "text",
+    "placeholders": {}
   }
 }

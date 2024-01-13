@@ -1,21 +1,24 @@
-class Book {
+class PoemBook {
   String? bookName;
   String? aboutBook;
   String? bookType;
+  int? bookNumber;
   List<Chapter>? chapters;
 
-  Book({
+  PoemBook({
     this.bookName,
     this.aboutBook,
     this.bookType,
+    this.bookNumber,
     this.chapters,
   });
 
-  factory Book.fromJson(Map<String, dynamic> json) {
-    return Book(
+  factory PoemBook.fromJson(Map<String, dynamic> json) {
+    return PoemBook(
       bookName: json['bookName'],
       aboutBook: json['aboutBook'],
       bookType: json['bookType'],
+      bookNumber: json['bookNumber'],
       chapters: (json['chapters'] as List<dynamic>?)
           ?.map((chapterJson) => Chapter.fromJson(chapterJson))
           .toList(),

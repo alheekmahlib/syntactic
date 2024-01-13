@@ -54,8 +54,8 @@ class BookBuildWidget extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             bookCtrl.loadPoemBooks = false;
-                            bookCtrl.bookNumber.value = index;
-                            bookCtrl.loadBook();
+                            bookCtrl.currentBookName.value =
+                                bookCtrl.books[index].name;
                             Get.to(
                                 () => DetailsBooksScreen(
                                       bookNumber: index + 1,
@@ -79,12 +79,12 @@ class BookBuildWidget extends StatelessWidget {
                                         height: 138.h,
                                         width: 176.w)),
                                 SizedBox(
-                                  height: 90.h,
-                                  width: 90.w,
+                                  height: 90,
+                                  width: 90,
                                   child: Text(
                                     bookCtrl.books[index].name,
                                     style: TextStyle(
-                                        fontSize: 16.0.sp,
+                                        fontSize: 18.0,
                                         fontFamily: 'kufi',
                                         fontWeight: FontWeight.bold,
                                         color: Theme.of(context)

@@ -57,7 +57,7 @@ class BookDetails extends StatelessWidget {
               Padding(
                   padding: const EdgeInsets.only(right: 16.0, left: 16.0),
                   child: ReadMoreLess(
-                    text: book!.aboutBook!,
+                    text: book?.aboutBook ?? 'BOOK ABOUT NOT FOUND',
                     textStyle: TextStyle(
                       fontSize: 16,
                       fontFamily: 'naskh',

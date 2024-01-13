@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:syntactic/core/utils/constants/svg_picture.dart';
 
 import '../../../presentation/controllers/books_controller.dart';
 import '../../../presentation/controllers/share_controller.dart';
 import '../../services/services_locator.dart';
 import '../widgets.dart';
+import '/core/utils/constants/extensions.dart';
+import '/core/utils/constants/svg_picture.dart';
 import 'create_image.dart';
 
 Future<void> showShareOptionsBottomSheet(
@@ -23,7 +24,7 @@ Future<void> showShareOptionsBottomSheet(
 
   Get.bottomSheet(
     Container(
-      height: orientation(context, MediaQuery.sizeOf(context).height * .7,
+      height: context.customOrientation(MediaQuery.sizeOf(context).height * .7,
           MediaQuery.sizeOf(context).height),
       alignment: Alignment.center,
       decoration: BoxDecoration(
@@ -83,16 +84,16 @@ Future<void> showShareOptionsBottomSheet(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Icon(
-                            Icons.text_fields,
-                            color: Color(0xFF77554C),
-                            size: 24,
+                          const Expanded(
+                            flex: 2,
+                            child: Icon(
+                              Icons.text_fields,
+                              color: Color(0xFF77554C),
+                              size: 24,
+                            ),
                           ),
-                          SizedBox(
-                            width: orientation(
-                                context,
-                                MediaQuery.sizeOf(context).width * .7,
-                                MediaQuery.sizeOf(context).width / 1 / 3),
+                          Expanded(
+                            flex: 8,
                             child: Text(
                               bookCtrl.loadPoemBooks
                                   ? '$firstPoem\n$secondPoem'
@@ -101,6 +102,9 @@ Future<void> showShareOptionsBottomSheet(
                                   color: Theme.of(context).primaryColorLight,
                                   fontSize: 16,
                                   fontFamily: 'naskh'),
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.justify,
                               textDirection: TextDirection.rtl,
                             ),
                           ),

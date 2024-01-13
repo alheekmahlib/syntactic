@@ -9,6 +9,7 @@ import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/ourApps_controller.dart';
 import '../data/models/ourApp_model.dart';
+import '/core/utils/constants/extensions.dart';
 
 class OurAppsBuild extends StatelessWidget {
   const OurAppsBuild({super.key});
@@ -22,7 +23,8 @@ class OurAppsBuild extends StatelessWidget {
         if (snapshot.hasData) {
           List<OurAppInfo>? apps = snapshot.data;
           return Padding(
-            padding: orientation(context, const EdgeInsets.only(top: 130.0),
+            padding: context.customOrientation(
+                const EdgeInsets.only(top: 130.0),
                 const EdgeInsets.only(top: 46.0)),
             child: Column(
               children: [

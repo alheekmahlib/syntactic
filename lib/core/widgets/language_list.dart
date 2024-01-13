@@ -76,9 +76,9 @@ class LanguageList extends StatelessWidget {
                             lang['name'],
                             style: TextStyle(
                               color: 'appLang'.tr == lang['appLang']
-                                  ? Theme.of(context).primaryColorDark
+                                  ? Theme.of(context).primaryColorLight
                                   : Theme.of(context)
-                                      .primaryColorDark
+                                      .primaryColorLight
                                       .withOpacity(.5),
                               fontSize: 18,
                               fontFamily: 'noto',

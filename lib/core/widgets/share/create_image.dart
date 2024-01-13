@@ -61,7 +61,7 @@ class VerseImageCreator extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        width: 960.0,
+        width: 1280.0,
         decoration: const BoxDecoration(
             color: Color(0xFFC39B7B),
             borderRadius: BorderRadius.all(Radius.circular(8))),
@@ -97,10 +97,10 @@ class VerseImageCreator extends StatelessWidget {
                 ),
                 const Gap(16),
                 SizedBox(
-                  width: 928.0,
+                  width: 1248.0,
                   child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 4.0, horizontal: 16.0),
+                          vertical: 4.0, horizontal: 32.0),
                       child: Column(
                         children: [
                           Align(
@@ -108,7 +108,7 @@ class VerseImageCreator extends StatelessWidget {
                             child: Text(
                               bookCtrl.loadPoemBooks ? firstPoem! : pageText,
                               style: TextStyle(
-                                fontSize: 20.0.sp,
+                                fontSize: 18.0.sp,
                                 fontFamily: 'naskh',
                                 color: Theme.of(context).primaryColorLight,
                               ),
@@ -120,7 +120,7 @@ class VerseImageCreator extends StatelessWidget {
                             child: Text(
                               secondPoem!,
                               style: TextStyle(
-                                fontSize: 20.0.sp,
+                                fontSize: 18.0.sp,
                                 fontFamily: 'naskh',
                                 color: Theme.of(context).primaryColorLight,
                               ),
@@ -130,60 +130,90 @@ class VerseImageCreator extends StatelessWidget {
                       )),
                 ),
                 const Gap(24),
-                Container(
+                Stack(
                   alignment: Alignment.center,
-                  color: Theme.of(context).colorScheme.surface,
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 4.0, horizontal: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          RotatedBox(
-                              quarterTurns: 15,
-                              child: syntactic_logo(context, height: 15)),
-                          vDivider(context, height: 25),
-                          Text(
-                            'تطبيق\nنحــــوي',
-                            style: TextStyle(
-                                fontSize: 14.0,
-                                fontFamily: 'kufi',
-                                color: Theme.of(context).primaryColorLight,
-                                height: 1),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            bookName,
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              fontFamily: 'kufi',
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          const Gap(4),
-                          bookCtrl.loadPoemBooks
-                              ? const SizedBox.shrink()
-                              : Text(
-                                  'الصفحة: ${sl<GeneralController>().arabicNumbers.convert(pageNumber)}',
-                                  style: TextStyle(
-                                    fontSize: 12.0,
-                                    fontFamily: 'kufi',
-                                    fontWeight: FontWeight.bold,
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
+                  children: [
+                    Container(
+                      height: 45,
+                      width: MediaQuery.sizeOf(context).width,
+                      alignment: Alignment.center,
+                      color: Theme.of(context).colorScheme.surface,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4.0, horizontal: 16.0),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              color: const Color(0xffFFFFFE),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 5.0),
+                              child: Row(
+                                children: [
+                                  RotatedBox(
+                                      quarterTurns: 15,
+                                      child: syntactic(context, height: 15)),
+                                  vDivider(context, height: 25),
+                                  Text(
+                                    'تطبيق\nنحــــوي',
+                                    style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontFamily: 'kufi',
+                                        color:
+                                            Theme.of(context).primaryColorLight,
+                                        height: 1),
                                   ),
-                                  textAlign: TextAlign.center,
+                                ],
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                vDivider(context,
+                                    height: 25, color: const Color(0xffFFFFFE)),
+                                Column(
+                                  children: [
+                                    Text(
+                                      bookName,
+                                      style: TextStyle(
+                                        fontSize: 12.0,
+                                        fontFamily: 'kufi',
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const Gap(4),
+                                    bookCtrl.loadPoemBooks
+                                        ? const SizedBox.shrink()
+                                        : Text(
+                                            'الصفحة: ${sl<GeneralController>().arabicNumbers.convert(pageNumber)}',
+                                            style: TextStyle(
+                                              fontSize: 12.0,
+                                              fontFamily: 'kufi',
+                                              fontWeight: FontWeight.bold,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                  ],
                                 ),
-                        ],
+                                vDivider(context,
+                                    height: 25, color: const Color(0xffFFFFFE)),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 )
                 // Add more widgets as needed
               ],

@@ -95,35 +95,61 @@ class SearchControllers extends GetxController {
   // }
 
   void search(String query) {
-    if (bookCtrl.poem.value == null || query.isEmpty) {
+    if (bookCtrl.loadedPoems.isEmpty || query.isEmpty) {
       searchResults.clear();
       return;
     }
 
     final normalizedQuery = removeDiacritics(query.trim().toLowerCase());
+    final List<SearchResult> tempSearchResults = [];
+    for (final poemBook in bookCtrl.loadedPoems) {
+      tempSearchResults
+          .addAll(poemBook.chapters!.asMap().entries.expand((entry) {
+        final chapterIndex = entry.key;
+        final chapter = entry.value;
 
-    searchResults.assignAll(
-        bookCtrl.poem.value!.chapters!.asMap().entries.expand((entry) {
-      final chapterIndex = entry.key;
-      final chapter = entry.value;
+        return chapter.poems!
+            .where((poem) =>
+                removeDiacritics(poem.firstPoem!.toLowerCase())
+                    .contains(normalizedQuery) ||
+                removeDiacritics(poem.secondPoem!.toLowerCase())
+                    .contains(normalizedQuery) ||
+                removeDiacritics(chapter.explanation!.toLowerCase())
+                    .contains(normalizedQuery))
+            .map((poem) => SearchResult(
+                  chapterIndex: chapterIndex,
+                  bookName: poemBook.bookName!,
+                  chapterTitle: chapter.chapterTitle!,
+                  poemNumber: poem.poemNumber!,
+                  explanation: chapter.explanation!,
+                  firstPoem: poem.firstPoem!,
+                  secondPoem: poem.secondPoem!,
+                  bookType: poemBook.bookType!,
+                  bookNumber: poemBook.bookNumber!,
+                ));
+      }).toList());
+    }
+    for (final poemBook in bookCtrl.loadedBooks) {
+      poemBook.pages!.asMap().forEach((chapterIndex, chapter) {
+        final List<String> pageTextList = [(chapter.pageText ?? "")];
+        tempSearchResults.addAll(pageTextList
+            .where((page) => removeDiacritics(page?.toLowerCase() ?? "")
+                .contains(normalizedQuery))
+            .map<SearchResult>((pageText) => SearchResult(
+                  chapterIndex: chapterIndex,
+                  bookName: poemBook.bookName!,
+                  chapterTitle: chapter.chapterTitle!,
+                  poemNumber: chapter.pageNumber ?? 0,
+                  explanation: '',
+                  firstPoem: pageText,
+                  secondPoem: '',
+                  bookType: poemBook.bookType!,
+                  bookNumber: poemBook.bookNumber!,
+                )));
+      });
+    }
 
-      return chapter.poems!
-          .where((poem) =>
-              removeDiacritics(poem.firstPoem!.toLowerCase())
-                  .contains(normalizedQuery) ||
-              removeDiacritics(poem.secondPoem!.toLowerCase())
-                  .contains(normalizedQuery) ||
-              removeDiacritics(chapter.explanation!.toLowerCase())
-                  .contains(normalizedQuery))
-          .map((poem) => SearchResult(
-              chapterIndex: chapterIndex,
-              bookName: bookCtrl.poem.value!.bookName!,
-              chapterTitle: chapter.chapterTitle!,
-              poemNumber: poem.poemNumber!,
-              explanation: chapter.explanation!,
-              firstPoem: poem.firstPoem!,
-              secondPoem: poem.secondPoem!));
-    }).toList());
+    searchResults.assignAll(tempSearchResults);
   }
 
   // void search(String query) {

@@ -29,20 +29,18 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             ListView(
+              primary: false,
               padding: EdgeInsets.zero,
               children: const [
                 Row(
                   children: [
                     Expanded(child: LastRead()),
-                    SizedBox(
-                      width: 32.0,
-                    ),
+                    Gap(32),
                     Expanded(child: HijriDate()),
                   ],
                 ),
-                SizedBox(
-                  height: 32.0,
-                )
+                Gap(32),
+                BooksBuild()
               ],
             )),
       ),

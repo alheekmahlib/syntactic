@@ -196,5 +196,80 @@
   "@page": {
     "type": "text",
     "placeholders": {}
+  },
+  "share": "مشاركة التطبيق",
+  "@share": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "email": "تواصل معنا",
+  "@email": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "facebook": "تابعنا على الفيسبوك",
+  "@facebook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutApp": "عن التطبيق",
+  "@aboutApp": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutAppDetails": "تطبيق \"نحويّ\" هو تطبيق يقدم محتوى متخصص في قواعد اللغة العربية. إليك شرح مختصر لمميزات هذا التطبيق:",
+  "@aboutAppDetails": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutApp1": "يتميز التطبيق بواجهة مستخدم بسيطة وسهلة الاستخدام، مما يسهل على المستخدمين تصفح واستخدام محتوى الكتب بشكل فعال.",
+  "@aboutApp1": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutApp2": "يوفر التطبيق إمكانية إضافة شارات مرجعية للصفحات المهمة والعودة إليها لاحقًا، مما يسهل على المستخدمين استئناف قراءتهم والرجوع إلى المعلومات الرئيسية.",
+  "@aboutApp2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutApp3": "يقدم التطبيق خاصية الاستماع لمحتوى بعض الكتب، مما يتيح للمستخدمين تجربة الاستماع إلى النصوص بدلاً من قراءتها.",
+  "@aboutApp3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutApp4": "يتيح التطبيق للمستخدمين نسخ محتوى الكتب بسهولة، مما يسهل عمليات النسخ واللصق للرجوع إلى المعلومات فيما بعد.",
+  "@aboutApp4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutApp5": "يوفر التطبيق خاصية مشاركة المحتوى بشكل نصي أو كصورة، مما يتيح للمستخدمين مشاركة المعلومات مع الآخرين بطرق متعددة.",
+  "@aboutApp5": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutAppTitle1": "واجهة سهلة الاستخدام:",
+  "@aboutAppTitle1": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutAppTitle2": "إضافة شارات مرجعية والرجوع اليها في أي وقت آخر:",
+  "@aboutAppTitle2": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutAppTitle3": "الاستماع لمحتوى بعض الكتب:",
+  "@aboutAppTitle3": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutAppTitle4": "نسخ المحتوى:",
+  "@aboutAppTitle4": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutAppTitle5": "مشاركة المحتوى كنص أو كصورة:",
+  "@aboutAppTitle5": {
+    "type": "text",
+    "placeholders": {}
   }
 }

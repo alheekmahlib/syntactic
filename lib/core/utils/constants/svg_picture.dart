@@ -153,14 +153,28 @@ play_backgraond(BuildContext context,
     'assets/svg/play_backgraond.svg',
     height: height,
     width: width,
-    colorFilter: ColorFilter.mode(
-        color ?? Theme.of(context).colorScheme.secondary, BlendMode.srcIn),
+  );
+}
+
+Widget syntactic(BuildContext context, {double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/syntactic.svg',
+    height: height,
+    width: width,
+  );
+}
+
+Widget syntactic_r(BuildContext context, {double? height, double? width}) {
+  return SvgPicture.asset(
+    'assets/svg/syntactic_r.svg',
+    height: height,
+    width: width,
   );
 }
 
 Widget syntactic_logo(BuildContext context, {double? height, double? width}) {
   return SvgPicture.asset(
-    'assets/svg/syntactic.svg',
+    'assets/svg/syntactic_logo.svg',
     height: height,
     width: width,
   );

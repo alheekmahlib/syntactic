@@ -87,7 +87,7 @@ class AudioWidget extends StatelessWidget {
                     width: 50,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: Theme.of(context).cardColor,
                         borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(4),
                           bottomRight: Radius.circular(4),

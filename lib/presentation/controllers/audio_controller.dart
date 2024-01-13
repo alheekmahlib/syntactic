@@ -31,6 +31,7 @@ class AudioController extends GetxController {
   RxDouble audioWidgetPosition = (-240.0).obs;
   final bookCtrl = sl<BooksController>();
   StreamSubscription<PlayerState>? playerStateSubscription;
+  double poemHeight = 90.0;
 
   late final chapterList = ConcatenatingAudioSource(
     // Start loading next item just before reaching it
@@ -43,8 +44,8 @@ class AudioController extends GetxController {
 
   createPlayList() {
     final bookCtrl = sl<BooksController>();
-    int poemLength = bookCtrl
-        .poem.value!.chapters![bookCtrl.chapterNumber.value].poems!.length;
+    int poemLength = bookCtrl.detailsCtrl.value!
+        .chapters![bookCtrl.chapterNumber.value].poems!.length;
     chaptersPlayList = List.generate(poemLength, (i) {
       poemNumber.value = i + 1;
       return AudioSource.uri(
@@ -64,7 +65,7 @@ class AudioController extends GetxController {
   }
 
   Future<void> subscribeToPlayerState() async {
-    int poemLength = bookCtrl.poem.value!
+    int poemLength = bookCtrl.detailsCtrl.value!
         .chapters![bookCtrl.chapterNumber.value].poems!.last.poemNumber!;
     playerStateSubscription =
         audioPlayer.playerStateStream.listen((playerState) async {
@@ -77,13 +78,17 @@ class AudioController extends GetxController {
           await audioPlayer.seekToNext();
           await changeAudioSource(
               bookCtrl.chapterNumber.value, poemNumber.value += 1);
+          sl<BooksController>().scrollController.animateTo(
+              (poemNumber.value).toDouble() * poemHeight,
+              duration: const Duration(milliseconds: 600),
+              curve: Curves.easeInOut);
         }
       }
     });
   }
 
   Future<void> seekToNextPoem() async {
-    int poemLength = bookCtrl.poem.value!
+    int poemLength = bookCtrl.detailsCtrl.value!
         .chapters![bookCtrl.chapterNumber.value].poems!.last.poemNumber!;
     if (poemNumber.value >= poemLength) {
       await audioPlayer.stop();
@@ -93,12 +98,17 @@ class AudioController extends GetxController {
       await audioPlayer.seekToNext();
       await changeAudioSource(
           bookCtrl.chapterNumber.value, poemNumber.value += 1);
+      await sl<BooksController>().scrollController.animateTo(
+            (poemNumber.value).toDouble() * poemHeight,
+            duration: const Duration(milliseconds: 600),
+            curve: Curves.easeInOut,
+          );
     }
   }
 
   Future<void> seekToPrevious() async {
-    int firstPoem = bookCtrl.poem.value!.chapters![bookCtrl.chapterNumber.value]
-        .poems!.first.poemNumber!;
+    int firstPoem = bookCtrl.detailsCtrl.value!
+        .chapters![bookCtrl.chapterNumber.value].poems!.first.poemNumber!;
     if (poemNumber.value <= firstPoem) {
       await audioPlayer.stop();
     } else {

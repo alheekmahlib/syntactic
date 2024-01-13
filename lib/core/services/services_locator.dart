@@ -8,8 +8,10 @@ import '../../presentation/controllers/audio_controller.dart';
 import '../../presentation/controllers/bookmarks_controller.dart';
 import '../../presentation/controllers/books_controller.dart';
 import '../../presentation/controllers/general_controller.dart';
+import '../../presentation/controllers/onboarding_controller.dart';
 import '../../presentation/controllers/ourApps_controller.dart';
 import '../../presentation/controllers/search_controller.dart';
+import '../../presentation/controllers/splashScreen_controller.dart';
 import '../../presentation/screens/bookmark/data/data_source/object_box.dart';
 import '../../presentation/screens/bookmark/data/models/objectbox.g.dart';
 
@@ -57,8 +59,16 @@ class ServicesLocator {
 
     sl.registerLazySingleton<SearchControllers>(
         () => Get.put<SearchControllers>(SearchControllers(), permanent: true));
+
     sl.registerLazySingleton<BookmarksController>(() =>
         Get.put<BookmarksController>(BookmarksController(), permanent: true));
+
+    sl.registerLazySingleton<SplashScreenController>(() =>
+        Get.put<SplashScreenController>(SplashScreenController(),
+            permanent: true));
+
+    sl.registerLazySingleton<OnboardingController>(() =>
+        Get.put<OnboardingController>(OnboardingController(), permanent: true));
     // UiHelper.rateMyApp.init();
     //
     // if (Platform.isWindows || Platform.isLinux) {

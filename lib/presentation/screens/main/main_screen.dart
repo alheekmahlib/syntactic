@@ -15,7 +15,9 @@ import '../bookmark/screens/bookmarks_screen.dart';
 import '../books/screen/books_build.dart';
 import '../home/screen/home_screen.dart';
 import '../search/screens/search_screen.dart';
+import '/core/utils/constants/extensions.dart';
 import '/core/widgets/settings_list.dart';
+import '/presentation/controllers/onboarding_controller.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -25,7 +27,8 @@ class MainScreen extends StatelessWidget {
     double height = MediaQuery.sizeOf(context).height;
     final general = sl<GeneralController>();
     final settings = sl<SettingsController>();
-    // settings.loadLang();
+    settings.loadLang();
+    sl<OnboardingController>().startOnboarding();
     general.updateGreeting();
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -37,8 +40,8 @@ class MainScreen extends StatelessWidget {
             child: SliderDrawer(
               key: sl<GeneralController>().key,
               splashColor: Theme.of(context).colorScheme.background,
-              slideDirection: orientation(context, SlideDirection.TOP_TO_BOTTOM,
-                  SlideDirection.LEFT_TO_RIGHT),
+              slideDirection: context.customOrientation(
+                  SlideDirection.TOP_TO_BOTTOM, SlideDirection.RIGHT_TO_LEFT),
               sliderOpenSize: platformView(
                   orientation(
                       context, height / 1 / 2 * 1.1, height / 1 / 2 * 1.5),
@@ -51,19 +54,26 @@ class MainScreen extends StatelessWidget {
                     context,
                     const EdgeInsets.symmetric(horizontal: 16.0),
                     const EdgeInsets.symmetric(horizontal: 40.0)),
-                drawerIconColor: Theme.of(context).colorScheme.secondary,
-                drawerIcon: IconButton(
-                  icon: Icon(
-                    Icons.menu,
-                    size: 24.h,
-                    color: Theme.of(context).colorScheme.surface,
-                  ),
-                  onPressed: () =>
-                      sl<GeneralController>().key.currentState?.toggle(),
-                ),
+                drawerIconSize: 1.0,
+                drawerIconColor: Colors.transparent,
+                drawerIcon: const SizedBox.shrink(),
                 appBarHeight: 40.h,
-                title: Container(),
-                trailing: syntactic_logo(context, height: 20),
+                isTitleCenter: false,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.menu,
+                        size: 24.h,
+                        color: Theme.of(context).colorScheme.surface,
+                      ),
+                      onPressed: () =>
+                          sl<GeneralController>().key.currentState?.toggle(),
+                    ),
+                    syntactic(context, height: 20),
+                  ],
+                ),
               ),
               slider: const SettingsList(),
               child: PageView(

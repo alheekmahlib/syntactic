@@ -10,7 +10,7 @@ class BooksChapterTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bookCtrl = sl<BooksController>();
-    final chapter = bookCtrl.book.value!.pages![chapterIndex];
+    final chapter = bookCtrl.currentBook!.pages![chapterIndex];
     return chapter.chapterTitle != null && chapter.chapterTitle!.isNotEmpty
         ? Container(
             alignment: Alignment.center,
@@ -21,7 +21,7 @@ class BooksChapterTitle extends StatelessWidget {
                 color: Theme.of(context).colorScheme.surface,
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             child: Text(
-              bookCtrl.book.value!.pages![chapterIndex].chapterTitle!,
+              bookCtrl.currentBook!.pages![chapterIndex].chapterTitle!,
               style: TextStyle(
                 fontSize: 17.0,
                 fontFamily: 'kufi',

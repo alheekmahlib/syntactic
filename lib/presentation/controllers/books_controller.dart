@@ -1,4 +1,4 @@
-import 'dart:convert' show json, jsonDecode, utf8;
+import 'dart:convert' show json, jsonDecode;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,11 +9,11 @@ import '../screens/books/books_screen/models/books_model.dart';
 import '../screens/books/poems_screen/models/poem_model.dart';
 
 class BooksController extends GetxController {
-  var poem = Rxn<Book>();
-  var book = Rxn<BooksModel>();
+  // var _currentPoemBook = Rxn<PoemBook>();
+  // var _currentBook = Rxn<BooksModel>();
   RxInt selectedPoemIndex = (-1).obs;
   final selectedPair = <int, bool>{}.obs;
-  RxList<BookName> booksName = <BookName>[].obs;
+  RxList<BookName> allBooksNames = <BookName>[].obs;
   RxList<BookName> books = <BookName>[].obs;
   RxList<BookName> poemBooks = <BookName>[].obs;
   int pairStartIndex = -1;
@@ -21,14 +21,26 @@ class BooksController extends GetxController {
   RxInt chapterNumber = 1.obs;
   RxString currentBookName = ''.obs;
   RxInt bookNumber = 0.obs;
-  List<BookName> loadedBooks = [];
+  List<BookName> loadedBooksNames = [];
   bool loadPoemBooks = true;
+  final scrollController = ScrollController();
 
-  BookName? get currentPoemBook =>
-      loadedBooks.firstWhereOrNull((book) => book.number == bookNumber.value);
+  List<int> get poemBookNumbers =>
+      poemBooks.map((book) => book.number - 1).toList();
+  List<int> get otherBookNumbers =>
+      books.map((book) => book.number - 1).toList();
+  List<PoemBook> loadedPoems = [];
+  List<BooksModel> loadedBooks = [];
+
+  // void jumpToPoemIndex() {
+  //   scrollController.jumpTo(sl<AudioController>().poemNumber.value.toDouble());
+  // }
+
+  // BookName? get currentBookNameCollection => loadedBooksNames
+  //     .firstWhereOrNull((book) => book.number == bookNumber.value);
 
   void separateBooksByTypes() {
-    for (var b in booksName) {
+    for (var b in allBooksNames) {
       b.bookType == 'book' ? books.add(b) : poemBooks.add(b);
     }
   }
@@ -36,19 +48,23 @@ class BooksController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    loadBooksName();
-    loadBook();
+    _loadBooksName().then((_) => _loadBooks());
   }
 
-  get detailsCtrl => loadPoemBooks ? poem.value : book.value;
+  BooksModel? get currentBook => loadedBooks
+      .firstWhereOrNull((book) => book.bookName == currentBookName.value);
+  PoemBook? get currentPoemBook => loadedPoems
+      .firstWhereOrNull((book) => book.bookName == currentBookName.value);
 
-  Future<void> loadBooksName() async {
+  dynamic get detailsCtrl => loadPoemBooks ? currentPoemBook : currentBook;
+
+  Future<void> _loadBooksName() async {
     try {
       String data = await rootBundle.loadString('assets/json/bookName.json');
       List<dynamic> booksData = json.decode(data)['books'];
       List<BookName> bookList =
           booksData.map((json) => BookName.fromJson(json)).toList();
-      booksName.assignAll(bookList);
+      allBooksNames.assignAll(bookList);
       separateBooksByTypes();
       print('poemBooks: ${poemBooks.length}');
       print('books: ${books.length}');
@@ -58,83 +74,48 @@ class BooksController extends GetxController {
     }
   }
 
-  Future<void> loadBook() async {
-    List<int> poemBookNumbers =
-        poemBooks.map((book) => book.number - 1).toList();
-    List<int> otherBookNumbers = books.map((book) => book.number - 1).toList();
-    List<Book> loadedPoems = [];
-    List<BooksModel> loadedBooks = [];
-
+  Future<void> _loadBooks() async {
     try {
-      if (loadPoemBooks) {
-        for (int poemBookNumber in poemBookNumbers) {
-          String jsonData = await rootBundle.loadString(
-              'assets/json/poems/$poemBookNumber.json',
-              cache: false);
-          var decodedData = jsonDecode(jsonData);
-          loadedPoems.add(Book.fromJson(decodedData));
-          print(loadedPoems.length);
-        }
-      } else {
-        for (int otherBookNumber in otherBookNumbers) {
-          String jsonData = await rootBundle.loadString(
-              'assets/json/books/$otherBookNumber.json',
-              cache: false);
-          var decodedData = jsonDecode(jsonData);
-          loadedBooks.add(BooksModel.fromJson(decodedData));
-        }
+      for (int poemBookNumber in poemBookNumbers) {
+        String jsonData = await rootBundle
+            .loadString('assets/json/poems/$poemBookNumber.json', cache: false);
+        var decodedData = jsonDecode(jsonData);
+        loadedPoems.add(PoemBook.fromJson(decodedData));
+        print(loadedPoems.length);
+      }
+      // } else {
+      for (int otherBookNumber in otherBookNumbers) {
+        String jsonData = await rootBundle.loadString(
+            'assets/json/books/$otherBookNumber.json',
+            cache: false);
+        var decodedData = jsonDecode(jsonData);
+        loadedBooks.add(BooksModel.fromJson(decodedData));
       }
 
       // Check if loadedBooks is not empty before accessing an index
-      if (loadedBooks.isNotEmpty || loadedPoems.isNotEmpty) {
-        // Ensure that bookNumber.value is a valid index
-        // if (bookNumber.value >= 0 &&
-        //     bookNumber.value < loadedPoems.length &&
-        //     bookNumber.value < loadedBooks.length) {
-        if (loadPoemBooks) {
-          poem.value = loadedPoems[bookNumber.value];
-          print(loadedPoems[bookNumber.value].bookName);
-        } else {
-          book.value = loadedBooks[bookNumber.value];
-          print(loadedBooks[bookNumber.value].bookName);
-        }
+      // if (loadedBooks.isNotEmpty || loadedPoems.isNotEmpty) {
+      //   // Ensure that bookNumber.value is a valid index
+      //   // if (bookNumber.value >= 0 &&
+      //   //     bookNumber.value < loadedPoems.length &&
+      //   //     bookNumber.value < loadedBooks.length) {
+      //   if (loadPoemBooks) {
+      //     _currentPoemBook.value = loadedPoems[bookNumber.value];
+      //     print(loadedPoems[bookNumber.value].bookName);
+      //   } else {
+      //     _currentBook.value = loadedBooks[bookNumber.value];
+      //     print(loadedBooks[bookNumber.value].bookName);
+      //   }
 
-        // } else {
-        //   print('Invalid bookNumber.value: ${bookNumber.value}');
-        // }
-      } else {
-        print('Loaded books list is empty');
-      }
+      // } else {
+      //   print('Invalid bookNumber.value: ${bookNumber.value}');
+      // }
+      // } else {
+      //   print('Loaded books list is empty');
+      // }
     } catch (e) {
       print('Error loading books: $e');
     }
   }
-
-  // Future<void> loadBooks() async {
-  //   try {
-  //     String bookNamesData =
-  //     await rootBundle.loadString('assets/json/bookName.json');
-  //     List<dynamic> booksData = json.decode(bookNamesData)['books'];
-  //     List<BookName> bookList =
-  //     booksData.map((json) => BookName.fromJson(json)).toList();
-  //     booksName.assignAll(bookList);
-  //
-  //     for (var bookJson in booksData) {
-  //       // Ensure 'number' is not null before attempting to load the JSON file
-  //       if (bookJson['number'] != null) {
-  //         String jsonData = await rootBundle.loadString(
-  //             'assets/json/${bookJson['number']}.json',
-  //             cache: false);
-  //         var decodedData = jsonDecode(jsonData);
-  //         // book.value = Book.fromJson(decodedData);
-  //         books.add(Rxn<Book>(Book.fromJson(decodedData)));
-  //         print('booksData: $booksData');
-  //       }
-  //     }
-  //   } catch (e) {
-  //     print('Error loading books: $e');
-  //   }
-  // }
 
   void poemSelect(int index) {
     if (selectedPoemIndex.value == index) {
@@ -166,6 +147,4 @@ class BooksController extends GetxController {
                 '$bookName\n$chapterText\n\n$pageText\n${'page'.tr}: $pageNumber'))
         .then((value) => customSnackBar(context, 'copied'.tr));
   }
-
-  Future<void> getCurrentBook() async => await loadBook();
 }

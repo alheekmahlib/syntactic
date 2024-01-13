@@ -10,6 +10,7 @@ ThemeData brownTheme = lightTheme.copyWith(
     primaryColorLight: const Color(0xFF77554C),
     canvasColor: const Color(0xFFFFEEDC),
     scaffoldBackgroundColor: const Color(0xFFFAF8F0),
+    cardColor: const Color(0xFFFFFBF8),
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
       primary: Color(0xFF77554C),
@@ -35,6 +36,7 @@ ThemeData darkBrownTheme = darkTheme.copyWith(
     primaryColorLight: const Color(0xFFFFFBF8),
     canvasColor: const Color(0xFFFFEEDC),
     scaffoldBackgroundColor: const Color(0xFF181818),
+    cardColor: const Color(0xFFFFFBF8),
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
       primary: Color(0xffE6DAC8),

@@ -10,6 +10,7 @@ import '../../../core/widgets/beige_container.dart';
 import '../../../core/widgets/white_container.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../controllers/general_controller.dart';
+import '/core/utils/constants/extensions.dart';
 import '/presentation/controllers/ourApps_controller.dart';
 import '/presentation/screens/ourApp/widgets/our_apps_build.dart';
 
@@ -23,7 +24,7 @@ class OurApps extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         centerTitle: true,
-        title: syntactic_logo(context, height: 20),
+        title: syntactic(context, height: 20),
         backgroundColor: Theme.of(context).colorScheme.background,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         elevation: 0,
@@ -54,7 +55,7 @@ class OurApps extends StatelessWidget {
                     context,
                     const OurAppsBuild(),
                     false,
-                    height: orientation(context, 450.0.h, 300.0.h),
+                    height: context.customOrientation(450.0.h, 300.0.h),
                     width: MediaQuery.sizeOf(context).width,
                   ),
                 ),
@@ -63,7 +64,7 @@ class OurApps extends StatelessWidget {
                     child: Transform.translate(
                         offset: orientation(
                             context, Offset(0, -250.h), Offset(0, -130.h)),
-                        child: syntactic_logo(
+                        child: syntactic(
                           context,
                           width: 80.0.w,
                         ))),
@@ -108,7 +109,7 @@ class OurApps extends StatelessWidget {
                           Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              syntactic_logo(
+                              syntactic(
                                 context,
                                 width: 80.0,
                               ),

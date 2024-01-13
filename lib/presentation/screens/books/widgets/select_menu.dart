@@ -15,7 +15,7 @@ class SelectMenu extends StatelessWidget {
   var poem;
   var chapters;
   final BooksModel? book;
-  final Book? poemBook;
+  final PoemBook? poemBook;
   final Widget myWidget;
   SelectMenu(
       {super.key,
@@ -130,7 +130,7 @@ class SelectMenu extends StatelessWidget {
               // audioCtrl.createPlayList();
               audioCtrl.changeAudioSource(
                   bookCtrl.chapterNumber.value, audioCtrl.poemNumber.value);
-              audioCtrl.audioWidgetPosition.value = 30.0;
+              audioCtrl.audioWidgetPosition.value = 0.0;
               // bookCtrl.selectedPoemIndex.value = -1;
             },
             child: play_logo(context,

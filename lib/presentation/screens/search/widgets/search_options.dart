@@ -60,13 +60,14 @@ class SearchOptions extends StatelessWidget {
                           options: const GroupButtonOptions(
                             groupingType: GroupingType.column,
                           ),
-                          buttons: bookCtrl.booksName.toList(),
+                          buttons: bookCtrl.allBooksNames.toList(),
                           buttonIndexedBuilder: (selected, index, context) {
                             return CheckBoxTile(
-                              title: bookCtrl.booksName[index].name,
+                              title: bookCtrl.allBooksNames[index].name,
                               selected: selected,
                               onTap: () {
-                                bookCtrl.bookNumber.value = index;
+                                bookCtrl.bookNumber.value =
+                                    bookCtrl.allBooksNames[index].number;
                                 if (!selected) {
                                   sl<SearchControllers>()
                                       .checkboxesController
@@ -76,6 +77,7 @@ class SearchOptions extends StatelessWidget {
                                 sl<SearchControllers>()
                                     .checkboxesController
                                     .unselectIndex(index);
+                                print('$selected');
                               },
                             );
                           },
@@ -102,7 +104,6 @@ class SearchOptions extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  bookCtrl.loadBook();
                   Navigator.pop(context);
                 },
                 child: Text(

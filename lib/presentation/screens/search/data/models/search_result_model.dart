@@ -6,6 +6,8 @@ class SearchResult {
   final String explanation;
   final String firstPoem;
   final String secondPoem;
+  final String bookType;
+  final int bookNumber;
 
   SearchResult({
     required this.chapterIndex,
@@ -15,5 +17,7 @@ class SearchResult {
     required this.explanation,
     required this.firstPoem,
     required this.secondPoem,
+    required this.bookType,
+    required this.bookNumber,
   });
 }

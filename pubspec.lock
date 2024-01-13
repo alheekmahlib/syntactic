@@ -448,6 +448,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  horizontal_stepper_step:
+    dependency: "direct main"
+    description:
+      name: horizontal_stepper_step
+      sha256: "66ca9574690b798ee1e3af50d5ae9123f67d9d8cbb7389e99445f1815c0c84cb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   http:
     dependency: "direct main"
     description:

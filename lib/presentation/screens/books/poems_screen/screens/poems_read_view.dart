@@ -30,7 +30,7 @@ class PoemsReadView extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.background,
           appBar: AppBar(
             centerTitle: true,
-            title: syntactic_logo(context, height: 20),
+            title: syntactic(context, height: 20),
             backgroundColor: Theme.of(context).colorScheme.background,
             systemOverlayStyle: SystemUiOverlayStyle.dark,
             elevation: 0,
@@ -51,109 +51,80 @@ class PoemsReadView extends StatelessWidget {
                   child: fontSizeDropDown(context)),
             ],
           ),
-          body: Stack(
-            children: [
-              FutureBuilder(
-                  future: bookCtrl.getCurrentBook(),
-                  builder: (context, snap) {
-                    return snap.connectionState != ConnectionState.done
-                        ? const Center(
-                            child: CircularProgressIndicator.adaptive())
-                        : PageView.builder(
-                            itemCount: bookCtrl.poem.value!.chapters!.length,
-                            onPageChanged: (chapterIndex) {
-                              bookCtrl.chapterNumber.value = chapterIndex;
-                              audioCtrl.createPlayList();
-                            },
-                            controller: PageController(
-                                initialPage: bookCtrl.chapterNumber.value),
-                            itemBuilder: (context, chapterIndex) {
-                              return ListView(
+          body: SafeArea(
+            child: Stack(
+              children: [
+                PageView.builder(
+                    itemCount: bookCtrl.currentPoemBook!.chapters!.length,
+                    onPageChanged: (chapterIndex) {
+                      bookCtrl.chapterNumber.value = chapterIndex;
+                      audioCtrl.createPlayList();
+                    },
+                    controller: PageController(
+                        initialPage: bookCtrl.chapterNumber.value),
+                    itemBuilder: (context, chapterIndex) {
+                      return SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              right: 16.0,
+                              left: 16.0,
+                              top: 16.0,
+                              bottom: 140.0),
+                          child: BeigeContainer(
+                              width: MediaQuery.sizeOf(context).width,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .surface
+                                  .withOpacity(.15),
+                              myWidget: Column(
                                 children: [
-                                  Padding(
+                                  Container(
+                                    alignment: Alignment.center,
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 16.0),
-                                    child: Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 16.0),
-                                          child: BeigeContainer(
-                                              width: MediaQuery.sizeOf(context)
-                                                  .width,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .surface
-                                                  .withOpacity(.15),
-                                              myWidget: Column(
-                                                children: [
-                                                  Container(
-                                                    alignment: Alignment.center,
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        vertical: 4.0,
-                                                        horizontal: 16.0),
-                                                    margin: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 40.0),
-                                                    decoration: BoxDecoration(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .surface,
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                .all(
-                                                                Radius.circular(
-                                                                    4))),
-                                                    child: Text(
-                                                      bookCtrl
-                                                          .poem
-                                                          .value!
-                                                          .chapters![
-                                                              chapterIndex]
-                                                          .chapterTitle!,
-                                                      style: TextStyle(
-                                                        fontSize: 17.0,
-                                                        fontFamily: 'kufi',
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .secondary,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                  ),
-                                                  PoemsBuild(
-                                                    chapterNumber: chapterIndex,
-                                                  ),
-                                                ],
-                                              )),
-                                        ),
-                                      ],
+                                        vertical: 4.0, horizontal: 16.0),
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 40.0),
+                                    decoration: BoxDecoration(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface,
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(4))),
+                                    child: Text(
+                                      bookCtrl
+                                          .currentPoemBook!
+                                          .chapters![chapterIndex]
+                                          .chapterTitle!,
+                                      style: TextStyle(
+                                        fontSize: 17.0,
+                                        fontFamily: 'kufi',
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
                                   ),
-                                  // Padding(
-                                  //   padding:
-                                  //       const EdgeInsets.symmetric(horizontal: 8.0),
-                                  //   child: hDivider(context,
-                                  //       width: MediaQuery.sizeOf(context).width),
-                                  // ),
-                                  // ExplanationPoem(chapterNumber: chapterIndex),
+                                  PoemsBuild(
+                                    chapterNumber: chapterIndex,
+                                  ),
                                 ],
-                              );
-                            });
-                  }),
-              Obx(() => AnimatedPositioned(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                  bottom: audioCtrl.audioWidgetPosition.value,
-                  left: 0,
-                  right: 0,
-                  child: const AudioWidget())),
-            ],
+                              )),
+                        ),
+                      );
+                    }),
+                Obx(() => AnimatedPositioned(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                    bottom: audioCtrl.audioWidgetPosition.value,
+                    width: orientation(
+                        context,
+                        MediaQuery.sizeOf(context).width,
+                        MediaQuery.sizeOf(context).width * .5),
+                    child: const AudioWidget())),
+              ],
+            ),
           ),
         ),
       ),

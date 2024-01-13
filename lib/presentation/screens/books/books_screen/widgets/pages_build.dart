@@ -15,14 +15,14 @@ class PagesBuild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bookCtrl = sl<BooksController>();
-    final book = bookCtrl.book.value!.pages![chapterNumber];
+    final book = bookCtrl.currentBook!.pages![chapterNumber];
     return Padding(
       padding: const EdgeInsets.only(top: 32.0),
       child: SelectMenu(
         index: book.pageNumber!,
         poem: book,
         chapters: book,
-        book: bookCtrl.book.value!,
+        book: bookCtrl.currentBook!,
         myWidget: GestureDetector(
           onLongPress: () {
             // audioCtrl.poemNumber.value = book.pageNumber!;

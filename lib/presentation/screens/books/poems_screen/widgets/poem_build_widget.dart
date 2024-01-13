@@ -55,15 +55,14 @@ class PoemBuildWidget extends StatelessWidget {
                           onTap: () {
                             bookCtrl.loadPoemBooks = true;
                             bookCtrl.bookNumber.value = index;
-                            bookCtrl.loadBook();
+                            bookCtrl.currentBookName.value =
+                                bookCtrl.poemBooks[index].name;
                             Get.to(
                                 () => DetailsPoemScreen(
                                       bookNumber: index + 1,
                                       bookName: bookCtrl.poemBooks[index].name,
                                     ),
                                 transition: Transition.downToUp);
-                            bookCtrl.currentBookName.value =
-                                bookCtrl.poemBooks[index].name;
                           },
                           child: SizedBox(
                             height: 160.h,
@@ -79,12 +78,12 @@ class PoemBuildWidget extends StatelessWidget {
                                         height: 138.h,
                                         width: 176.w)),
                                 SizedBox(
-                                  height: 90.h,
-                                  width: 90.w,
+                                  height: 90,
+                                  width: 90,
                                   child: Text(
                                     bookCtrl.poemBooks[index].name,
                                     style: TextStyle(
-                                        fontSize: 16.0.sp,
+                                        fontSize: 18.0,
                                         fontFamily: 'kufi',
                                         fontWeight: FontWeight.bold,
                                         color: Theme.of(context)

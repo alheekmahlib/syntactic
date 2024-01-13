@@ -15,9 +15,9 @@ class SettingsController extends GetxController {
     update();
   }
 
-  void loadLang() {
+  Future<void> loadLang() async {
     String? langCode = sl<SharedPreferences>().getString("lang");
-    String? langName = sl<SharedPreferences>().getString("langName");
+    String? langName = sl<SharedPreferences>().getString("lang_name");
 
     debugPrint(
         'Lang code: $langCode'); // Add this line to debug the value of langCode
