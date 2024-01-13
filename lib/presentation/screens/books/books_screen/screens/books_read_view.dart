@@ -21,87 +21,83 @@ class BooksReadView extends StatelessWidget {
   Widget build(BuildContext context) {
     final bookCtrl = sl<BooksController>();
     bookCtrl.chapterNumber.value = chapterNumber;
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: PieCanvas(
-        child: Scaffold(
+    return PieCanvas(
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        appBar: AppBar(
+          centerTitle: true,
+          title: syntactic(context, height: 20),
           backgroundColor: Theme.of(context).colorScheme.background,
-          appBar: AppBar(
-            centerTitle: true,
-            title: syntactic(context, height: 20),
-            backgroundColor: Theme.of(context).colorScheme.background,
-            systemOverlayStyle: SystemUiOverlayStyle.dark,
-            elevation: 0,
-            leading: GestureDetector(
-                onTap: Get.back,
-                child: sl<GeneralController>().checkWidgetRtlLayout(
-                  Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Image.asset(
-                        'assets/icons/arrow_back.png',
-                        color: Theme.of(context).colorScheme.primary,
-                      )),
-                )),
-            leadingWidth: 56,
-            actions: [
-              Transform.translate(
-                  offset: const Offset(0, -7),
-                  child: fontSizeDropDown(context)),
-            ],
-          ),
-          body: SafeArea(
-            child: Stack(
-              children: [
-                PageView.builder(
-                    itemCount: bookCtrl.currentBook!.pages!.length,
-                    onPageChanged: (chapterIndex) {
-                      bookCtrl.chapterNumber.value = chapterIndex;
-                    },
-                    controller: PageController(
-                        initialPage: bookCtrl.chapterNumber.value),
-                    itemBuilder: (context, chapterIndex) {
-                      return SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: BeigeContainer(
-                                    width: MediaQuery.sizeOf(context).width,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .surface
-                                        .withOpacity(.15),
-                                    myWidget: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            BooksChapterTitle(
-                                                chapterIndex: chapterIndex),
-                                            BooksBookmarkWidget(
-                                                chapterIndex: chapterIndex,
-                                                bookType: bookCtrl
-                                                    .currentBook!.bookType!),
-                                          ],
-                                        ),
-                                        PagesBuild(
-                                          chapterNumber: chapterIndex,
-                                        ),
-                                      ],
-                                    )),
-                              ),
-                            ],
-                          ),
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
+          elevation: 0,
+          leading: GestureDetector(
+              onTap: Get.back,
+              child: sl<GeneralController>().checkWidgetRtlLayout(
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Image.asset(
+                      'assets/icons/arrow_back.png',
+                      color: Theme.of(context).colorScheme.primary,
+                    )),
+              )),
+          leadingWidth: 56,
+          actions: [
+            Transform.translate(
+                offset: const Offset(0, -7), child: fontSizeDropDown(context)),
+          ],
+        ),
+        body: SafeArea(
+          child: Stack(
+            children: [
+              PageView.builder(
+                  itemCount: bookCtrl.currentBook!.pages!.length,
+                  onPageChanged: (chapterIndex) {
+                    bookCtrl.chapterNumber.value = chapterIndex;
+                  },
+                  controller:
+                      PageController(initialPage: bookCtrl.chapterNumber.value),
+                  itemBuilder: (context, chapterIndex) {
+                    return SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: BeigeContainer(
+                                  width: MediaQuery.sizeOf(context).width,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .surface
+                                      .withOpacity(.15),
+                                  myWidget: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          BooksChapterTitle(
+                                              chapterIndex: chapterIndex),
+                                          BooksBookmarkWidget(
+                                              chapterIndex: chapterIndex,
+                                              bookType: bookCtrl
+                                                  .currentBook!.bookType!),
+                                        ],
+                                      ),
+                                      PagesBuild(
+                                        chapterNumber: chapterIndex,
+                                      ),
+                                    ],
+                                  )),
+                            ),
+                          ],
                         ),
-                      );
-                    }),
-              ],
-            ),
+                      ),
+                    );
+                  }),
+            ],
           ),
         ),
       ),

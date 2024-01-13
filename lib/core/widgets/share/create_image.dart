@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:syntactic/core/widgets/widgets.dart';
-import 'package:syntactic/presentation/controllers/general_controller.dart';
 
 import '../../../presentation/controllers/books_controller.dart';
 import '../../../presentation/controllers/share_controller.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/svg_picture.dart';
+import '/core/widgets/widgets.dart';
+import '/presentation/controllers/general_controller.dart';
 
 class VerseImageCreator extends StatelessWidget {
   final String bookName;
@@ -110,7 +110,7 @@ class VerseImageCreator extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 18.0.sp,
                                 fontFamily: 'naskh',
-                                color: Theme.of(context).primaryColorLight,
+                                color: const Color(0xFF77554C),
                               ),
                               textAlign: TextAlign.justify,
                             ),
@@ -122,7 +122,7 @@ class VerseImageCreator extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 18.0.sp,
                                 fontFamily: 'naskh',
-                                color: Theme.of(context).primaryColorLight,
+                                color: const Color(0xFF77554C),
                               ),
                             ),
                           ),
@@ -158,13 +158,12 @@ class VerseImageCreator extends StatelessWidget {
                                       quarterTurns: 15,
                                       child: syntactic(context, height: 15)),
                                   vDivider(context, height: 25),
-                                  Text(
+                                  const Text(
                                     'تطبيق\nنحــــوي',
                                     style: TextStyle(
                                         fontSize: 14.0,
                                         fontFamily: 'kufi',
-                                        color:
-                                            Theme.of(context).primaryColorLight,
+                                        color: Color(0xFF77554C),
                                         height: 1),
                                   ),
                                 ],

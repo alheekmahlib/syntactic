@@ -9,8 +9,6 @@ import '../screens/books/books_screen/models/books_model.dart';
 import '../screens/books/poems_screen/models/poem_model.dart';
 
 class BooksController extends GetxController {
-  // var _currentPoemBook = Rxn<PoemBook>();
-  // var _currentBook = Rxn<BooksModel>();
   RxInt selectedPoemIndex = (-1).obs;
   final selectedPair = <int, bool>{}.obs;
   RxList<BookName> allBooksNames = <BookName>[].obs;
