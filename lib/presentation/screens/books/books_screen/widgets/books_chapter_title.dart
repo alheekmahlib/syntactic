@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:syntactic/presentation/controllers/books_controller.dart';
 
 import '../../../../../core/services/services_locator.dart';
+import '/presentation/controllers/books_controller.dart';
 
 class BooksChapterTitle extends StatelessWidget {
   final int chapterIndex;

@@ -73,7 +73,7 @@ class LastRead extends StatelessWidget {
                 offset: const Offset(100, -45),
                 child: Container(
                   height: 32,
-                  width: 107,
+                  width: 150,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.surface,

@@ -18,7 +18,7 @@ class OnboardingScreen extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        height: MediaQuery.sizeOf(context).height * .8,
+        height: MediaQuery.sizeOf(context).height * .9,
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.background,
             borderRadius: const BorderRadius.only(
@@ -39,8 +39,10 @@ class OnboardingScreen extends StatelessWidget {
                         totalStep: 5,
                         completedStep: onboarding.pageNumber.value,
                         selectedColor: Theme.of(context).colorScheme.surface,
-                        backGroundColor:
-                            Theme.of(context).colorScheme.secondary,
+                        backGroundColor: Theme.of(context)
+                            .colorScheme
+                            .surface
+                            .withOpacity(.2),
                       ),
                     ),
                   ),

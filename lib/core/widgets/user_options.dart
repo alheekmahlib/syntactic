@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nahawi/core/utils/constants/extensions/launch_alheekmah_url_extension.dart';
 
-import '../../presentation/controllers/general_controller.dart';
-import '../services/services_locator.dart';
+import '/core/utils/constants/extensions/contact_us_extension.dart';
+import '/core/utils/constants/extensions/share_app_extension.dart';
 import 'beige_container.dart';
 
 class UserOptions extends StatelessWidget {
@@ -10,7 +11,6 @@ class UserOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final generalCtrl = sl<GeneralController>();
     return BeigeContainer(
       color: Theme.of(context).colorScheme.surface.withOpacity(.15),
       myWidget: Padding(
@@ -41,12 +41,14 @@ class UserOptions extends StatelessWidget {
                   ),
                 ],
               ),
-              onTap: () async {
-                generalCtrl.share();
-              },
+              onTap: () async => await shareApp(),
             ),
             const Divider(),
             InkWell(
+              onTap: () => contactUs(
+                  subject: 'تطبيق نحويّ : النحو العربي',
+                  stringText:
+                      'يرجى كتابة أي ملاحظة أو إستفسار\n| جزاكم الله خيرًا |'),
               child: Row(
                 children: [
                   Icon(
@@ -70,12 +72,10 @@ class UserOptions extends StatelessWidget {
                   ),
                 ],
               ),
-              onTap: () {
-                generalCtrl.launchEmail();
-              },
             ),
             const Divider(),
             InkWell(
+              onTap: () => launchAlheekmahUrl(),
               child: Row(
                 children: [
                   Icon(
@@ -99,10 +99,6 @@ class UserOptions extends StatelessWidget {
                   ),
                 ],
               ),
-              onTap: () {
-                generalCtrl.launchUrl(
-                    Uri.parse('https://www.facebook.com/alheekmahlib'));
-              },
             ),
           ],
         ),

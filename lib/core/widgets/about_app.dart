@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:syntactic/core/utils/constants/extensions.dart';
-import 'package:syntactic/presentation/controllers/general_controller.dart';
 
 import '../services/services_locator.dart';
 import '../utils/constants/svg_picture.dart';
+import '/core/utils/constants/extensions.dart';
+import '/presentation/controllers/general_controller.dart';
 import 'about_app_text.dart';
 import 'user_options.dart';
 

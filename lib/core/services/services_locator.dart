@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:syntactic/presentation/controllers/settings_controller.dart';
-import 'package:syntactic/presentation/controllers/share_controller.dart';
 
 import '../../presentation/controllers/audio_controller.dart';
 import '../../presentation/controllers/bookmarks_controller.dart';
@@ -14,6 +12,8 @@ import '../../presentation/controllers/search_controller.dart';
 import '../../presentation/controllers/splashScreen_controller.dart';
 import '../../presentation/screens/bookmark/data/data_source/object_box.dart';
 import '../../presentation/screens/bookmark/data/models/objectbox.g.dart';
+import '/presentation/controllers/settings_controller.dart';
+import '/presentation/controllers/share_controller.dart';
 
 final sl = GetIt.instance;
 

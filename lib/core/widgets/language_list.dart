@@ -21,14 +21,16 @@ class LanguageList extends StatelessWidget {
           expandedTextColor: Theme.of(context).primaryColorDark,
           title: SizedBox(
             width: 100.0,
-            child: Text(
-              sl<SettingsController>().languageName.value,
-              style: TextStyle(
-                fontFamily: 'kufi',
-                fontSize: 18,
-                color: Theme.of(context).primaryColorLight,
-              ),
-            ),
+            child: Obx(() {
+              return Text(
+                sl<SettingsController>().languageName.value,
+                style: TextStyle(
+                  fontFamily: 'kufi',
+                  fontSize: 18,
+                  color: Theme.of(context).primaryColorLight,
+                ),
+              );
+            }),
           ),
           baseColor: Theme.of(context).colorScheme.background,
           expandedColor: Theme.of(context).colorScheme.background,

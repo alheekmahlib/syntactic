@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:syntactic/core/widgets/widgets.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_picture.dart';
@@ -12,6 +11,7 @@ import '../../../bookmark/data/models/bookmarks_models.dart';
 import '../../../bookmark/data/models/objectbox.g.dart';
 import '../widgets/book_details.dart';
 import '../widgets/books_chapter_build.dart';
+import '/core/widgets/widgets.dart';
 
 class DetailsBooksScreen extends StatelessWidget {
   final int bookNumber;

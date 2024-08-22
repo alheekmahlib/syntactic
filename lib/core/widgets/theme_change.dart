@@ -1,9 +1,9 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:syntactic/core/widgets/theme_service.dart';
 
 import '../utils/helpers/theme_config.dart';
+import '/core/widgets/theme_service.dart';
 
 class ThemeChange extends StatelessWidget {
   const ThemeChange({super.key});

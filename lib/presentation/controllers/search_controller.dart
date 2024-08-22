@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:group_button/group_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:syntactic/presentation/controllers/books_controller.dart';
 
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../screens/home/data/models/time_now.dart';
 import '../screens/search/data/models/search_model.dart';
 import '../screens/search/data/models/search_result_model.dart';
+import '/presentation/controllers/books_controller.dart';
 
 class SearchControllers extends GetxController {
   List<int> booksSelected = [];

@@ -44,7 +44,7 @@ class BookBuildWidget extends StatelessWidget {
         ),
         Obx(() {
           return bookCtrl.books.isEmpty
-              ? const Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator.adaptive())
               : Wrap(
                   alignment: WrapAlignment.center,
                   children: List.generate(
@@ -84,7 +84,7 @@ class BookBuildWidget extends StatelessWidget {
                                   child: Text(
                                     bookCtrl.books[index].name,
                                     style: TextStyle(
-                                        fontSize: 18.0,
+                                        fontSize: 16.0.sp,
                                         fontFamily: 'kufi',
                                         fontWeight: FontWeight.bold,
                                         color: Theme.of(context)

@@ -85,7 +85,7 @@ class VerseImageCreator extends StatelessWidget {
                       color: Theme.of(context).colorScheme.surface,
                       borderRadius: const BorderRadius.all(Radius.circular(4))),
                   child: Text(
-                    chapterTitle,
+                    bookName,
                     style: TextStyle(
                       fontSize: 17.0,
                       fontFamily: 'kufi',
@@ -176,7 +176,7 @@ class VerseImageCreator extends StatelessWidget {
                                 Column(
                                   children: [
                                     Text(
-                                      bookName,
+                                      chapterTitle,
                                       style: TextStyle(
                                         fontSize: 12.0,
                                         fontFamily: 'kufi',

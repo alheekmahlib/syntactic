@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:syntactic/presentation/controllers/books_controller.dart';
 
 import '../../core/services/services_locator.dart';
 import '../screens/bookmark/data/models/bookmarks_models.dart';
 import '../screens/bookmark/data/models/objectbox.g.dart';
 import '../screens/books/books_screen/screens/books_read_view.dart';
 import '../screens/books/poems_screen/screens/poems_read_view.dart';
+import '/presentation/controllers/books_controller.dart';
 
 class BookmarksController extends GetxController {
   final bookmarks = sl<Store>().box<BookmarkModel>();
@@ -79,8 +79,14 @@ class BookmarksController extends GetxController {
         : lastBookmark.poemText!;
   }
 
-  void addBookmark(String bookName, String chapterName, String poemText,
-      int chapterNumber, int bookNumber, String bookType, int poemNumber) {
+  Future<void> addBookmark(
+      String bookName,
+      String chapterName,
+      String poemText,
+      int chapterNumber,
+      int bookNumber,
+      String bookType,
+      int poemNumber) async {
     final bookmark = BookmarkModel()
       ..bookName = bookName
       ..chapterName = chapterName

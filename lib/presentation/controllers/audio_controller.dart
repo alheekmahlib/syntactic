@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer' as developer;
+import 'dart:developer';
 
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -7,24 +7,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:rxdart/rxdart.dart' as R;
-import 'package:syntactic/core/utils/constants/constants.dart';
-import 'package:syntactic/presentation/controllers/books_controller.dart';
+import 'package:rxdart/rxdart.dart' as rx;
 
+import '/core/utils/constants/constants.dart';
+import '/presentation/controllers/books_controller.dart';
 import '../../core/services/services_locator.dart';
 import '../../core/widgets/seek_bar.dart';
 
 class AudioController extends GetxController {
   RxInt position = RxInt(0);
   ArabicNumbers arabicNumber = ArabicNumbers();
-  final bool _isDisposed = false;
+  final bool isDisposed = false;
   AudioPlayer audioPlayer = AudioPlayer();
   RxBool isPlaying = false.obs;
   RxInt poemNumber = 1.obs;
-  ConnectivityResult connectionStatus = ConnectivityResult.none;
-  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
-  late ConnectivityResult result;
-  final _connectivity = Connectivity();
+  List<ConnectivityResult> connectionStatus = [ConnectivityResult.none];
+  final Connectivity connectivity = Connectivity();
+  late StreamSubscription<List<ConnectivityResult>> connectivitySubscription;
   List<AudioSource>? chaptersPlayList;
   Rx<PositionData>? positionData;
   var activeButton = RxString('');
@@ -53,13 +52,11 @@ class AudioController extends GetxController {
             '${Constants.audioUrl}${bookCtrl.bookNumber}/${bookCtrl.chapterNumber.value + 1}/${poemNumber.value}.mp3'),
       );
     });
-    print(
-        '${Constants.audioUrl}${bookCtrl.bookNumber}/${bookCtrl.chapterNumber.value}/${poemNumber.value}.mp3');
+    log('${Constants.audioUrl}${bookCtrl.bookNumber}/${bookCtrl.chapterNumber.value}/${poemNumber.value}.mp3');
   }
 
   Future<void> changeAudioSource(int chapterNumber, int poemNumber) async {
-    print(
-        'changeAudioSource: ${Constants.audioUrl}${bookCtrl.bookNumber}/${chapterNumber + 1}/$poemNumber.mp3');
+    log('changeAudioSource: ${Constants.audioUrl}${bookCtrl.bookNumber}/${chapterNumber + 1}/$poemNumber.mp3');
     await audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(
         '${Constants.audioUrl}${bookCtrl.bookNumber}/${chapterNumber + 1}/$poemNumber.mp3')));
   }
@@ -123,14 +120,14 @@ class AudioController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     sl<BooksController>().loadPoemBooks ? createPlayList() : null;
-    _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    connectivitySubscription =
+        connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
     initConnectivity();
     sl<BooksController>().loadPoemBooks ? await subscribeToPlayerState() : null;
   }
 
   Stream<PositionData> get positionDataStream =>
-      R.Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
+      rx.Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
           audioPlayer.positionStream,
           audioPlayer.bufferedPositionStream,
           audioPlayer.durationStream,
@@ -140,7 +137,7 @@ class AudioController extends GetxController {
   @override
   void onClose() {
     audioPlayer.dispose();
-    _connectivitySubscription.cancel();
+    connectivitySubscription.cancel();
     audioPlayer.pause();
     playerStateSubscription!.cancel();
     super.onClose();
@@ -153,21 +150,33 @@ class AudioController extends GetxController {
     //print('state = $state');
   }
 
+  /// -------- [ConnectivityMethods] ----------
+
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initConnectivity() async {
+    late List<ConnectivityResult> result;
+    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      result = await _connectivity.checkConnectivity();
+      result = await connectivity.checkConnectivity();
     } on PlatformException catch (e) {
-      developer.log('Couldn\'t check connectivity status', error: e);
+      log('Couldn\'t check connectivity status', error: e);
       return;
     }
-    if (_isDisposed) {
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (isDisposed) {
       return Future.value(null);
     }
+
     return _updateConnectionStatus(result);
   }
 
-  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+  Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
     connectionStatus = result;
+    update();
+    // ignore: avoid_log(message)
+    log('Connectivity changed: $connectionStatus');
   }
 }

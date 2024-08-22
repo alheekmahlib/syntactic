@@ -43,10 +43,6 @@ class PoemsReadView extends StatelessWidget {
                     )),
               )),
           leadingWidth: 56,
-          actions: [
-            Transform.translate(
-                offset: const Offset(0, -7), child: fontSizeDropDown(context)),
-          ],
         ),
         body: SafeArea(
           child: Stack(
