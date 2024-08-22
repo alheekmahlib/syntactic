@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:syntactic/presentation/controllers/audio_controller.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/widgets/beige_container.dart';
 import '../../../../controllers/books_controller.dart';
 import '../../widgets/select_menu.dart';
+import '/presentation/controllers/audio_controller.dart';
 import 'poem_bookmark_widget.dart';
 
 class PoemsBuild extends StatelessWidget {

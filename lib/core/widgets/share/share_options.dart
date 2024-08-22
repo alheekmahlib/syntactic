@@ -51,7 +51,7 @@ Future<void> showShareOptionsBottomSheet(
                               .surface
                               .withOpacity(.5),
                           color2: Theme.of(context).colorScheme.surface),
-                      sharing(context, width: 50.0),
+                      sharing(context, width: 20.0),
                     ],
                   )),
             ),
@@ -94,18 +94,43 @@ Future<void> showShareOptionsBottomSheet(
                           ),
                           Expanded(
                             flex: 8,
-                            child: Text(
-                              bookCtrl.loadPoemBooks
-                                  ? '$firstPoem\n$secondPoem'
-                                  : pageText,
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColorLight,
-                                  fontSize: 16,
-                                  fontFamily: 'naskh'),
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.justify,
-                              textDirection: TextDirection.rtl,
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    bookCtrl.loadPoemBooks
+                                        ? '$firstPoem'
+                                        : pageText,
+                                    style: TextStyle(
+                                        color:
+                                            Theme.of(context).primaryColorLight,
+                                        fontSize: 16,
+                                        fontFamily: 'naskh'),
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.justify,
+                                    textDirection: TextDirection.rtl,
+                                  ),
+                                ),
+                                bookCtrl.loadPoemBooks
+                                    ? Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          '$secondPoem',
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .primaryColorLight,
+                                              fontSize: 16,
+                                              fontFamily: 'naskh'),
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.justify,
+                                          textDirection: TextDirection.rtl,
+                                        ),
+                                      )
+                                    : const SizedBox.shrink(),
+                              ],
                             ),
                           ),
                         ],

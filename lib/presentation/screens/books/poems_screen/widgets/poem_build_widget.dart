@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:syntactic/core/widgets/widgets.dart';
 
 import '../../../../../core/services/services_locator.dart';
 import '../../../../../core/utils/constants/svg_picture.dart';
 import '../../../../controllers/books_controller.dart';
 import '../screens/details_poem_screen.dart';
+import '/core/widgets/widgets.dart';
 
 class PoemBuildWidget extends StatelessWidget {
   const PoemBuildWidget({super.key});
@@ -83,7 +83,7 @@ class PoemBuildWidget extends StatelessWidget {
                                   child: Text(
                                     bookCtrl.poemBooks[index].name,
                                     style: TextStyle(
-                                        fontSize: 18.0,
+                                        fontSize: 16.0.sp,
                                         fontFamily: 'kufi',
                                         fontWeight: FontWeight.bold,
                                         color: Theme.of(context)

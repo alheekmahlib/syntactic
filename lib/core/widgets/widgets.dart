@@ -3,17 +3,18 @@ import 'dart:io';
 import 'package:another_xlider/another_xlider.dart';
 import 'package:another_xlider/models/handler.dart';
 import 'package:another_xlider/models/handler_animation.dart';
+import 'package:another_xlider/models/tooltip/tooltip.dart';
 import 'package:another_xlider/models/trackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:syntactic/core/utils/constants/extensions.dart';
 
 import '../../presentation/controllers/general_controller.dart';
 import '../services/services_locator.dart';
 import '../utils/constants/shared_preferences_constants.dart';
 import '../utils/constants/svg_picture.dart';
+import '/core/utils/constants/extensions.dart';
 import '/presentation/controllers/audio_controller.dart';
 
 orientation(BuildContext context, var n1, n2) {
@@ -107,6 +108,9 @@ Widget fontSizeDropDown(BuildContext context) {
               max: 50,
               min: 17,
               rtl: true,
+              tooltip: FlutterSliderTooltip(
+                disabled: true,
+              ),
               trackBar: FlutterSliderTrackBar(
                 inactiveTrackBarHeight: 5,
                 activeTrackBarHeight: 5,
@@ -307,26 +311,21 @@ Widget customClose(
   Color? color,
   Color? color2,
 }) {
-  return Semantics(
-    button: true,
-    label: 'Close',
-    child: GestureDetector(
-      onTap: close ??
-          () {
-            sl<AudioController>().audioWidgetPosition.value = -240.0;
-          },
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Icon(Icons.close_outlined,
-              size: 32,
-              color: color ??
-                  Theme.of(context).colorScheme.secondary.withOpacity(.5)),
-          Icon(Icons.close_outlined,
-              size: 16,
-              color: color2 ?? Theme.of(context).colorScheme.secondary),
-        ],
-      ),
+  return GestureDetector(
+    onTap: close ??
+        () {
+          sl<AudioController>().audioWidgetPosition.value = -240.0;
+        },
+    child: Stack(
+      alignment: Alignment.center,
+      children: [
+        Icon(Icons.close_outlined,
+            size: 32,
+            color: color ??
+                Theme.of(context).colorScheme.secondary.withOpacity(.5)),
+        Icon(Icons.close_outlined,
+            size: 16, color: color2 ?? Theme.of(context).colorScheme.secondary),
+      ],
     ),
   );
 }

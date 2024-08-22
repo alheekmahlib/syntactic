@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:syntactic/presentation/screens/bookmark/widgets/bookmarks_build.dart';
 
 import '../../../../core/widgets/beige_container.dart';
 import '../widgets/bookmarks_title.dart';
+import '/presentation/screens/bookmark/widgets/bookmarks_build.dart';
 
 class BookmarksScreen extends StatelessWidget {
   const BookmarksScreen({super.key});

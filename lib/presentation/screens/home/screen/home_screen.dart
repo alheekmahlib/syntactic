@@ -11,7 +11,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // sl<OnboardingController>().startOnboarding();
     return Container(
       color: Theme.of(context).colorScheme.secondary,
       child: Padding(

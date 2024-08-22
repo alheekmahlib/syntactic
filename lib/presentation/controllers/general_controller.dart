@@ -1,14 +1,8 @@
-import 'dart:io' show File;
-
 import 'package:arabic_numbers/arabic_numbers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/services/services_locator.dart';
 import '../../core/utils/constants/lists.dart';
@@ -34,7 +28,7 @@ class GeneralController extends GetxController {
   }
 
   String get currentLang => prefs.getString(AppConstants.LANGUAGE_CODE) ?? 'ar';
-  Future<void> setCurrentlang(String newLangCode) async =>
+  Future<void> setCurrentLang(String newLangCode) async =>
       await prefs.setString(AppConstants.LANGUAGE_CODE, newLangCode);
 
   /// Greeting
@@ -135,70 +129,5 @@ class GeneralController extends GetxController {
     } else {
       return FloatingActionButtonLocation.endDocked;
     }
-  }
-
-  String copyHadith(String bookName, String bookOtherName, String chapterName,
-      int hadithNumber) {
-    return '''$bookName\n'''
-        '''$bookOtherName\n'''
-        '''$chapterName\n\n'''
-        '''تجربة\n'''
-        '''رقم الحديث: $hadithNumber''';
-  }
-
-  String copyHadithWithTranslate(String arAndEnName, String bookOtherName,
-      String chapterName, int hadithNumber) {
-    return '''$arAndEnName\n'''
-        '''$bookOtherName\n'''
-        '''$chapterName\n\n'''
-        '''تجربة\n'''
-        '''رقم الحديث: $hadithNumber\n\n'''
-        '''${'translationOfHadith'.tr}\n'''
-        '''test\n'''
-        '''${'hadithNumber'.tr}: $hadithNumber''';
-  }
-
-  Future<void> launchEmail() async {
-    const String subject = "القرآن الكريم - مكتبة الحكمة";
-    const String stringText =
-        "يرجى كتابة أي ملاحظة أو إستفسار\n| جزاكم الله خيرًا |";
-    String uri =
-        'mailto:haozo89@gmail.com?subject=${Uri.encodeComponent(subject)}&body=${Uri.encodeComponent(stringText)}';
-    if (await canLaunchUrl(Uri.parse(uri))) {
-      await launchUrl(Uri.parse(uri));
-    } else {
-      print("No email client found");
-    }
-  }
-
-  Future<void> launchUrl(Uri uri) async {
-    if (await canLaunchUrl(Uri.parse('$uri'))) {
-      await launchUrl(Uri.parse('$uri'));
-    } else {
-      print("No url client found");
-    }
-  }
-
-  Future<void> share() async {
-    final ByteData bytes =
-        await rootBundle.load('assets/images/AlQuranAlKareem.jpg');
-    final Uint8List list = bytes.buffer.asUint8List();
-
-    final tempDir = await getTemporaryDirectory();
-    final file = await File('${tempDir.path}/AlQuranAlKareem.jpg').create();
-    file.writeAsBytesSync(list);
-    await Share.shareXFiles(
-      [XFile((file.path))],
-      text:
-          'الدَّالَّ على الخيرِ كفاعِلِهِ\n\nعن أبي هريرة رضي الله عنه أن رسول الله صلى الله عليه وسلم قال: من دعا إلى هدى كان له من الأجر مثل أجور من تبعه لا ينقص ذلك من أجورهم شيئا، ومن دعا إلى ضلالة كان عليه من الإثم مثل آثام من تبعه لا ينقص ذلك من آثامهم شيئا.\n\nالقرآن الكريم - مكتبة الحكمة\nروابط التحميل:\nللايفون: https://apps.apple.com/us/app/القرآن-الكريم-مكتبة-الحكمة/id1500153222\nللاندرويد:\nPlay Store: https://play.google.com/store/apps/details?id=com.alheekmah.alquranalkareem.alquranalkareem\nApp Gallery: https://appgallery.cloud.huawei.com/marketshare/app/C102051725?locale=en_US&source=appshare&subsource=C102051725',
-    );
-  }
-
-  Map<String, String?> separateTitleAndBody(String theHoleText) {
-    final RegExp myRegex = RegExp(r'(.*)\\n(\w.*)');
-    final match = myRegex.firstMatch(theHoleText);
-    final String? title = match?.group(1);
-    final String? body = match?.group(2);
-    return {'title': title, 'body': body};
   }
 }

@@ -34,6 +34,13 @@ class MyApp extends StatelessWidget {
                         AppConstants.languages[0].languageCode,
                         AppConstants.languages[0].countryCode),
                     theme: myTheme,
+                    builder: (context, child) {
+                      return MediaQuery(
+                        child: child!,
+                        data: MediaQuery.of(context)
+                            .copyWith(textScaler: const TextScaler.linear(1.0)),
+                      );
+                    },
                     home: const Directionality(
                       textDirection: TextDirection.rtl,
                       child: SplashScreen(),

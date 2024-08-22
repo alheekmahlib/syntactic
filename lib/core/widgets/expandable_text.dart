@@ -44,16 +44,21 @@ class ExpandableText extends StatelessWidget {
                   ? const BoxConstraints()
                   : BoxConstraints(maxHeight: maxHeight),
               child: sl<GeneralController>().isExpanded.value
-                  ? SelectableText(
-                      text,
-                      textAlign: textAlign,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'naskh',
-                        color: Theme.of(context).colorScheme.primary,
-                        // overflow: TextOverflow.fade,
+                  ? Theme(
+                      data: ThemeData(
+                        canvasColor: const Color(0xFFFFEEDC),
                       ),
-                      textDirection: TextDirection.rtl,
+                      child: SelectableText(
+                        text,
+                        textAlign: textAlign,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'naskh',
+                          color: Theme.of(context).colorScheme.primary,
+                          // overflow: TextOverflow.fade,
+                        ),
+                        textDirection: TextDirection.rtl,
+                      ),
                     )
                   : Text(
                       text,

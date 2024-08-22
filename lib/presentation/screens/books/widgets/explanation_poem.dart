@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:syntactic/presentation/controllers/general_controller.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/widgets/beige_container.dart';
 import '../../../controllers/books_controller.dart';
+import '/presentation/controllers/general_controller.dart';
 
 class ExplanationPoem extends StatelessWidget {
   final int chapterNumber;

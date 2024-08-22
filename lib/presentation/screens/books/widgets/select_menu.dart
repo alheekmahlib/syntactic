@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:nahawi/core/widgets/widgets.dart';
 import 'package:pie_menu/pie_menu.dart';
-import 'package:syntactic/presentation/screens/books/books_screen/models/books_model.dart';
 
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/widgets/share/share_options.dart';
@@ -9,6 +10,7 @@ import '../poems_screen/models/poem_model.dart';
 import '/core/utils/constants/svg_picture.dart';
 import '/presentation/controllers/audio_controller.dart';
 import '/presentation/controllers/books_controller.dart';
+import '/presentation/screens/books/books_screen/models/books_model.dart';
 
 class SelectMenu extends StatelessWidget {
   final int index;
@@ -104,15 +106,19 @@ class SelectMenu extends StatelessWidget {
           tooltip: const Text(''),
           onSelect: () {
             bookCtrl.selectedPoemIndex.value = -1;
-            bookmarkCtrl.addBookmark(
-              bookCtrl.currentBookName.value,
-              chapters.chapterTitle!,
-              bookCtrl.loadPoemBooks ? poem.firstPoem! : poem.pageText!,
-              bookCtrl.loadPoemBooks ? bookCtrl.chapterNumber.value : index,
-              bookCtrl.bookNumber.value,
-              bookCtrl.loadPoemBooks ? poemBook!.bookType! : book!.bookType!,
-              bookCtrl.loadPoemBooks ? index : index,
-            );
+            bookmarkCtrl
+                .addBookmark(
+                  bookCtrl.currentBookName.value,
+                  chapters.chapterTitle!,
+                  bookCtrl.loadPoemBooks ? poem.firstPoem! : poem.pageText!,
+                  bookCtrl.loadPoemBooks ? bookCtrl.chapterNumber.value : index,
+                  bookCtrl.bookNumber.value,
+                  bookCtrl.loadPoemBooks
+                      ? poemBook!.bookType!
+                      : book!.bookType!,
+                  bookCtrl.loadPoemBooks ? index : index,
+                )
+                .then((value) => customSnackBar(context, 'bookmarkAdded'.tr));
             print('bookCtrl.bookNumber.value ${bookCtrl.bookNumber.value}');
             bookmarkCtrl.update();
           },

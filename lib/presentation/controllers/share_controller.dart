@@ -38,7 +38,7 @@ class ShareController extends GetxController {
         '$bookName\n'
         '$chapterTitle\n\n'
         '${bookCtrl.loadPoemBooks ? '$firstPoem\n$secondPoem\n' : pageText}\n'
-        '$pageNumber',
+        '${bookCtrl.loadPoemBooks ? '' : '${'page'.tr}: $pageNumber'}',
         subject: bookName);
   }
 

@@ -30,27 +30,25 @@ class BookDetails extends StatelessWidget {
           width: 380,
           color: Theme.of(context).colorScheme.surface.withOpacity(.15),
           myWidget: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: Container(
-                  height: 32,
-                  width: 107,
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
-                      borderRadius: const BorderRadius.all(Radius.circular(4))),
-                  child: Text(
-                    'aboutBook'.tr,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: 'kufi',
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                    textAlign: TextAlign.center,
+              Container(
+                height: 32,
+                width: 107,
+                alignment: Alignment.center,
+                margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface,
+                    borderRadius: const BorderRadius.all(Radius.circular(4))),
+                child: Text(
+                  'aboutBook'.tr,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontFamily: 'kufi',
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ),
               Gap(35.h),
