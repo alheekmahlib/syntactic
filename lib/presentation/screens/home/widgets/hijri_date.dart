@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../../core/widgets/local_notification/notification_screen.dart';
+import '../../../../core/widgets/local_notification/widgets/notification_icon_widget.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/general_controller.dart';
 
@@ -14,7 +17,8 @@ class HijriDate extends StatelessWidget {
     var today = HijriCalendar.now();
     final general = sl<GeneralController>();
     general.updateGreeting();
-    return Column(
+    return Stack(
+      alignment: Alignment.center,
       children: [
         SizedBox(
           height: 160,
@@ -80,6 +84,18 @@ class HijriDate extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        ),
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: GestureDetector(
+            onTap: () => Get.bottomSheet(NotificationsScreen(),
+                isScrollControlled: true),
+            child: NotificationIconWidget(
+              isCurve: true,
+              iconHeight: 25.0,
+              padding: 4.0,
+            ),
           ),
         ),
       ],

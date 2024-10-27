@@ -276,5 +276,82 @@
   "@notAvailable": {
     "type": "text",
     "placeholders": {}
+  },
+  "notification": "নোটিফিকেশনস",
+  "@notification": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noNotifications": "কোনো নোটিফিকেশন নেই",
+  "@noNotifications": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDownloaded": "বইটি ডাউনলোড করা হয়েছে।",
+  "@booksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDeleted": "বইটি মুছে ফেলা হয়েছে।",
+  "@booksDeleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noBooksDownloaded": "আপনি এখনো কোনো বই ডাউনলোড করেননি।",
+  "@noBooksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addBookmark": "বুকমার্ক যোগ!",
+  "@addBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deletedBookmark": "বুকমার্ক মুছে ফেলা হয়েছে!",
+  "@deletedBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "explanation": "ব্যাখ্যা",
+  "@explanation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "showAll": "আরও দেখাও",
+  "@showAll": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What's New": "নতুন কি আছে",
+  "@What's New": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "start": "শুরু করুন",
+  "@start": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails1": "۞ আরও বই যোগ করা হয়েছে।\n۞ ব্যাখ্যা বই যোগ করা হয়েছে।\n۞ অ্যাপের জন্য বিজ্ঞপ্তি যোগ করা হয়েছে।\n۞ কর্মক্ষমতা উন্নত করা হয়েছে।",
+  "@What'sNewDetails1": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notifyBooksBody": "আপনি @bookName বই পড়া চালিয়ে যেতে ভুলবেন না",
+  "@notifyBooksBody": {
+    "type": "text",
+    "placeholders": {
+      "bookName": {}
+    }
+  },
+  "reminders": "রিমাইন্ডারগুলি",
+  "@reminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "part": "অংশ",
+  "@part": {
+    "type": "text",
+    "placeholders": {}
   }
 }

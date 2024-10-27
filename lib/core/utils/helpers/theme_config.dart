@@ -19,10 +19,11 @@ ThemeData brownTheme = lightTheme.copyWith(
       onSecondary: Color(0xffFFFFFE),
       error: Color(0xFFFFEEDC),
       onError: Color(0xFFFFEEDC),
-      background: Color(0xffFFFFFE),
-      onBackground: Color(0xffF7F1EC),
       surface: Color(0xFFC39B7B),
       onSurface: Color(0xFFC39B7B),
+      inversePrimary: Color(0xFF000000),
+      primaryContainer: Color(0xffFFFFFE),
+      onPrimaryContainer: Color(0xffF7F1EC),
     ),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(
@@ -45,10 +46,11 @@ ThemeData darkBrownTheme = darkTheme.copyWith(
       onSecondary: Color(0xffFFFFFE),
       error: Color(0xFFFFEEDC),
       onError: Color(0xFFFFEEDC),
-      background: Color(0xFF181818),
-      onBackground: Color(0xffF7F1EC),
       surface: Color(0xFFC39B7B),
       onSurface: Color(0xFFC39B7B),
+      inversePrimary: Color(0xffE6DAC8),
+      primaryContainer: Color(0xFF181818),
+      onPrimaryContainer: Color(0xffF7F1EC),
     ),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(

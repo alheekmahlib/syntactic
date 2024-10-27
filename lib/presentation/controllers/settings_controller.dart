@@ -5,6 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/services/services_locator.dart';
 
 class SettingsController extends GetxController {
+  static SettingsController get instance =>
+      Get.isRegistered<SettingsController>()
+          ? Get.find<SettingsController>()
+          : Get.put(SettingsController());
   Locale? initialLang;
   RxString languageName = 'العربية'.obs;
   // RxString languageFont2 = 'kufi'.obs;

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
 
-import '../../../presentation/controllers/books_controller.dart';
+import '/core/utils/constants/extensions.dart';
 import '../../../presentation/controllers/share_controller.dart';
 import '../../services/services_locator.dart';
+import '../../utils/constants/svg_constants.dart';
 import '../widgets.dart';
-import '/core/utils/constants/extensions.dart';
-import '/core/utils/constants/svg_picture.dart';
 import 'create_image.dart';
 
 Future<void> showShareOptionsBottomSheet(
@@ -19,7 +19,6 @@ Future<void> showShareOptionsBottomSheet(
   required int pageNumber,
 }) async {
   final shareToImage = sl<ShareController>();
-  final bookCtrl = sl<BooksController>();
   // shareToImage.changeTafseer(context, verseUQNumber);
 
   Get.bottomSheet(
@@ -28,7 +27,7 @@ Future<void> showShareOptionsBottomSheet(
           MediaQuery.sizeOf(context).height),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(8.0),
           topRight: Radius.circular(8.0),
@@ -51,7 +50,7 @@ Future<void> showShareOptionsBottomSheet(
                               .surface
                               .withOpacity(.5),
                           color2: Theme.of(context).colorScheme.surface),
-                      sharing(context, width: 20.0),
+                      context.customSvg(SvgPath.svgSharing, width: 20.0),
                     ],
                   )),
             ),
@@ -99,9 +98,7 @@ Future<void> showShareOptionsBottomSheet(
                                 Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
-                                    bookCtrl.loadPoemBooks
-                                        ? '$firstPoem'
-                                        : pageText,
+                                    firstPoem!,
                                     style: TextStyle(
                                         color:
                                             Theme.of(context).primaryColorLight,
@@ -113,23 +110,21 @@ Future<void> showShareOptionsBottomSheet(
                                     textDirection: TextDirection.rtl,
                                   ),
                                 ),
-                                bookCtrl.loadPoemBooks
-                                    ? Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          '$secondPoem',
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .primaryColorLight,
-                                              fontSize: 16,
-                                              fontFamily: 'naskh'),
-                                          maxLines: 3,
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.justify,
-                                          textDirection: TextDirection.rtl,
-                                        ),
-                                      )
-                                    : const SizedBox.shrink(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    '$secondPoem',
+                                    style: TextStyle(
+                                        color:
+                                            Theme.of(context).primaryColorLight,
+                                        fontSize: 16,
+                                        fontFamily: 'naskh'),
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.justify,
+                                    textDirection: TextDirection.rtl,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -138,7 +133,7 @@ Future<void> showShareOptionsBottomSheet(
                     ),
                     onTap: () {
                       shareToImage.shareText(bookName, chapterTitle, pageText,
-                          firstPoem!, secondPoem!, pageNumber);
+                          firstPoem, secondPoem!, pageNumber);
                       Get.back();
                     },
                   ),

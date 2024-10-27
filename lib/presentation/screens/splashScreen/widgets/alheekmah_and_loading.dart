@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
 
 import '../../../../core/utils/constants/lottie.dart';
-import '../../../../core/utils/constants/svg_picture.dart';
+import '../../../../core/utils/constants/svg_constants.dart';
 
 class AlheekmahAndLoading extends StatelessWidget {
   const AlheekmahAndLoading({super.key});
@@ -16,9 +17,10 @@ class AlheekmahAndLoading extends StatelessWidget {
           Stack(
             alignment: Alignment.center,
             children: [
-              alheekmah_logo(
-                context,
+              customSvgWithColor(
+                SvgPath.svgAlheekmahLogo,
                 width: 90,
+                color: const Color(0xff3C2A21),
               ),
               RotatedBox(
                 quarterTurns: 2,

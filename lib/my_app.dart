@@ -1,4 +1,5 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -34,7 +35,9 @@ class MyApp extends StatelessWidget {
                         AppConstants.languages[0].languageCode,
                         AppConstants.languages[0].countryCode),
                     theme: myTheme,
+                    navigatorObservers: [BotToastNavigatorObserver()],
                     builder: (context, child) {
+                      child = BotToastInit()(context, child);
                       return MediaQuery(
                         child: child!,
                         data: MediaQuery.of(context)
