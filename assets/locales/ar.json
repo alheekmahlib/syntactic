@@ -276,5 +276,82 @@
   "@notAvailable": {
     "type": "text",
     "placeholders": {}
+  },
+  "notification": "الإشعارات",
+  "@notification": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noNotifications": "لا توجد إشعارات",
+  "@noNotifications": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDownloaded": "تم تحميل الكتاب.",
+  "@booksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDeleted": "تم حذف الكتاب.",
+  "@booksDeleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noBooksDownloaded": "لم تحمل أي كتاب بعد.",
+  "@noBooksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addBookmark": "تم إضافة الفاصلة",
+  "@addBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deletedBookmark": "تم حذف الفاصلة!",
+  "@deletedBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "explanation": "الشروح",
+  "@explanation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "showAll": "عرض المزيد",
+  "@showAll": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What's New": "ما الجديد",
+  "@What's New": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "start": "أبدأ",
+  "@start": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails1": "۞ إضافة المزيد من الكتب.\n۞ إضافة كتب الشروح.\n۞ إضافة الإشعارات للتطبيق.\n۞ تحسينات في الأداء.",
+  "@What'sNewDetails1": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notifyBooksBody": "لا تنسى متابعة قراءة كتاب @bookName",
+  "@notifyBooksBody": {
+    "type": "text",
+    "placeholders": {
+      "bookName": {}
+    }
+  },
+  "reminders": "تذكير",
+  "@reminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "part": "جزء",
+  "@part": {
+    "type": "text",
+    "placeholders": {}
   }
 }

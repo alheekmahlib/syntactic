@@ -3,43 +3,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:get/get.dart';
-import 'package:stylish_bottom_bar/model/bar_items.dart';
+import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
+import 'package:nahawi/core/utils/constants/svg_constants.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
-import '../../../core/services/services_locator.dart';
-import '../../../core/utils/constants/svg_picture.dart';
-import '../../../core/widgets/widgets.dart';
-import '../../controllers/general_controller.dart';
-import '../../controllers/settings_controller.dart';
-import '../bookmark/screens/bookmarks_screen.dart';
-import '../books/screen/books_build.dart';
-import '../home/screen/home_screen.dart';
-import '../search/screens/search_screen.dart';
 import '/core/utils/constants/extensions.dart';
 import '/core/widgets/settings_list.dart';
 import '/presentation/controllers/onboarding_controller.dart';
+import '../../../core/services/services_locator.dart';
+import '../../../core/widgets/widgets.dart';
+import '../../controllers/general_controller.dart';
+import '../../controllers/settings_controller.dart';
+import '../all_books/widgets/books_build.dart';
+import '../bookmark/screens/bookmarks_screen.dart';
+import '../home/screen/home_screen.dart';
+import '../search/screens/search_screen.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+  MainScreen({super.key});
+
+  final generalCtrl = GeneralController.instance;
+  final settings = SettingsController.instance;
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;
-    final general = sl<GeneralController>();
-    final settings = sl<SettingsController>();
     settings.loadLang();
     sl<OnboardingController>().startOnboarding();
-    general.updateGreeting();
+    generalCtrl.updateGreeting();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: ThemeSwitchingArea(
         child: Scaffold(
           extendBody: false,
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           body: SafeArea(
             child: SliderDrawer(
-              key: sl<GeneralController>().key,
-              splashColor: Theme.of(context).colorScheme.background,
+              key: generalCtrl.key,
+              splashColor: Theme.of(context).colorScheme.primaryContainer,
               slideDirection: context.customOrientation(
                   SlideDirection.TOP_TO_BOTTOM, SlideDirection.RIGHT_TO_LEFT),
               sliderOpenSize: platformView(
@@ -49,7 +50,7 @@ class MainScreen extends StatelessWidget {
               isCupertino: true,
               isDraggable: true,
               appBar: SliderAppBar(
-                appBarColor: Theme.of(context).colorScheme.background,
+                appBarColor: Theme.of(context).colorScheme.primaryContainer,
                 appBarPadding: orientation(
                     context,
                     const EdgeInsets.symmetric(horizontal: 16.0),
@@ -68,23 +69,22 @@ class MainScreen extends StatelessWidget {
                         size: 24.h,
                         color: Theme.of(context).colorScheme.surface,
                       ),
-                      onPressed: () =>
-                          sl<GeneralController>().key.currentState?.toggle(),
+                      onPressed: () => generalCtrl.key.currentState?.toggle(),
                     ),
-                    syntactic(context, height: 20),
+                    customSvg(SvgPath.svgSyntactic, height: 20),
                   ],
                 ),
               ),
               slider: const SettingsList(),
               child: PageView(
-                controller: sl<GeneralController>().controller,
+                controller: generalCtrl.controller,
                 onPageChanged: (index) {
-                  sl<GeneralController>().selected.value = index;
-                  print('selected ${sl<GeneralController>().selected.value}');
+                  generalCtrl.selected.value = index;
+                  print('selected ${generalCtrl.selected.value}');
                 },
-                children: const [
+                children: [
                   HomeScreen(),
-                  BooksBuild(),
+                  BooksBuild(showAllBooks: true),
                   BookmarksScreen(),
                 ],
               ),
@@ -96,56 +96,78 @@ class MainScreen extends StatelessWidget {
               () => StylishBottomBar(
                 items: [
                   BottomBarItem(
-                    icon: home(context),
-                    selectedIcon: home(context),
+                    icon: customSvgWithColor(SvgPath.svgHome,
+                        width: 20.h,
+                        color: Theme.of(context).colorScheme.primary),
+                    selectedIcon: customSvgWithColor(SvgPath.svgHome,
+                        width: 20.h,
+                        color: Theme.of(context).colorScheme.secondary),
                     // selectedColor: Colors.teal,
                     backgroundColor: Theme.of(context).colorScheme.secondary,
-                    title: Text(
-                      'home'.tr,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'kufi',
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                  ),
-                  BottomBarItem(
-                    icon: books(context),
-                    selectedIcon: books(context),
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    title: Text(
-                      'books'.tr,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'kufi',
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                  ),
-                  BottomBarItem(
-                      icon: bookmark(context),
-                      selectedIcon: bookmark(context),
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                      title: Text(
-                        'bookmark'.tr,
+                    title: Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(
+                        'home'.tr,
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                           fontFamily: 'kufi',
                           color: Theme.of(context).colorScheme.secondary,
+                        ),
+                      ),
+                    ),
+                  ),
+                  BottomBarItem(
+                    icon: customSvgWithColor(SvgPath.svgBooks,
+                        width: 20.h,
+                        color: Theme.of(context).colorScheme.primary),
+                    selectedIcon: customSvgWithColor(SvgPath.svgBooks,
+                        width: 20.h,
+                        color: Theme.of(context).colorScheme.secondary),
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    title: Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(
+                        'books'.tr,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'kufi',
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                      ),
+                    ),
+                  ),
+                  BottomBarItem(
+                      icon: customSvgWithColor(SvgPath.svgBookmark,
+                          width: 20.h,
+                          color: Theme.of(context).colorScheme.primary),
+                      selectedIcon: customSvgWithColor(SvgPath.svgBookmark,
+                          width: 20.h,
+                          color: Theme.of(context).colorScheme.secondary),
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      title: Padding(
+                        padding: const EdgeInsets.only(top: 4.0),
+                        child: Text(
+                          'bookmark'.tr,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'kufi',
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                         ),
                       )),
                 ],
                 hasNotch: true,
                 fabLocation: StylishBarFabLocation.end,
-                currentIndex: sl<GeneralController>().selected.value,
+                currentIndex: generalCtrl.selected.value,
                 onTap: (index) {
-                  sl<GeneralController>().controller.jumpToPage(index);
-                  sl<GeneralController>().selected.value = index;
+                  generalCtrl.controller.jumpToPage(index);
+                  generalCtrl.selected.value = index;
                 },
                 option: AnimatedBarOptions(
-                  barAnimation: BarAnimation.liquid,
-                  iconStyle: IconStyle.animated,
-                ),
+                    barAnimation: BarAnimation.fade,
+                    iconStyle: IconStyle.Default,
+                    inkEffect: false,
+                    inkColor: context.theme.primaryColor),
                 backgroundColor: Theme.of(context).colorScheme.surface,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20.0),
@@ -162,12 +184,12 @@ class MainScreen extends StatelessWidget {
               onPressed: () {
                 screenModalBottomSheet(
                   context,
-                  const SearchScreen(),
+                  SearchScreen(),
                 );
               },
               backgroundColor: Theme.of(context).colorScheme.onSurface,
-              child: search(context,
-                  color: Theme.of(context).colorScheme.secondary),
+              child: customSvgWithColor(SvgPath.svgSearch,
+                  width: 22.h, color: Theme.of(context).colorScheme.secondary),
             ),
           ),
           floatingActionButtonLocation:

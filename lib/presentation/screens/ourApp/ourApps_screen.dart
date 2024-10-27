@@ -3,16 +3,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
 
+import '/core/utils/constants/extensions.dart';
+import '/presentation/controllers/ourApps_controller.dart';
+import '/presentation/screens/ourApp/widgets/our_apps_build.dart';
 import '../../../core/services/services_locator.dart';
-import '../../../core/utils/constants/svg_picture.dart';
+import '../../../core/utils/constants/svg_constants.dart';
 import '../../../core/widgets/beige_container.dart';
 import '../../../core/widgets/white_container.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../controllers/general_controller.dart';
-import '/core/utils/constants/extensions.dart';
-import '/presentation/controllers/ourApps_controller.dart';
-import '/presentation/screens/ourApp/widgets/our_apps_build.dart';
 
 class OurApps extends StatelessWidget {
   const OurApps({super.key});
@@ -21,11 +22,11 @@ class OurApps extends StatelessWidget {
   Widget build(BuildContext context) {
     sl<OurAppsController>().fetchApps();
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       appBar: AppBar(
         centerTitle: true,
-        title: syntactic(context, height: 20),
-        backgroundColor: Theme.of(context).colorScheme.background,
+        title: customSvg(SvgPath.svgSyntactic, height: 20),
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         elevation: 0,
         leading: GestureDetector(
@@ -64,8 +65,8 @@ class OurApps extends StatelessWidget {
                     child: Transform.translate(
                         offset: orientation(
                             context, Offset(0, -250.h), Offset(0, -130.h)),
-                        child: syntactic(
-                          context,
+                        child: customSvg(
+                          SvgPath.svgSyntactic,
                           width: 80.0.w,
                         ))),
                 Align(
@@ -75,7 +76,7 @@ class OurApps extends StatelessWidget {
                         context,
                         const EdgeInsets.symmetric(vertical: 40.0).r,
                         const EdgeInsets.symmetric(vertical: 32.0).r),
-                    child: alheekmah_logo(context,
+                    child: customSvgWithColor(SvgPath.svgAlheekmahLogo,
                         width: 80.w,
                         color: Theme.of(context).colorScheme.surface),
                   ),
@@ -98,19 +99,19 @@ class OurApps extends StatelessWidget {
                                     top: 48.0, right: 56.0),
                                 child: GestureDetector(
                                   onTap: () => Navigator.pop(context),
-                                  child: arrow_back(
-                                    context,
-                                    width: 26,
-                                    color:
-                                        Theme.of(context).colorScheme.surface,
-                                  ),
+                                  child: customSvgWithColor(
+                                      SvgPath.svgArrowBack,
+                                      width: 26,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .surface),
                                 )),
                           ),
                           Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              syntactic(
-                                context,
+                              customSvg(
+                                SvgPath.svgSyntactic,
                                 width: 80.0,
                               ),
                               const Gap(16),
@@ -148,9 +149,10 @@ class OurApps extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 32.0),
-                    child: alheekmah_logo(
-                      context,
+                    child: customSvgWithColor(
+                      SvgPath.svgAlheekmahLogo,
                       width: 80,
+                      color: const Color(0xff3C2A21),
                     ),
                   ),
                 ),

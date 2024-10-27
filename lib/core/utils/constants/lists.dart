@@ -31,3 +31,12 @@ List<String> onboardingTitle = <String>[
   'البحث في كل الكتب',
   'الاستماع لمحتوى بعض الكتب',
 ];
+
+List<Map<String, dynamic>> whatsNewList = [
+  {
+    'index': 1,
+    'title': "",
+    'details': "What'sNewDetails1",
+    'imagePath': '',
+  },
+];

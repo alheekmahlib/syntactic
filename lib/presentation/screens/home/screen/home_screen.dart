@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../core/widgets/widgets.dart';
-import '../../books/screen/books_build.dart';
+import '../../all_books/widgets/books_build.dart';
+import '../../whats_new/controller/whats_new_controller.dart';
 import '../widgets/hijri_date.dart';
 import '../widgets/last_read.dart';
 
@@ -11,38 +12,36 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WhatsNewController.instance;
     return Container(
       color: Theme.of(context).colorScheme.secondary,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: orientation(
-            context,
-            ListView(
-              padding: EdgeInsets.zero,
-              children: const [
-                HijriDate(),
-                Gap(16),
-                LastRead(),
-                Gap(32),
-                BooksBuild()
-              ],
-            ),
-            ListView(
-              primary: false,
-              padding: EdgeInsets.zero,
-              children: const [
-                Row(
-                  children: [
-                    Expanded(child: LastRead()),
-                    Gap(32),
-                    Expanded(child: HijriDate()),
-                  ],
-                ),
-                Gap(32),
-                BooksBuild()
-              ],
-            )),
-      ),
+      child: orientation(
+          context,
+          ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              HijriDate(),
+              Gap(16),
+              LastRead(),
+              Gap(32),
+              BooksBuild(showAllBooks: false)
+            ],
+          ),
+          ListView(
+            primary: false,
+            padding: EdgeInsets.zero,
+            children: [
+              Row(
+                children: [
+                  Expanded(child: LastRead()),
+                  Gap(32),
+                  Expanded(child: HijriDate()),
+                ],
+              ),
+              Gap(32),
+              BooksBuild(showAllBooks: false)
+            ],
+          )),
     );
   }
 }

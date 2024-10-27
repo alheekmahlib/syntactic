@@ -276,5 +276,82 @@
   "@notAvailable": {
     "type": "text",
     "placeholders": {}
+  },
+  "notification": "Notifications",
+  "@notification": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noNotifications": "No notifications",
+  "@noNotifications": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDownloaded": "The book has been downloaded.",
+  "@booksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "booksDeleted": "The book has been deleted.",
+  "@booksDeleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noBooksDownloaded": "You have not downloaded any book yet.",
+  "@noBooksDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addBookmark": "Bookmark added!",
+  "@addBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deletedBookmark": "Bookmark deleted!",
+  "@deletedBookmark": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "explanation": "Explanation",
+  "@explanation": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "showAll": "Show All",
+  "@showAll": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What's New": "What's New",
+  "@What's New": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "start": "Start",
+  "@start": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "What'sNewDetails1": "۞ Added more books.\n۞ Added explanation books.\n۞ Added notifications for the app.\n۞ Performance improvements.",
+  "@What'sNewDetails1": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "notifyBooksBody": "Don't forget to continue reading the book @bookName",
+  "@notifyBooksBody": {
+    "type": "text",
+    "placeholders": {
+      "bookName": {}
+    }
+  },
+  "reminders": "Reminders",
+  "@reminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "part": "Part",
+  "@part": {
+    "type": "text",
+    "placeholders": {}
   }
 }

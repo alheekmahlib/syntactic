@@ -4,12 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:info_popup/info_popup.dart';
 
+import '/core/utils/constants/extensions.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/ourApps_controller.dart';
 import '../data/models/ourApp_model.dart';
-import '/core/utils/constants/extensions.dart';
 
 class OurAppsBuild extends StatelessWidget {
   const OurAppsBuild({super.key});
@@ -55,7 +55,9 @@ class OurAppsBuild extends StatelessWidget {
                       return InkWell(
                         child: Container(
                           decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.background,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8))),
                           padding: const EdgeInsets.all(8.0),
@@ -109,7 +111,9 @@ class OurAppsBuild extends StatelessWidget {
                                 ),
                                 contentTheme: InfoPopupContentTheme(
                                   infoContainerBackgroundColor:
-                                      Theme.of(context).colorScheme.background,
+                                      Theme.of(context)
+                                          .colorScheme
+                                          .primaryContainer,
                                   infoTextStyle: TextStyle(
                                       color:
                                           Theme.of(context).colorScheme.surface,

@@ -7,8 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../core/services/services_locator.dart';
-import 'books_controller.dart';
+import '../screens/all_books/controller/books_controller.dart';
 
 class ShareController extends GetxController {
   final ScreenshotController ayahScreenController = ScreenshotController();
@@ -33,12 +32,12 @@ class ShareController extends GetxController {
 
   shareText(String bookName, String chapterTitle, String pageText,
       String firstPoem, String secondPoem, int pageNumber) {
-    final bookCtrl = sl<BooksController>();
+    final bookCtrl = AllBooksController.instance;
     Share.share(
         '$bookName\n'
         '$chapterTitle\n\n'
-        '${bookCtrl.loadPoemBooks ? '$firstPoem\n$secondPoem\n' : pageText}\n'
-        '${bookCtrl.loadPoemBooks ? '' : '${'page'.tr}: $pageNumber'}',
+        '${'$firstPoem\n$secondPoem\n'}\n'
+        '',
         subject: bookName);
   }
 

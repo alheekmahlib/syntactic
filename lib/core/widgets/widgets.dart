@@ -1,21 +1,14 @@
 import 'dart:io';
 
-import 'package:another_xlider/another_xlider.dart';
-import 'package:another_xlider/models/handler.dart';
-import 'package:another_xlider/models/handler_animation.dart';
-import 'package:another_xlider/models/tooltip/tooltip.dart';
-import 'package:another_xlider/models/trackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
 
-import '../../presentation/controllers/general_controller.dart';
-import '../services/services_locator.dart';
-import '../utils/constants/shared_preferences_constants.dart';
-import '../utils/constants/svg_picture.dart';
 import '/core/utils/constants/extensions.dart';
-import '/presentation/controllers/audio_controller.dart';
+import '../../presentation/controllers/general_controller.dart';
+import '../../presentation/screens/all_books/controller/audio/audio_controller.dart';
+import '../services/services_locator.dart';
+import '../utils/constants/svg_constants.dart';
 
 orientation(BuildContext context, var n1, n2) {
   Orientation orientation = MediaQuery.orientationOf(context);
@@ -67,7 +60,7 @@ optionsModalBottomSheet(BuildContext context, Widget child, {double? height}) {
           topRight: Radius.circular(8.0),
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       isScrollControlled: true,
       builder: (BuildContext context) {
         return child;
@@ -86,71 +79,6 @@ Widget greeting(BuildContext context) {
   );
 }
 
-Widget fontSizeDropDown(BuildContext context) {
-  return PopupMenuButton(
-    position: PopupMenuPosition.under,
-    icon: Semantics(
-      button: true,
-      enabled: true,
-      label: 'Change Font Size',
-      child: font_size(context, width: 35),
-    ),
-    color: Theme.of(context).colorScheme.surface.withOpacity(.8),
-    itemBuilder: (context) => [
-      PopupMenuItem(
-        height: 30,
-        child: Obx(
-          () => SizedBox(
-            height: 30,
-            width: MediaQuery.sizeOf(context).width,
-            child: FlutterSlider(
-              values: [sl<GeneralController>().fontSizeArabic.value],
-              max: 50,
-              min: 17,
-              rtl: true,
-              tooltip: FlutterSliderTooltip(
-                disabled: true,
-              ),
-              trackBar: FlutterSliderTrackBar(
-                inactiveTrackBarHeight: 5,
-                activeTrackBarHeight: 5,
-                inactiveTrackBar: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color:
-                      Theme.of(context).colorScheme.secondary.withOpacity(.5),
-                ),
-                activeTrackBar: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: Theme.of(context).colorScheme.background),
-              ),
-              handlerAnimation: const FlutterSliderHandlerAnimation(
-                  curve: Curves.elasticOut,
-                  reverseCurve: null,
-                  duration: Duration(milliseconds: 700),
-                  scale: 1.4),
-              onDragging: (handlerIndex, lowerValue, upperValue) async {
-                lowerValue = lowerValue;
-                upperValue = upperValue;
-                sl<GeneralController>().fontSizeArabic.value = lowerValue;
-                await sl<SharedPreferences>().setDouble(FONT_SIZE, lowerValue);
-              },
-              handler: FlutterSliderHandler(
-                decoration: const BoxDecoration(),
-                child: Material(
-                  type: MaterialType.circle,
-                  color: Colors.transparent,
-                  elevation: 3,
-                  child: SvgPicture.asset('assets/svg/zakhrafah.svg'),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    ],
-  );
-}
-
 Widget customDivider(BuildContext context, {double? height, double? width}) {
   return Container(
     height: height,
@@ -159,43 +87,6 @@ Widget customDivider(BuildContext context, {double? height, double? width}) {
         color: Theme.of(context).colorScheme.surface,
         borderRadius: const BorderRadius.all(Radius.circular(8))),
   );
-}
-
-customSnackBar(BuildContext context, String text) {
-  final snackBar = SnackBar(
-    duration: const Duration(milliseconds: 3000),
-    behavior: SnackBarBehavior.floating,
-    backgroundColor: Theme.of(context).colorScheme.surface,
-    content: SizedBox(
-      height: 35,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            flex: 1,
-            child: frame(context, height: 30.0),
-          ),
-          Expanded(
-            flex: 7,
-            child: Text(
-              text,
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontFamily: 'kufi',
-                  fontStyle: FontStyle.italic,
-                  fontSize: 16),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: frame(context, height: 30.0),
-          ),
-        ],
-      ),
-    ),
-  );
-  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
 
 Widget delete(BuildContext context) {
@@ -280,8 +171,8 @@ Widget container(BuildContext context, Widget myWidget, bool show,
                   offset: const Offset(0, -10),
                   child: Opacity(
                     opacity: .05,
-                    child: syntactic(
-                      context,
+                    child: context.customSvg(
+                      SvgPath.svgSyntactic,
                       width: MediaQuery.sizeOf(context).width,
                     ),
                   ),
@@ -314,7 +205,7 @@ Widget customClose(
   return GestureDetector(
     onTap: close ??
         () {
-          sl<AudioController>().audioWidgetPosition.value = -240.0;
+          AudioController.instance.state.audioWidgetPosition.value = -240.0;
         },
     child: Stack(
       alignment: Alignment.center,

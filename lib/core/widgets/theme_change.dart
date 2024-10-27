@@ -2,8 +2,8 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../utils/helpers/theme_config.dart';
 import '/core/widgets/theme_service.dart';
+import '../utils/helpers/theme_config.dart';
 
 class ThemeChange extends StatelessWidget {
   const ThemeChange({super.key});
@@ -89,7 +89,9 @@ class ThemeChange extends StatelessWidget {
                         border: Border.all(
                             color: theme == darkBrownTheme
                                 ? Theme.of(context).dividerColor
-                                : Theme.of(context).colorScheme.background,
+                                : Theme.of(context)
+                                    .colorScheme
+                                    .primaryContainer,
                             width: 3),
                         color: const Color(0xff2d2d2d),
                       ),

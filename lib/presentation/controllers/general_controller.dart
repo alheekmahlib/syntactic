@@ -11,11 +11,14 @@ import '../../core/utils/helpers/languages/app_constants.dart';
 import '../screens/home/data/models/time_now.dart';
 
 class GeneralController extends GetxController {
+  static GeneralController get instance => Get.isRegistered<GeneralController>()
+      ? Get.find<GeneralController>()
+      : Get.put(GeneralController());
   RxInt selected = 0.obs;
   RxString greeting = ''.obs;
   TimeNow timeNow = TimeNow();
   RxBool isExpanded = false.obs;
-  RxDouble fontSizeArabic = 17.0.obs;
+  RxDouble fontSizeArabic = 20.0.obs;
   PageController controller = PageController();
   GlobalKey<SliderDrawerState> key = GlobalKey<SliderDrawerState>();
   final ArabicNumbers arabicNumbers = ArabicNumbers();
@@ -23,7 +26,7 @@ class GeneralController extends GetxController {
 
   @override
   void onInit() {
-    fontSizeArabic.value = sl<SharedPreferences>().getDouble(FONT_SIZE) ?? 17.0;
+    fontSizeArabic.value = sl<SharedPreferences>().getDouble(FONT_SIZE) ?? 20.0;
     super.onInit();
   }
 

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
 
-import '../services/services_locator.dart';
-import '../utils/constants/svg_picture.dart';
 import '/core/utils/constants/extensions.dart';
 import '/presentation/controllers/general_controller.dart';
+import '../services/services_locator.dart';
+import '../utils/constants/svg_constants.dart';
 import 'about_app_text.dart';
 import 'user_options.dart';
 
@@ -16,11 +17,11 @@ class AboutApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       appBar: AppBar(
         centerTitle: true,
-        title: syntactic(context, height: 20),
-        backgroundColor: Theme.of(context).colorScheme.background,
+        title: customSvg(SvgPath.svgSyntactic, height: 20),
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         elevation: 0,
         leading: GestureDetector(
@@ -43,8 +44,8 @@ class AboutApp extends StatelessWidget {
           child: context.customOrientation(
               ListView(
                 children: [
-                  syntactic_r(
-                    context,
+                  customSvg(
+                    SvgPath.svgSyntacticR,
                     height: 160.0,
                   ),
                   const Gap(32),
@@ -57,8 +58,8 @@ class AboutApp extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 4,
-                    child: syntactic_r(
-                      context,
+                    child: customSvg(
+                      SvgPath.svgSyntacticR,
                       height: 160.0,
                     ),
                   ),

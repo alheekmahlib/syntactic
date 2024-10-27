@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
+import '/presentation/screens/bookmark/widgets/bookmarks_build.dart';
 import '../../../../core/widgets/beige_container.dart';
 import '../widgets/bookmarks_title.dart';
-import '/presentation/screens/bookmark/widgets/bookmarks_build.dart';
 
 class BookmarksScreen extends StatelessWidget {
   const BookmarksScreen({super.key});
@@ -26,7 +26,7 @@ class BookmarksScreen extends StatelessWidget {
               height: height,
               width: width,
               color: Theme.of(context).colorScheme.surface.withOpacity(.15),
-              myWidget: const SingleChildScrollView(
+              myWidget: SingleChildScrollView(
                 child: Column(
                   children: [BookmarksTitle(), BookmarksBuild(), Gap(16)],
                 ),

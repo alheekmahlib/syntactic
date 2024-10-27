@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
 import 'package:screenshot/screenshot.dart';
 
-import '../../../presentation/controllers/books_controller.dart';
+import '/core/widgets/widgets.dart';
 import '../../../presentation/controllers/share_controller.dart';
 import '../../services/services_locator.dart';
-import '../../utils/constants/svg_picture.dart';
-import '/core/widgets/widgets.dart';
-import '/presentation/controllers/general_controller.dart';
+import '../../utils/constants/svg_constants.dart';
 
 class VerseImageCreator extends StatelessWidget {
   final String bookName;
@@ -57,7 +56,6 @@ class VerseImageCreator extends StatelessWidget {
     required String pageText,
     required int pageNumber,
   }) {
-    final bookCtrl = sl<BooksController>();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
@@ -106,7 +104,7 @@ class VerseImageCreator extends StatelessWidget {
                           Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              bookCtrl.loadPoemBooks ? firstPoem! : pageText,
+                              firstPoem!,
                               style: TextStyle(
                                 fontSize: 18.0.sp,
                                 fontFamily: 'naskh',
@@ -156,7 +154,8 @@ class VerseImageCreator extends StatelessWidget {
                                 children: [
                                   RotatedBox(
                                       quarterTurns: 15,
-                                      child: syntactic(context, height: 15)),
+                                      child: customSvg(SvgPath.svgSyntactic,
+                                          height: 15)),
                                   vDivider(context, height: 25),
                                   const Text(
                                     'تطبيق\nنحــــوي',
@@ -188,20 +187,6 @@ class VerseImageCreator extends StatelessWidget {
                                       textAlign: TextAlign.center,
                                     ),
                                     const Gap(4),
-                                    bookCtrl.loadPoemBooks
-                                        ? const SizedBox.shrink()
-                                        : Text(
-                                            'الصفحة: ${sl<GeneralController>().arabicNumbers.convert(pageNumber)}',
-                                            style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontFamily: 'kufi',
-                                              fontWeight: FontWeight.bold,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .secondary,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
                                   ],
                                 ),
                                 vDivider(context,

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:horizontal_stepper_step/horizontal_stepper_step.dart';
 
+import '/core/utils/constants/extensions.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/widgets/beige_container.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../controllers/onboarding_controller.dart';
-import '/core/utils/constants/extensions.dart';
 
 class OnboardingScreen extends StatelessWidget {
   OnboardingScreen({super.key});
@@ -20,7 +20,7 @@ class OnboardingScreen extends StatelessWidget {
       child: Container(
         height: MediaQuery.sizeOf(context).height * .9,
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.primaryContainer,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(8),
               topRight: Radius.circular(8),

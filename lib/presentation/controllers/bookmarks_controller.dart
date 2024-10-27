@@ -1,13 +1,19 @@
 import 'package:get/get.dart';
+import 'package:nahawi/core/utils/constants/extensions/convert_number_extension.dart';
+import 'package:nahawi/core/utils/constants/extensions/custom_error_snackBar.dart';
 
 import '../../core/services/services_locator.dart';
+import '../screens/all_books/controller/books_controller.dart';
+import '../screens/all_books/screens/poems_read_view.dart';
+import '../screens/all_books/screens/read_view_screen.dart';
 import '../screens/bookmark/data/models/bookmarks_models.dart';
 import '../screens/bookmark/data/models/objectbox.g.dart';
-import '../screens/books/books_screen/screens/books_read_view.dart';
-import '../screens/books/poems_screen/screens/poems_read_view.dart';
-import '/presentation/controllers/books_controller.dart';
 
 class BookmarksController extends GetxController {
+  static BookmarksController get instance =>
+      Get.isRegistered<BookmarksController>()
+          ? Get.find<BookmarksController>()
+          : Get.put(BookmarksController());
   final bookmarks = sl<Store>().box<BookmarkModel>();
   RxList<BookmarkModel> bookmarkBooks = <BookmarkModel>[].obs;
   RxList<BookmarkModel> bookmarkPoems = <BookmarkModel>[].obs;
@@ -23,15 +29,21 @@ class BookmarksController extends GetxController {
 
   Future<void> getAndSetBookmarks() async {
     allBookmarks.value = await bookmarks.getAllAsync();
+    update();
   }
 
-  bool findBookBookmarks(int index) {
-    final bookCtrl = sl<BooksController>();
-    final query = (bookmarks.query(BookmarkModel_.chapterNumber
-            .equals(bookCtrl.detailsCtrl.value!.pages![index].pageNumber!)))
+  RxBool isBookmarked(int bookNumber, int chapterNumber) {
+    final query = bookmarks
+        .query(BookmarkModel_.bookNumber
+            .equals(bookNumber)
+            .and(BookmarkModel_.chapterNumber.equals(chapterNumber)))
         .build();
-    query.find();
-    return true;
+
+    try {
+      return (query.findFirst() != null).obs;
+    } finally {
+      query.close();
+    }
   }
 
   void separateBookmarkByTypes() {
@@ -97,6 +109,7 @@ class BookmarksController extends GetxController {
       ..poemNumber = poemNumber;
     bookmarks.put(bookmark);
     allBookmarks.add(bookmark);
+    update();
     print('added bookmark ${bookmark.id}');
   }
 
@@ -104,23 +117,49 @@ class BookmarksController extends GetxController {
       bookmarks.getAll()[index].bookType == 'poemBooks' ? true : false;
 
   Future<void> onTapBookmarkBuild(int index) async {
-    final bookCtrl = sl<BooksController>();
-    bookCtrl.bookNumber.value = bookmarks.getAll()[index].bookNumber!;
-    separateBookType(index)
-        ? bookCtrl.loadPoemBooks = true
-        : bookCtrl.loadPoemBooks = false;
+    final bookCtrl = AllBooksController.instance;
+    bookCtrl.state.bookNumber.value = bookmarks.getAll()[index].bookNumber!;
+    // separateBookType(index)
+    //     ? bookCtrl.loadPoemBooks = true
+    //     : bookCtrl.loadPoemBooks = false;
     Get.to(
         () => separateBookType(index)
             ? PoemsReadView(
                 chapterNumber: bookmarks.getAll()[index].chapterNumber!)
-            : BooksReadView(
-                chapterNumber: bookmarks.getAll()[index].chapterNumber! - 1),
+            : BookReadView(bookNumber: bookmarks.getAll()[index].bookNumber!),
         transition: Transition.downToUp);
   }
 
-  void removeBookmark(int index) {
-    bookmarks.remove(allBookmarks[index].id);
-    allBookmarks.remove(allBookmarks[index]);
-    update();
+  void removeBookmark(int bookNumber, int chapterNumber) {
+    // بناء استعلام للتحقق من bookNumber و chapterNumber
+    final query = bookmarks
+        .query(BookmarkModel_.bookNumber
+            .equals(bookNumber)
+            .and(BookmarkModel_.chapterNumber.equals(chapterNumber)))
+        .build();
+
+    // الحصول على النتائج وحذف العلامة المرجعية إن وجدت
+    final bookmarkToRemove = query.findFirst();
+    if (bookmarkToRemove != null) {
+      bookmarks.remove(bookmarkToRemove.id);
+      allBookmarks.removeWhere((bookmark) =>
+          bookmark.bookNumber == bookNumber &&
+          bookmark.chapterNumber == chapterNumber);
+      update();
+      Get.context!.showCustomErrorSnackBar('bookmarkDeleted'.tr, isDone: false);
+      print('Bookmark removed successfully');
+    } else {
+      print('No bookmark found for the given bookNumber and chapterNumber');
+    }
+
+    // تدمير الاستعلام بعد الانتهاء
+    query.close();
+  }
+
+  String getChapterOrPage(int i) {
+    return bookmarks.getAll()[i].poemNumber! == -1
+        ? '${'page'.tr} | ${bookmarks.getAll()[i].chapterNumber!}'
+            .convertNumbers()
+        : bookmarks.getAll()[i].chapterName!;
   }
 }

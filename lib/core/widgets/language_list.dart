@@ -32,8 +32,8 @@ class LanguageList extends StatelessWidget {
               );
             }),
           ),
-          baseColor: Theme.of(context).colorScheme.background,
-          expandedColor: Theme.of(context).colorScheme.background,
+          baseColor: Theme.of(context).colorScheme.primaryContainer,
+          expandedColor: Theme.of(context).colorScheme.primaryContainer,
           children: <Widget>[
             const Divider(
               thickness: 1.0,

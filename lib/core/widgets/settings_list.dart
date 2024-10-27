@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
 
-import '../../presentation/screens/ourApp/ourApps_screen.dart';
-import '../utils/constants/svg_picture.dart';
 import '/core/utils/constants/extensions.dart';
+import '../../presentation/screens/ourApp/ourApps_screen.dart';
+import '../utils/constants/svg_constants.dart';
 import 'about_app.dart';
 import 'language_list.dart';
 import 'theme_change.dart';
@@ -95,7 +96,8 @@ class SettingsList extends StatelessWidget {
                           children: [
                             Expanded(
                                 flex: 2,
-                                child: alheekmah_logo(context,
+                                child: customSvgWithColor(
+                                    SvgPath.svgAlheekmahLogo,
                                     width: 60.0,
                                     color:
                                         Theme.of(context).colorScheme.surface)),
@@ -153,8 +155,8 @@ class SettingsList extends StatelessWidget {
                           children: [
                             Expanded(
                                 flex: 2,
-                                child: syntactic_r(
-                                  context,
+                                child: customSvg(
+                                  SvgPath.svgSyntacticR,
                                   height: 35.0,
                                 )),
                             vDivider(context),
