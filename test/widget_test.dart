@@ -7,13 +7,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:syntactic/main.dart';
+import 'package:nahawi/core/utils/helpers/languages/dependency_inj.dart' as dep;
+import 'package:nahawi/core/widgets/theme_service.dart';
+import 'package:nahawi/my_app.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    Map<String, Map<String, String>> languages = await dep.init();
+    final themeService = await ThemeService.instance;
+    var initTheme = themeService.initial;
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MyApp(
+      languages: languages,
+      theme: initTheme,
+    ));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

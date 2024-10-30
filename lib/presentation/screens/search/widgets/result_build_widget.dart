@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:nahawi/core/utils/constants/extensions/extensions.dart';
-import 'package:nahawi/core/utils/constants/extensions/highlight_extension.dart';
-import 'package:nahawi/presentation/screens/all_books/controller/extensions/books_getters.dart';
-import 'package:nahawi/presentation/screens/all_books/controller/extensions/books_ui.dart';
 
+import '/core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/extensions/highlight_extension.dart';
+import '/presentation/screens/all_books/controller/extensions/books_getters.dart';
+import '/presentation/screens/all_books/controller/extensions/books_ui.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/widgets/beige_container.dart';
 import '../../all_books/controller/books_controller.dart';
@@ -72,8 +72,9 @@ class ResultBuild extends StatelessWidget {
                                     child: RichText(
                                       text: TextSpan(
                                         children: result.content
-                                            .processTextWithHighlight(searchCtrl
-                                                .state.searchController.text),
+                                            .toFlutterTextWithSearchHighlight(
+                                                searchCtrl.state
+                                                    .searchController.text),
                                         style: TextStyle(
                                             fontSize: 22.0,
                                             fontFamily: 'naskh',
@@ -105,17 +106,20 @@ class ResultBuild extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           flex: 3,
-                                          child: Text(
-                                            result.bookTitle,
-                                            style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontFamily: 'kufi',
-                                              fontWeight: FontWeight.bold,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .secondary,
+                                          child: FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            child: Text(
+                                              result.bookTitle,
+                                              style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontFamily: 'kufi',
+                                                fontWeight: FontWeight.bold,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary,
+                                              ),
+                                              textAlign: TextAlign.center,
                                             ),
-                                            textAlign: TextAlign.center,
                                           ),
                                         ),
                                         const Gap(16),

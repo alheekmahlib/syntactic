@@ -252,7 +252,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "aboutAppTitle2": "إضافة شارات مرجعية والرجوع اليها في أي وقت آخر:",
+  "aboutAppTitle2": "إضافة شارات مرجعية والرجوع اليها في أي وقت:",
   "@aboutAppTitle2": {
     "type": "text",
     "placeholders": {}
@@ -351,6 +351,11 @@
   },
   "part": "جزء",
   "@part": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noInternet": "الجهاز غير متصل بالانترنت!",
+  "@noInternet": {
     "type": "text",
     "placeholders": {}
   }

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../services/connectivity_service.dart';
 import '../../../utils/helpers/notifications_helper.dart';
 import '../data/model/post_model.dart';
 
@@ -23,15 +24,23 @@ class LocalNotificationsController extends GetxController {
   void onInit() {
     super.onInit();
     // NotifyHelper.initAwesomeNotifications();
-    fetchAndScheduleNotifications();
+    if (!ConnectivityService.instance.noConnection.value) {
+      fetchAndScheduleNotifications();
+    }
     loadReadStatus();
+  }
+
+  @override
+  void onClose() {
+    _timer?.cancel();
+    super.onClose();
   }
 
   Future<void> fetchAndScheduleNotifications() async {
     // box.remove('lastSeenPostId');
     try {
       final response = await http.get(Uri.parse(
-          'https://github.com/alheekmahlib/thegarlanded/blob/master/noti2.json?raw=true'));
+          'https://github.com/alheekmahlib/thegarlanded/blob/master/noti.json?raw=true'));
 
       if (response.statusCode == 200 && response.body.isNotEmpty) {
         List<PostModel> jsonResponse = (jsonDecode(response.body) as List)
@@ -104,11 +113,5 @@ class LocalNotificationsController extends GetxController {
       log('Post ID: ${post.id}, opened: ${post.opened}');
     }
     postsList.refresh();
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
   }
 }

@@ -3,10 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
 
 import '/core/utils/constants/extensions.dart';
-import '/presentation/controllers/ourApps_controller.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/screens/ourApp/widgets/our_apps_build.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../core/utils/constants/svg_constants.dart';
@@ -20,7 +19,6 @@ class OurApps extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    sl<OurAppsController>().fetchApps();
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       appBar: AppBar(
@@ -54,7 +52,7 @@ class OurApps extends StatelessWidget {
                   alignment: Alignment.center,
                   child: container(
                     context,
-                    const OurAppsBuild(),
+                    OurAppsBuild(),
                     false,
                     height: context.customOrientation(450.0.h, 300.0.h),
                     width: MediaQuery.sizeOf(context).width,
@@ -138,7 +136,7 @@ class OurApps extends StatelessWidget {
                     Expanded(
                       flex: 4,
                       child: WhiteContainer(
-                        myWidget: const OurAppsBuild(),
+                        myWidget: OurAppsBuild(),
                         height: 300.0,
                         width: MediaQuery.sizeOf(context).width,
                       ),

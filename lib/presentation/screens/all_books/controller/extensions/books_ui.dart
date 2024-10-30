@@ -17,30 +17,17 @@ import '../books_controller.dart';
 extension BooksUi on AllBooksController {
   /// -------- [onTap] --------
   void moveToBookPage(int pageNumber, int bookNumber, {String? type}) {
-    if (isBookDownloaded(type!, bookNumber)) {
+    if (isBookDownloaded(type!, bookNumber).value) {
       // int initialPage =
       //     await getChapterStartPage(bookNumber, chapterPage, isLocal);
       state.currentPageIndex.value = pageNumber;
+      state.bookNumber.value = bookNumber - 1;
       // log('Initial page for chapter $chapterPage: $initialPage');
       Get.to(() => type == 'book' || type == 'explanation'
           ? BookReadView(bookNumber: bookNumber)
           : PoemsReadView(
               chapterNumber: pageNumber,
             ));
-    } else {
-      Get.context!.showCustomErrorSnackBar('downloadBookFirst'.tr);
-    }
-  }
-
-  Future<void> moveToPage(
-      int chapterPage, int bookNumber, String type, bool isLocal) async {
-    if (isBookDownloaded(type, bookNumber)) {
-      int initialPage =
-          await getChapterStartPage(bookNumber, chapterPage, isLocal);
-      state.currentPageIndex.value = initialPage;
-      log('Initial page for chapter $chapterPage: $initialPage');
-      state.bPageController.animateToPage(initialPage,
-          duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
     } else {
       Get.context!.showCustomErrorSnackBar('downloadBookFirst'.tr);
     }

@@ -41,7 +41,7 @@ class UserOptions extends StatelessWidget {
                   ),
                 ],
               ),
-              onTap: () async => await shareApp(),
+              onTap: () async => await shareApp(context),
             ),
             const Divider(),
             InkWell(

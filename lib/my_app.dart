@@ -39,9 +39,9 @@ class MyApp extends StatelessWidget {
                     builder: (context, child) {
                       child = BotToastInit()(context, child);
                       return MediaQuery(
-                        child: child!,
                         data: MediaQuery.of(context)
                             .copyWith(textScaler: const TextScaler.linear(1.0)),
+                        child: child,
                       );
                     },
                     home: const Directionality(

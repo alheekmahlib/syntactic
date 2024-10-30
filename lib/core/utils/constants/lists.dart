@@ -1,3 +1,5 @@
+import 'package:nahawi/core/utils/constants/svg_constants.dart';
+
 List<String> rtlLang = <String>['العربية', 'עברית', 'فارسی', 'اردو', 'کوردی'];
 
 List<String> images = <String>[
@@ -39,4 +41,10 @@ List<Map<String, dynamic>> whatsNewList = [
     'details': "What'sNewDetails1",
     'imagePath': '',
   },
+];
+
+List<Map<String, dynamic>> navBarList = [
+  {'svgPath': SvgPath.svgHome, 'title': 'home'},
+  {'svgPath': SvgPath.svgBooks, 'title': 'books'},
+  {'svgPath': SvgPath.svgBookmarkIcon, 'title': 'bookmark'},
 ];

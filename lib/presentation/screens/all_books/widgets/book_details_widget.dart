@@ -102,7 +102,9 @@ class BookDetails extends StatelessWidget {
                   Hero(
                       tag: 'book-tag:$bookNumber',
                       child: book_cover(context,
-                          index: bookNumber, height: 138.h, width: 176.w)),
+                          index: booksCtrl.state.bookNumber.value + 1,
+                          height: 138.h,
+                          width: 176.w)),
                   Transform.translate(
                     offset: const Offset(2, 20),
                     child: SizedBox(
@@ -111,7 +113,7 @@ class BookDetails extends StatelessWidget {
                       child: Text(
                         bookName,
                         style: TextStyle(
-                            fontSize: 20.0,
+                            fontSize: 18.0,
                             fontFamily: 'kufi',
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).colorScheme.secondary,
@@ -127,8 +129,10 @@ class BookDetails extends StatelessWidget {
                   : Align(
                       alignment: Alignment.center,
                       child: Center(
-                        child: Obx(
-                          () => booksCtrl.isBookDownloaded(bookType, bookNumber)
+                        child: GetBuilder<AllBooksController>(
+                          builder: (booksCtrl) => booksCtrl
+                                  .isBookDownloaded(bookType, bookNumber)
+                                  .value
                               ? GestureDetector(
                                   child: Icon(
                                     Icons.delete,
@@ -156,22 +160,24 @@ class BookDetails extends StatelessWidget {
                                                   const BorderRadius.all(
                                                       Radius.circular(4)),
                                             ),
-                                            child: LinearProgressIndicator(
-                                              minHeight: 10,
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(4)),
-                                              value: booksCtrl.state
-                                                          .downloadProgress[
-                                                      bookNumber] ??
-                                                  0,
-                                              //(daysRemaining / 1000).toDouble(),
-                                              backgroundColor:
-                                                  Theme.of(context).canvasColor,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .surface,
-                                            ),
+                                            child: Obx(() =>
+                                                LinearProgressIndicator(
+                                                  minHeight: 10,
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(4)),
+                                                  value: booksCtrl.state
+                                                              .downloadProgress[
+                                                          bookNumber] ??
+                                                      0,
+                                                  //(daysRemaining / 1000).toDouble(),
+                                                  backgroundColor:
+                                                      Theme.of(context)
+                                                          .canvasColor,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .surface,
+                                                )),
                                           )
                                         : const SizedBox.shrink(),
                                     booksCtrl.state.downloading[bookNumber] ==

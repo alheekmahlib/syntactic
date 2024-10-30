@@ -353,5 +353,10 @@
   "@part": {
     "type": "text",
     "placeholders": {}
+  },
+  "noInternet": "ডিভাইসটি ইন্টারনেটের সাথে সংযুক্ত নয়!",
+  "@noInternet": {
+    "type": "text",
+    "placeholders": {}
   }
 }

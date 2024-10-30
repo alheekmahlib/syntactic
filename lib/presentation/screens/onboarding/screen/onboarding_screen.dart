@@ -30,98 +30,16 @@ class OnboardingScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  FittedBox(
-                    child: Obx(
-                      () => HorizontalStepper(
-                        totalStep: 5,
-                        completedStep: onboarding.pageNumber.value,
-                        selectedColor: Theme.of(context).colorScheme.surface,
-                        backGroundColor: Theme.of(context)
-                            .colorScheme
-                            .surface
-                            .withOpacity(.2),
-                      ),
-                    ),
+              FittedBox(
+                child: Obx(
+                  () => HorizontalStepper(
+                    totalStep: 5,
+                    completedStep: onboarding.pageNumber.value,
+                    selectedColor: Theme.of(context).colorScheme.surface,
+                    backGroundColor:
+                        Theme.of(context).colorScheme.surface.withOpacity(.2),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Obx(
-                        () => onboarding.pageNumber.value == 5
-                            ? Align(
-                                alignment: Alignment.topLeft,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.transparent,
-                                      elevation: 0),
-                                  onPressed: () {
-                                    if (onboarding.pageNumber.value == 5) {
-                                      Navigator.pop(context);
-                                    } else {
-                                      onboarding.controller.animateToPage(
-                                          onboarding.controller.page!.toInt() +
-                                              1,
-                                          duration:
-                                              const Duration(milliseconds: 400),
-                                          curve: Curves.easeIn);
-                                    }
-                                  },
-                                  child: Text('أبدأ',
-                                      style: TextStyle(
-                                          fontFamily: 'kufi',
-                                          fontSize: 18,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .surface)),
-                                ),
-                              )
-                            : Align(
-                                alignment: Alignment.topLeft,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.transparent,
-                                      elevation: 0),
-                                  onPressed: () {
-                                    onboarding.controller.animateToPage(
-                                        onboarding.controller.page!.toInt() + 1,
-                                        duration:
-                                            const Duration(milliseconds: 400),
-                                        curve: Curves.easeIn);
-                                  },
-                                  child: Icon(
-                                    Icons.arrow_forward,
-                                    color:
-                                        Theme.of(context).colorScheme.surface,
-                                  ),
-                                ),
-                              ),
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent, elevation: 0),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          'تخطي',
-                          style: TextStyle(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .surface
-                                .withOpacity(.4),
-                            fontSize: 16.0,
-                            fontFamily: 'kufi',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                ),
               ),
               Flexible(
                 child: Padding(
@@ -208,6 +126,81 @@ class OnboardingScreen extends StatelessWidget {
                           ),
                         );
                       }),
+                ),
+              ),
+              Obx(
+                () => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    onboarding.pageNumber.value == 5
+                        ? Align(
+                            alignment: Alignment.bottomRight,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  elevation: 0),
+                              onPressed: () {
+                                if (onboarding.pageNumber.value == 5) {
+                                  Navigator.pop(context);
+                                } else {
+                                  onboarding.controller.animateToPage(
+                                      onboarding.controller.page!.toInt() + 1,
+                                      duration:
+                                          const Duration(milliseconds: 400),
+                                      curve: Curves.easeIn);
+                                }
+                              },
+                              child: Text('أبدأ',
+                                  style: TextStyle(
+                                      fontFamily: 'kufi',
+                                      fontSize: 18,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .surface)),
+                            ),
+                          )
+                        : Align(
+                            alignment: Alignment.bottomRight,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  elevation: 0),
+                              onPressed: () {
+                                onboarding.controller.animateToPage(
+                                    onboarding.controller.page!.toInt() + 1,
+                                    duration: const Duration(milliseconds: 400),
+                                    curve: Curves.easeIn);
+                              },
+                              child: Icon(
+                                Icons.arrow_forward,
+                                color: Theme.of(context).colorScheme.surface,
+                              ),
+                            ),
+                          ),
+                    onboarding.pageNumber.value == 5
+                        ? SizedBox.shrink()
+                        : ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.transparent,
+                                elevation: 0),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text(
+                              'تخطي',
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .surface
+                                    .withOpacity(.4),
+                                fontSize: 16.0,
+                                fontFamily: 'kufi',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                  ],
                 ),
               ),
             ],

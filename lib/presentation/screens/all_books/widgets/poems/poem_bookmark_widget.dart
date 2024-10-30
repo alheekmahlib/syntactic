@@ -8,17 +8,14 @@ import '../../../../controllers/bookmarks_controller.dart';
 
 class PoemsBookmarkWidget extends StatelessWidget {
   final int poemIndex;
-  final String bookType;
+  final int bookNumber;
   const PoemsBookmarkWidget(
-      {super.key, required this.poemIndex, required this.bookType});
+      {super.key, required this.poemIndex, required this.bookNumber});
 
   @override
   Widget build(BuildContext context) {
     final bookmarkCtrl = sl<BookmarksController>();
-    return Obx(() => bookmarkCtrl.allBookmarks.firstWhereOrNull((bookmark) =>
-                bookmark.poemNumber == poemIndex + 1 &&
-                bookmark.bookType == bookType) !=
-            null
+    return Obx(() => bookmarkCtrl.isPoemBookmarked(bookNumber, poemIndex).value
         ? customSvgWithColor(SvgPath.svgBookmark,
             height: 22, color: Theme.of(context).colorScheme.surface)
         : const SizedBox.shrink());
