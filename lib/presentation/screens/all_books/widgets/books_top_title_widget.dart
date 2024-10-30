@@ -176,7 +176,7 @@ class BooksTopTitleWidget extends StatelessWidget {
                           -1,
                         )
                         .then((_) => context.showCustomErrorSnackBar(
-                            'bookmarkAdded'.tr,
+                            'addBookmark'.tr,
                             isDone: true)),
                 child: Container(
                   height: 30,

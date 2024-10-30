@@ -5,7 +5,6 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   awesome_notifications
   awesome_notifications_core
-  objectbox_flutter_libs
   url_launcher_linux
 )
 

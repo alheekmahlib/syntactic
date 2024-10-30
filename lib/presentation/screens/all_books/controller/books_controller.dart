@@ -11,6 +11,7 @@ import 'package:nahawi/presentation/screens/all_books/controller/extensions/book
 import 'package:nahawi/presentation/screens/all_books/controller/extensions/books_storage_getters.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../../../core/services/connectivity_service.dart';
 import '../data/models/books_model.dart';
 import '../data/models/page_model.dart';
 import '../data/models/part_model.dart';
@@ -27,7 +28,7 @@ class AllBooksController extends GetxController
   BooksState state = BooksState();
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     state.tabBarController = TabController(length: 3, vsync: this);
     fetchBooks().then((_) {
@@ -94,35 +95,40 @@ class AllBooksController extends GetxController
   }
 
   Future<void> downloadBook(int bookNumber, String type) async {
-    try {
-      state.downloading[bookNumber] = true;
-      state.downloadProgress[bookNumber] = 0.0;
-      update();
-      var response = await Dio().get(
-        'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/refs/heads/master/nahawi_book/$bookNumber.json',
-        options: Options(responseType: ResponseType.stream),
-        onReceiveProgress: (received, total) {
-          if (total != -1) {
-            state.downloadProgress[bookNumber] = (received / total);
-          }
-        },
-      );
+    if (ConnectivityService.instance.noConnection.value) {
+      Get.context!.showCustomErrorSnackBar('noInternet'.tr);
+    } else {
+      try {
+        state.downloading[bookNumber] = true;
+        state.downloadProgress[bookNumber] = 0.0;
+        update();
+        var response = await Dio().get(
+          'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/refs/heads/master/nahawi_book/$bookNumber.json',
+          options: Options(responseType: ResponseType.stream),
+          onReceiveProgress: (received, total) {
+            if (total != -1) {
+              state.downloadProgress[bookNumber] = (received / total);
+            }
+          },
+        );
 
-      final directory = await getApplicationDocumentsDirectory();
-      final file = File('${directory.path}/$bookNumber.json');
+        final directory = await getApplicationDocumentsDirectory();
+        final file = File('${directory.path}/$bookNumber.json');
 
-      var data = <int>[];
-      await for (var value in response.data.stream) {
-        data.addAll(value);
+        var data = <int>[];
+        await for (var value in response.data.stream) {
+          data.addAll(value);
+        }
+        await file.writeAsBytes(data);
+        addDownloadedBook(type, bookNumber);
+        saveDownloadedBooks();
+      } catch (e) {
+        log('Error downloading book: $e');
+      } finally {
+        state.downloading[bookNumber] = false;
+        Get.context!
+            .showCustomErrorSnackBar('booksDownloaded'.tr, isDone: true);
       }
-      await file.writeAsBytes(data);
-      addDownloadedBook(type, bookNumber);
-      saveDownloadedBooks();
-    } catch (e) {
-      log('Error downloading book: $e');
-    } finally {
-      state.downloading[bookNumber] = false;
-      Get.context!.showCustomErrorSnackBar('booksDownloaded'.tr, isDone: true);
     }
     update();
   }
@@ -130,8 +136,10 @@ class AllBooksController extends GetxController
   void addDownloadedBook(String type, int bookNumber) {
     if (!state.downloadedBooksByType.containsKey(type)) {
       state.downloadedBooksByType[type] = <int, bool>{};
+      update();
     }
     state.downloadedBooksByType[type]![bookNumber] = true;
+    update();
   }
 
   List<Part> getParts(int bookNumber, String type) {

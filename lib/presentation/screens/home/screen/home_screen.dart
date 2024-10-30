@@ -33,9 +33,9 @@ class HomeScreen extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Expanded(child: LastRead()),
-                  Gap(32),
                   Expanded(child: HijriDate()),
+                  Gap(32),
+                  Expanded(child: LastRead()),
                 ],
               ),
               Gap(32),

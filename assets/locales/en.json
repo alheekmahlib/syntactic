@@ -353,5 +353,10 @@
   "@part": {
     "type": "text",
     "placeholders": {}
+  },
+  "noInternet": "The device is not connected to the Internet!",
+  "@noInternet": {
+    "type": "text",
+    "placeholders": {}
   }
 }

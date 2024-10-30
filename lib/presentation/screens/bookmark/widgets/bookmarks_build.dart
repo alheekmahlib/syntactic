@@ -22,7 +22,7 @@ class BookmarksBuild extends StatelessWidget {
           ? customSvg(SvgPath.svgNoBookmarked, width: Get.width)
           : Column(
               children: List.generate(
-                bookmarkCtrl.bookmarks.getAll().length,
+                bookmarkCtrl.allBookmarks.length,
                 (index) {
                   var bookmark = bookmarkCtrl.allBookmarks[index];
                   return GetBuilder<BookmarksController>(
@@ -59,9 +59,8 @@ class BookmarksBuild extends StatelessWidget {
                                         Expanded(
                                           flex: 3,
                                           child: Text(
-                                            bookmarkCtrl.bookmarks
-                                                .getAll()[index]
-                                                .bookName!,
+                                            bookmarkCtrl
+                                                .allBookmarks[index].bookName!,
                                             style: TextStyle(
                                                 fontSize: 14.0,
                                                 fontFamily: 'kufi',
@@ -85,8 +84,8 @@ class BookmarksBuild extends StatelessWidget {
                                                 horizontal: 8.0),
                                             child: RichText(
                                               text: TextSpan(
-                                                children: bookmarkCtrl.bookmarks
-                                                    .getAll()[index]
+                                                children: bookmarkCtrl
+                                                    .allBookmarks[index]
                                                     .poemText!
                                                     .buildTextSpansFromHtml(),
                                                 style: TextStyle(

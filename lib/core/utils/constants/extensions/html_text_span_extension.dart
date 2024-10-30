@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:html/dom.dart' as dom;
+import 'package:html/parser.dart' as html_parser;
 
 extension HtmlTextSpanExtension on String {
   List<TextSpan> buildTextSpansFromHtml() {
     String text = this;
 
     // Insert line breaks after specific punctuation marks unless they are within square brackets
-    text = text.replaceAllMapped(
-        RegExp(r'(\.|\:)(?![^\[]*\])\s*'), (match) => '${match[0]}\n');
+    // text = text.replaceAllMapped(
+    //     RegExp(r'(\.|\:)(?![^\[]*\])\s*'), (match) => '${match[0]}\n');
 
     // Replace <br> tags with newlines
     text = text.replaceAll(RegExp(r'<br\s*/?>'), '\n');
@@ -88,5 +91,88 @@ extension HtmlTextSpanExtension on String {
     }
 
     return spans;
+  }
+
+  List<InlineSpan> toFlutterText() {
+    final dom.Document document = html_parser.parse(this);
+    final List<InlineSpan> children = [];
+
+    void parseNode(dom.Node node, TextStyle? parentStyle) {
+      if (node is dom.Element) {
+        TextStyle? textStyle;
+        switch (node.localName) {
+          case 'p':
+            textStyle = parentStyle?.merge(TextStyle(
+                  color: Get.theme.colorScheme.inversePrimary,
+                )) ??
+                TextStyle(color: Get.theme.colorScheme.inversePrimary);
+            break;
+          case 'span':
+            if (node.classes.contains('c5')) {
+              textStyle =
+                  parentStyle?.merge(TextStyle(color: Color(0xff008000)));
+            } else if (node.classes.contains('c4')) {
+              textStyle =
+                  parentStyle?.merge(TextStyle(color: Color(0xff814714)));
+            } else if (node.classes.contains('c2')) {
+              textStyle =
+                  parentStyle?.merge(TextStyle(color: Color(0xff814714)));
+            } else if (node.classes.contains('c1')) {
+              textStyle =
+                  parentStyle?.merge(TextStyle(color: Color(0xffa24308)));
+            } else {
+              textStyle = parentStyle?.merge(
+                  TextStyle(color: Get.theme.colorScheme.inversePrimary));
+            }
+            break;
+          case 'div':
+            textStyle = parentStyle
+                ?.merge(TextStyle(color: Get.theme.colorScheme.inversePrimary));
+            break;
+          default:
+            textStyle = parentStyle
+                ?.merge(TextStyle(color: Get.theme.colorScheme.inversePrimary));
+        }
+
+        for (var child in node.nodes) {
+          parseNode(child, textStyle);
+        }
+      } else if (node is dom.Text) {
+        String text = node.text.trim();
+        if (text.contains(RegExp(r'\[.*?\]'))) {
+          children.add(TextSpan(
+              text: '\n\n',
+              style: parentStyle ??
+                  TextStyle(color: Get.theme.colorScheme.inversePrimary)));
+          children.add(TextSpan(
+              text: text,
+              style: parentStyle ??
+                  TextStyle(color: Get.theme.colorScheme.inversePrimary)));
+          children.add(TextSpan(
+              text: '\n\n',
+              style: parentStyle ??
+                  TextStyle(color: Get.theme.colorScheme.inversePrimary)));
+        } else {
+          final updatedText = text
+              .replaceAllMapped(RegExp(r'\.(?!\s|\n|\.)'), (match) => '.\n')
+              .replaceAllMapped(RegExp(r':(?!\s)'), (match) => ':\n')
+              .replaceAllMapped(RegExp(r'\s"'), (match) => ' "')
+              .replaceAllMapped(RegExp(r'"\s'), (match) => '" ')
+              .replaceAllMapped(RegExp(r',(?=\S)'), (match) => ', ')
+              .replaceAll(RegExp(r'<[^>]+>'), ' ')
+              .replaceAllMapped(RegExp(r'(?<=\S)(?=<|$)'), (match) => ' ');
+          children.add(TextSpan(
+              text: updatedText,
+              style: parentStyle ??
+                  TextStyle(color: Get.theme.colorScheme.inversePrimary)));
+        }
+      }
+    }
+
+    for (var node in document.body?.nodes ?? []) {
+      parseNode(node, null);
+    }
+
+    return children;
   }
 }

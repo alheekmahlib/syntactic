@@ -40,8 +40,8 @@ dependencies:
   just_audio: ^0.9.41
   connectivity_plus: ^6.1.0
   dio: ^5.7.0
-  objectbox: ^4.0.3
-  objectbox_flutter_libs: any
+#  objectbox: ^4.0.3
+#  objectbox_flutter_libs: any
   diacritic: ^0.1.6
   group_button: ^5.3.4
   image: ^4.3.0
@@ -62,6 +62,12 @@ dependencies:
   awesome_notifications_core: ^0.9.3
   badges: ^3.1.2
   smooth_page_indicator: ^1.2.0+3
+  icons_launcher: ^3.0.0
+  drift: ^2.21.0
+
+
+# Commit this line if you want to run or build on ios / macOS
+#  drift_flutter: ^0.2.1
 
 dev_dependencies:
   flutter_test:
@@ -70,7 +76,7 @@ dev_dependencies:
 
   flutter_lints: ^5.0.0
   build_runner: ^2.4.13
-  objectbox_generator: any
+  drift_dev: ^2.21.0
 
 
 flutter_native_splash:
@@ -128,6 +134,10 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
+package_rename_config:
+    macos:
+      package_name: com.alheekmahlib.nahawiapp.nahawi
+
 flutter_assets:
   # assets_path: assets/lottie/
   assets_path: assets/svg/
@@ -136,3 +146,26 @@ flutter_assets:
   filename: svg_constants.dart
   field_prefix:
   class_name: SvgPath
+
+
+icons_launcher:
+  image_path: "assets/images/syntactic_logo.png"
+  platforms:
+    android:
+      enable: true
+      image_path: "assets/images/syntactic_logo.png"
+    ios:
+      enable: true
+      image_path: "assets/images/syntactic_logo.png"
+    web:
+      enable: false
+      image_path: "assets/images/syntactic_logo.png"
+    macos:
+      enable: true
+      image_path: "assets/images/syntactic_logo.png"
+    windows:
+      enable: false
+      image_path: "assets/images/syntactic_logo.png"
+    linux:
+      enable: false
+      image_path: "assets/images/syntactic_logo.png"

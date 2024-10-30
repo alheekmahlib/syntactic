@@ -1,20 +1,20 @@
 import 'package:get/get.dart';
-import 'package:nahawi/core/utils/constants/extensions/convert_number_extension.dart';
-import 'package:nahawi/core/utils/constants/extensions/custom_error_snackBar.dart';
 
-import '../../core/services/services_locator.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '../screens/all_books/controller/books_controller.dart';
 import '../screens/all_books/screens/poems_read_view.dart';
 import '../screens/all_books/screens/read_view_screen.dart';
-import '../screens/bookmark/data/models/bookmarks_models.dart';
-import '../screens/bookmark/data/models/objectbox.g.dart';
+import '../screens/bookmark/data/data_source/database.dart';
 
 class BookmarksController extends GetxController {
   static BookmarksController get instance =>
       Get.isRegistered<BookmarksController>()
           ? Get.find<BookmarksController>()
           : Get.put(BookmarksController());
-  final bookmarks = sl<Store>().box<BookmarkModel>();
+
+  final AppDatabase _db = AppDatabase();
+  RxList<BookmarkModel> allBookmarks = <BookmarkModel>[].obs;
   RxList<BookmarkModel> bookmarkBooks = <BookmarkModel>[].obs;
   RxList<BookmarkModel> bookmarkPoems = <BookmarkModel>[].obs;
 
@@ -25,70 +25,68 @@ class BookmarksController extends GetxController {
     super.onInit();
   }
 
-  RxList<BookmarkModel> allBookmarks = <BookmarkModel>[].obs;
-
   Future<void> getAndSetBookmarks() async {
-    allBookmarks.value = await bookmarks.getAllAsync();
+    allBookmarks.value = await _db.getAllBookmarks();
     update();
   }
 
   RxBool isBookmarked(int bookNumber, int chapterNumber) {
-    final query = bookmarks
-        .query(BookmarkModel_.bookNumber
-            .equals(bookNumber)
-            .and(BookmarkModel_.chapterNumber.equals(chapterNumber)))
-        .build();
-
-    try {
-      return (query.findFirst() != null).obs;
-    } finally {
-      query.close();
-    }
+    final result = false.obs;
+    allBookmarks
+            .where((b) =>
+                b.bookNumber == bookNumber && b.chapterNumber == chapterNumber)
+            .isNotEmpty
+        ? result.value = true
+        : result.value = false;
+    return result.value.obs;
   }
 
-  void separateBookmarkByTypes() {
-    for (var b in bookmarks.getAll()) {
+  RxBool isPoemBookmarked(int bookNumber, int poemNumber) {
+    final result = false.obs;
+    allBookmarks
+            .where(
+                (b) => b.bookNumber == bookNumber && b.poemNumber == poemNumber)
+            .isNotEmpty
+        ? result.value = true
+        : result.value = false;
+    return result.value.obs;
+  }
+
+  void separateBookmarkByTypes() async {
+    List<BookmarkModel> bookmarks = await _db.getAllBookmarks();
+    for (var b in bookmarks) {
       b.bookType == 'book' ? bookmarkBooks.add(b) : bookmarkPoems.add(b);
     }
   }
 
   String? get getLastChapterName {
-    var allBookmarks = bookmarks.getAll();
-
     if (allBookmarks.isEmpty) {
       return "notAvailable".tr;
     }
-
     var lastBookmark = allBookmarks.last;
-    return lastBookmark.chapterName!.isEmpty
+    return lastBookmark.chapterName?.isEmpty ?? true
         ? "notAvailable".tr
-        : lastBookmark.chapterName!;
+        : lastBookmark.chapterName;
   }
 
   String? get getLastBookName {
-    var allBookmarks = bookmarks.getAll();
-
     if (allBookmarks.isEmpty) {
       return "notAvailable".tr;
     }
-
     var lastBookmark = allBookmarks.last;
-    return lastBookmark.bookName!.isEmpty
+    return lastBookmark.bookName?.isEmpty ?? true
         ? "notAvailable".tr
-        : lastBookmark.bookName!;
+        : lastBookmark.bookName;
   }
 
   String? get getLastPoemText {
-    var allBookmarks = bookmarks.getAll();
-
     if (allBookmarks.isEmpty) {
       return "notAvailable".tr;
     }
-
     var lastBookmark = allBookmarks.last;
-    return lastBookmark.poemText!.isEmpty
+    return lastBookmark.poemText?.isEmpty ?? true
         ? "notAvailable".tr
-        : lastBookmark.poemText!;
+        : lastBookmark.poemText;
   }
 
   Future<void> addBookmark(
@@ -99,67 +97,51 @@ class BookmarksController extends GetxController {
       int bookNumber,
       String bookType,
       int poemNumber) async {
-    final bookmark = BookmarkModel()
-      ..bookName = bookName
-      ..chapterName = chapterName
-      ..poemText = poemText
-      ..chapterNumber = chapterNumber
-      ..bookNumber = bookNumber
-      ..bookType = bookType
-      ..poemNumber = poemNumber;
-    bookmarks.put(bookmark);
+    final bookmark = BookmarkModel(
+      bookName: bookName,
+      chapterName: chapterName,
+      poemText: poemText,
+      chapterNumber: chapterNumber,
+      bookNumber: bookNumber,
+      bookType: bookType,
+      poemNumber: poemNumber,
+      date: DateTime.now(),
+    );
+    await _db.insertBookmark(bookmark);
     allBookmarks.add(bookmark);
     update();
     print('added bookmark ${bookmark.id}');
   }
 
-  bool separateBookType(int index) =>
-      bookmarks.getAll()[index].bookType == 'poemBooks' ? true : false;
-
   Future<void> onTapBookmarkBuild(int index) async {
     final bookCtrl = AllBooksController.instance;
-    bookCtrl.state.bookNumber.value = bookmarks.getAll()[index].bookNumber!;
-    // separateBookType(index)
-    //     ? bookCtrl.loadPoemBooks = true
-    //     : bookCtrl.loadPoemBooks = false;
+    bookCtrl.state.bookNumber.value = allBookmarks[index].bookNumber! - 1;
     Get.to(
-        () => separateBookType(index)
-            ? PoemsReadView(
-                chapterNumber: bookmarks.getAll()[index].chapterNumber!)
-            : BookReadView(bookNumber: bookmarks.getAll()[index].bookNumber!),
-        transition: Transition.downToUp);
+      () => allBookmarks[index].bookType == 'poemBooks'
+          ? PoemsReadView(chapterNumber: allBookmarks[index].chapterNumber!)
+          : BookReadView(bookNumber: allBookmarks[index].bookNumber!),
+      transition: Transition.downToUp,
+    );
   }
 
-  void removeBookmark(int bookNumber, int chapterNumber) {
-    // بناء استعلام للتحقق من bookNumber و chapterNumber
-    final query = bookmarks
-        .query(BookmarkModel_.bookNumber
-            .equals(bookNumber)
-            .and(BookmarkModel_.chapterNumber.equals(chapterNumber)))
-        .build();
-
-    // الحصول على النتائج وحذف العلامة المرجعية إن وجدت
-    final bookmarkToRemove = query.findFirst();
+  Future<void> removeBookmark(int bookNumber, int chapterNumber) async {
+    final bookmarkToRemove = await _db.getBookmark(bookNumber, chapterNumber);
     if (bookmarkToRemove != null) {
-      bookmarks.remove(bookmarkToRemove.id);
+      await _db.deleteBookmark(bookmarkToRemove.id!);
       allBookmarks.removeWhere((bookmark) =>
           bookmark.bookNumber == bookNumber &&
           bookmark.chapterNumber == chapterNumber);
       update();
-      Get.context!.showCustomErrorSnackBar('bookmarkDeleted'.tr, isDone: false);
+      Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr, isDone: false);
       print('Bookmark removed successfully');
     } else {
       print('No bookmark found for the given bookNumber and chapterNumber');
     }
-
-    // تدمير الاستعلام بعد الانتهاء
-    query.close();
   }
 
   String getChapterOrPage(int i) {
-    return bookmarks.getAll()[i].poemNumber! == -1
-        ? '${'page'.tr} | ${bookmarks.getAll()[i].chapterNumber!}'
-            .convertNumbers()
-        : bookmarks.getAll()[i].chapterName!;
+    return allBookmarks[i].poemNumber == -1
+        ? '${'page'.tr} | ${allBookmarks[i].chapterNumber}'.convertNumbers()
+        : allBookmarks[i].chapterName!;
   }
 }

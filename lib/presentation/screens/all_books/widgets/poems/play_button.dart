@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:nahawi/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
 import 'package:nahawi/core/utils/constants/svg_constants.dart';
 
+import '../../../../../core/services/connectivity_service.dart';
 import '../../../../../core/utils/constants/lottie.dart';
 import '../../controller/audio/audio_controller.dart';
 
@@ -26,7 +28,11 @@ class PlayButton extends StatelessWidget {
         } else if (playing != true) {
           return GestureDetector(
             onTap: () async {
-              await audioCtrl.state.audioPlayer.play();
+              if (ConnectivityService.instance.noConnection.value) {
+                Get.context!.showCustomErrorSnackBar('noInternet'.tr);
+              } else {
+                await audioCtrl.state.audioPlayer.play();
+              }
             },
             child: customSvgWithColor(SvgPath.svgPlay,
                 height: 24, color: context.theme.colorScheme.surface),
@@ -36,7 +42,7 @@ class PlayButton extends StatelessWidget {
             child: Icon(
               Icons.pause,
               size: 24.0,
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.surface,
             ),
             onTap: () {
               audioCtrl.state.audioPlayer.pause();

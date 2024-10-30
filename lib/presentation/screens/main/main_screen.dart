@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:get/get.dart';
-import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
-import 'package:nahawi/core/utils/constants/svg_constants.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
 import '/core/utils/constants/extensions.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/core/utils/constants/svg_constants.dart';
 import '/core/widgets/settings_list.dart';
 import '/presentation/controllers/onboarding_controller.dart';
 import '../../../core/services/services_locator.dart';
+import '../../../core/utils/constants/lists.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../controllers/general_controller.dart';
 import '../../controllers/settings_controller.dart';
@@ -94,12 +95,13 @@ class MainScreen extends StatelessWidget {
             textDirection: TextDirection.rtl,
             child: Obx(
               () => StylishBottomBar(
-                items: [
-                  BottomBarItem(
-                    icon: customSvgWithColor(SvgPath.svgHome,
+                items: List.generate(
+                  navBarList.length,
+                  (i) => BottomBarItem(
+                    icon: customSvgWithColor(navBarList[i]['svgPath'],
                         width: 20.h,
                         color: Theme.of(context).colorScheme.primary),
-                    selectedIcon: customSvgWithColor(SvgPath.svgHome,
+                    selectedIcon: customSvgWithColor(navBarList[i]['svgPath'],
                         width: 20.h,
                         color: Theme.of(context).colorScheme.secondary),
                     // selectedColor: Colors.teal,
@@ -107,55 +109,18 @@ class MainScreen extends StatelessWidget {
                     title: Padding(
                       padding: const EdgeInsets.only(top: 4.0),
                       child: Text(
-                        'home'.tr,
+                        '${navBarList[i]['title']}'.tr,
                         style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'kufi',
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: generalCtrl.selected.value == i
+                              ? Theme.of(context).colorScheme.secondary
+                              : Theme.of(context).colorScheme.primary,
                         ),
                       ),
                     ),
                   ),
-                  BottomBarItem(
-                    icon: customSvgWithColor(SvgPath.svgBooks,
-                        width: 20.h,
-                        color: Theme.of(context).colorScheme.primary),
-                    selectedIcon: customSvgWithColor(SvgPath.svgBooks,
-                        width: 20.h,
-                        color: Theme.of(context).colorScheme.secondary),
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    title: Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
-                      child: Text(
-                        'books'.tr,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'kufi',
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                      ),
-                    ),
-                  ),
-                  BottomBarItem(
-                      icon: customSvgWithColor(SvgPath.svgBookmark,
-                          width: 20.h,
-                          color: Theme.of(context).colorScheme.primary),
-                      selectedIcon: customSvgWithColor(SvgPath.svgBookmark,
-                          width: 20.h,
-                          color: Theme.of(context).colorScheme.secondary),
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                      title: Padding(
-                        padding: const EdgeInsets.only(top: 4.0),
-                        child: Text(
-                          'bookmark'.tr,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'kufi',
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                        ),
-                      )),
-                ],
+                ),
                 hasNotch: true,
                 fabLocation: StylishBarFabLocation.end,
                 currentIndex: generalCtrl.selected.value,
@@ -182,9 +147,9 @@ class MainScreen extends StatelessWidget {
             width: 50.0,
             child: FloatingActionButton(
               onPressed: () {
-                screenModalBottomSheet(
-                  context,
+                Get.bottomSheet(
                   SearchScreen(),
+                  isScrollControlled: true,
                 );
               },
               backgroundColor: Theme.of(context).colorScheme.onSurface,

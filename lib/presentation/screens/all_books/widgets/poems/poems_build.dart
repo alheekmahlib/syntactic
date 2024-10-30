@@ -19,6 +19,8 @@ class PoemsBuild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bookNumber =
+        bookCtrl.state.booksList[bookCtrl.state.bookNumber.value].bookNumber;
     return Padding(
       padding: const EdgeInsets.only(top: 32.0),
       child: Column(
@@ -52,8 +54,8 @@ class PoemsBuild extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: PoemsBookmarkWidget(
-                            poemIndex: poem.poems![index].poemNumber! - 1,
-                            bookType: bookCtrl.currentPoemBook!.bookType!),
+                            poemIndex: poem.poems![index].poemNumber!,
+                            bookNumber: bookNumber),
                       ),
                       Padding(
                           padding: const EdgeInsets.symmetric(

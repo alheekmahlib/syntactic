@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:html/dom.dart' as dom;
+import 'package:html/parser.dart' as html_parser;
 
 extension HighlightExtension on String {
   List<TextSpan> highlightLine(String searchTerm) {
@@ -145,20 +148,22 @@ extension HighlightExtension on String {
   }
 
   String removeHtmlTags(String htmlString) {
-    final RegExp regExp =
-        RegExp(r'<.*?[^\/]>', multiLine: true, caseSensitive: false);
-    return htmlString.replaceAll(regExp, '');
+    var document = html_parser.parse(htmlString);
+    return document.body?.text ?? '';
   }
 
   List<TextSpan> processTextWithHighlight(String searchTerm) {
-    String htmlText = this;
+    String text = this;
 
-    // إزالة العلامات HTML
-    String text = removeHtmlTags(htmlText);
+    // Insert line breaks after specific punctuation marks unless they are within square brackets
+    // text = text.replaceAllMapped(
+    //     RegExp(r'(\.|\:)(?![^\[]*\])\s*'), (match) => '${match[0]}\n');
 
-    // إدراج فواصل أسطر بعد علامات الترقيم
-    text = text.replaceAllMapped(
-        RegExp(r'(\.|\:)(?![^\[]*\])\s*'), (match) => '${match[0]}\n');
+    // Replace <br> tags with newlines
+    text = text.replaceAll(RegExp(r'<br\s*/?>'), '\n');
+
+    // Remove all HTML tags but ensure there's a space between the content
+    text = text.replaceAll(RegExp(r'<[^>]+>'), ' ');
 
     // حذف التشكيل من النص
     String cleanText = removeTashkil(text);
@@ -170,20 +175,21 @@ extension HighlightExtension on String {
     final RegExp regExpSquareBrackets = RegExp(r'\[(.*?)\]');
     final RegExp regExpDash = RegExp(r'\-(.*?)\-');
 
-    final Iterable<Match> matchesQuotes = regExpQuotes.allMatches(cleanText);
-    final Iterable<Match> matchesBraces = regExpBraces.allMatches(cleanText);
+    final Iterable<Match> matchesQuotes = regExpQuotes.allMatches(text);
+    final Iterable<Match> matchesBraces = regExpBraces.allMatches(text);
     final Iterable<Match> matchesParentheses =
-        regExpParentheses.allMatches(cleanText);
+        regExpParentheses.allMatches(text);
     final Iterable<Match> matchesSquareBrackets =
-        regExpSquareBrackets.allMatches(cleanText);
-    final Iterable<Match> matchesDash = regExpDash.allMatches(cleanText);
+        regExpSquareBrackets.allMatches(text);
+    final Iterable<Match> matchesDash = regExpDash.allMatches(text);
 
+    // Combine all matches
     final List<Match> allMatches = [
       ...matchesQuotes,
       ...matchesBraces,
       ...matchesParentheses,
       ...matchesSquareBrackets,
-      ...matchesDash
+      ...matchesDash,
     ]..sort((a, b) => a.start.compareTo(b.start));
 
     List<TextSpan> spans = [];
@@ -284,5 +290,108 @@ extension HighlightExtension on String {
     }
 
     return spans;
+  }
+
+  List<InlineSpan> toFlutterTextWithSearchHighlight(String searchTerm) {
+    final dom.Document document = html_parser.parse(this);
+    final List<InlineSpan> children = [];
+    String cleanText = removeTashkil(this);
+    String searchTermWithoutDiacritics = removeTashkil(searchTerm);
+
+    void parseNode(dom.Node node, TextStyle? parentStyle) {
+      if (node is dom.Element) {
+        TextStyle? textStyle;
+        switch (node.localName) {
+          case 'p':
+            textStyle = parentStyle?.merge(TextStyle(
+              color: Get.theme.colorScheme.inversePrimary,
+            ));
+            break;
+          case 'span':
+            if (node.classes.contains('c5')) {
+              textStyle =
+                  parentStyle?.merge(TextStyle(color: Color(0xff008000)));
+            } else if (node.classes.contains('c4')) {
+              textStyle =
+                  parentStyle?.merge(TextStyle(color: Color(0xff814714)));
+            } else if (node.classes.contains('c2')) {
+              textStyle =
+                  parentStyle?.merge(TextStyle(color: Color(0xff814714)));
+            } else if (node.classes.contains('c1')) {
+              textStyle =
+                  parentStyle?.merge(TextStyle(color: Color(0xffa24308)));
+            } else {
+              textStyle = parentStyle?.merge(
+                  TextStyle(color: Get.theme.colorScheme.inversePrimary));
+            }
+            break;
+          case 'div':
+            textStyle = parentStyle
+                ?.merge(TextStyle(color: Get.theme.colorScheme.inversePrimary));
+            break;
+          default:
+            textStyle = parentStyle
+                ?.merge(TextStyle(color: Get.theme.colorScheme.inversePrimary));
+        }
+
+        for (var child in node.nodes) {
+          parseNode(child, textStyle);
+        }
+      } else if (node is dom.Text) {
+        String text = node.text;
+        text = text
+            .replaceAllMapped(RegExp(r'\.(?!\s|\n|\.)'), (match) => '.\n')
+            .replaceAllMapped(RegExp(r':(?!\s)'), (match) => ': ')
+            .replaceAllMapped(RegExp(r'\s"'), (match) => ' "')
+            .replaceAllMapped(RegExp(r'"\s'), (match) => '" ')
+            .replaceAllMapped(RegExp(r',(?=\S)'), (match) => ', ')
+            .replaceAll(RegExp(r'<[^>]+>'), ' ')
+            .replaceAll(RegExp(r'class=\"c1\">'), ' ')
+            .replaceAll(RegExp(r'class=\"c2\">'), ' ')
+            .replaceAll(RegExp(r'class=\"c3\">'), ' ')
+            .replaceAll(RegExp(r'class=\"c4\">'), ' ')
+            .replaceAll(RegExp(r'class=\"c5\">'), ' ')
+            .replaceAllMapped(RegExp(r'(?<=\S)(?=<|$)'), (match) => ' ');
+
+        int start = 0;
+        while (start < text.length) {
+          final startIndex = text.indexOf(searchTermWithoutDiacritics, start);
+          if (startIndex == -1) {
+            children.add(TextSpan(
+                text: text.substring(start),
+                style: parentStyle ??
+                    TextStyle(color: Get.theme.colorScheme.inversePrimary)));
+            break;
+          }
+
+          // Add the text before the search term
+          if (startIndex > start) {
+            children.add(TextSpan(
+                text: text.substring(start, startIndex),
+                style: parentStyle ??
+                    TextStyle(color: Get.theme.colorScheme.inversePrimary)));
+          }
+
+          // Highlight the search term
+          final endIndex = startIndex + searchTermWithoutDiacritics.length;
+          if (endIndex <= text.length) {
+            children.add(TextSpan(
+              text: text.substring(startIndex, endIndex),
+              style: const TextStyle(
+                  color: Color(0xffa24308), fontWeight: FontWeight.bold),
+            ));
+          }
+
+          // Update the start position
+          start = endIndex;
+        }
+      }
+    }
+
+    for (var node in document.body?.nodes ?? []) {
+      parseNode(node, null);
+    }
+
+    return children;
   }
 }

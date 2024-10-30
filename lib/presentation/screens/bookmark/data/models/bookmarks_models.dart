@@ -1,27 +1,14 @@
-import 'package:objectbox/objectbox.dart';
+import 'package:drift/drift.dart';
 
-@Entity()
-class BookmarkModel {
-  @Id()
-  int id = 0;
-
-  String? bookName;
-
-  String? chapterName;
-
-  String? poemText;
-
-  int? chapterNumber;
-
-  int? bookNumber;
-
-  String? bookType;
-
-  int? poemNumber;
-
-  @Property(type: PropertyType.date) // Store as int in milliseconds
-  DateTime? date;
-
-  @Transient() // Ignore this property, not stored in the database.
-  int? computedProperty;
+@DataClassName('BookmarkModel')
+class Bookmarks extends Table {
+  IntColumn get id => integer().nullable().autoIncrement()();
+  TextColumn get bookName => text().nullable()();
+  TextColumn get chapterName => text().nullable()();
+  TextColumn get poemText => text().nullable()();
+  IntColumn get chapterNumber => integer().nullable()();
+  IntColumn get bookNumber => integer().nullable()();
+  TextColumn get bookType => text().nullable()();
+  IntColumn get poemNumber => integer().nullable()();
+  DateTimeColumn get date => dateTime().nullable()();
 }

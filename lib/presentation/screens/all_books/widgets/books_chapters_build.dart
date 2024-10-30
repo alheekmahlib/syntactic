@@ -94,11 +94,12 @@ class BooksChapterBuild extends StatelessWidget {
                     bookNumber,
                     type: bookType,
                   ),
-                  child: GetX<AllBooksController>(
+                  child: GetBuilder<AllBooksController>(
                     builder: (booksCtrl) => Opacity(
-                      opacity: booksCtrl.isBookDownloaded(bookType, bookNumber)
-                          ? 1
-                          : .5,
+                      opacity:
+                          booksCtrl.isBookDownloaded(bookType, bookNumber).value
+                              ? 1
+                              : .5,
                       child: Container(
                           decoration: BoxDecoration(
                               color: Theme.of(context)

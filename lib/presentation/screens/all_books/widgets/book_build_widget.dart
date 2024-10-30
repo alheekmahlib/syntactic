@@ -135,7 +135,7 @@ class BookBuildWidget extends StatelessWidget {
                               child: Text(
                                 book.bookName,
                                 style: TextStyle(
-                                    fontSize: 16.0.sp,
+                                    fontSize: 18.0,
                                     fontFamily: 'kufi',
                                     fontWeight: FontWeight.bold,
                                     color:

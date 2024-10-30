@@ -7,15 +7,14 @@ import '/presentation/controllers/share_controller.dart';
 import '../../presentation/controllers/bookmarks_controller.dart';
 import '../../presentation/controllers/general_controller.dart';
 import '../../presentation/controllers/onboarding_controller.dart';
-import '../../presentation/controllers/ourApps_controller.dart';
 import '../../presentation/controllers/splashScreen_controller.dart';
 import '../../presentation/screens/all_books/controller/audio/audio_controller.dart';
 import '../../presentation/screens/all_books/controller/books_controller.dart';
-import '../../presentation/screens/bookmark/data/data_source/object_box.dart';
-import '../../presentation/screens/bookmark/data/models/objectbox.g.dart';
+import '../../presentation/screens/ourApp/controller/ourApps_controller.dart';
 import '../../presentation/screens/search/controller/search_controller.dart';
 import '../../presentation/screens/whats_new/controller/whats_new_controller.dart';
 import '../widgets/local_notification/controller/local_notifications_controller.dart';
+import 'connectivity_service.dart';
 
 final sl = GetIt.instance;
 
@@ -25,18 +24,9 @@ class ServicesLocator {
         sl.registerSingleton<SharedPreferences>(v);
       });
 
-  Future<void> _initObjectBox() async {
-    final objectBox = await ObjectBox.create();
-    sl.registerSingleton<ObjectBox>(objectBox);
-
-    final store = await openStore();
-    sl.registerSingleton<Store>(store);
-  }
-
   Future<void> init() async {
     await Future.wait([
       _initPrefs(),
-      _initObjectBox(),
       // sl<BookmarksController>().getAndSetBookmarks()
     ]);
 
@@ -78,6 +68,9 @@ class ServicesLocator {
     sl.registerLazySingleton<LocalNotificationsController>(() =>
         Get.put<LocalNotificationsController>(LocalNotificationsController(),
             permanent: true));
+
+    sl.registerLazySingleton<ConnectivityService>(() =>
+        Get.put<ConnectivityService>(ConnectivityService(), permanent: true));
     // UiHelper.rateMyApp.init();
     //
     // if (Platform.isWindows || Platform.isLinux) {

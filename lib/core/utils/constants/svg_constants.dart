@@ -26,6 +26,10 @@ class SvgPath {
   /// assets/svg/bookmark.svg
   static const String svgBookmark = "assets/svg/bookmark.svg";
 
+  /// Assets for svgBookmarkIcon
+  /// assets/svg/bookmark_icon.svg
+  static const String svgBookmarkIcon = "assets/svg/bookmark_icon.svg";
+
   /// Assets for svgBookmarked
   /// assets/svg/bookmarked.svg
   static const String svgBookmarked = "assets/svg/bookmarked.svg";
@@ -33,6 +37,10 @@ class SvgPath {
   /// Assets for svgBooks
   /// assets/svg/books.svg
   static const String svgBooks = "assets/svg/books.svg";
+
+  /// Assets for svgButtonCurve
+  /// assets/svg/button_curve.svg
+  static const String svgButtonCurve = "assets/svg/button_curve.svg";
 
   /// Assets for svgCheckMark
   /// assets/svg/check_mark.svg
@@ -106,6 +114,14 @@ class SvgPath {
   /// assets/svg/next-arrow.svg
   static const String svgNextArrow = "assets/svg/next-arrow.svg";
 
+  /// Assets for svgNoBookmarked
+  /// assets/svg/noBookmarked.svg
+  static const String svgNoBookmarked = "assets/svg/noBookmarked.svg";
+
+  /// Assets for svgNotifications
+  /// assets/svg/notifications.svg
+  static const String svgNotifications = "assets/svg/notifications.svg";
+
   /// Assets for svgPlay
   /// assets/svg/play.svg
   static const String svgPlay = "assets/svg/play.svg";
@@ -149,16 +165,4 @@ class SvgPath {
   /// Assets for svgZakhrafah
   /// assets/svg/zakhrafah.svg
   static const String svgZakhrafah = "assets/svg/zakhrafah.svg";
-
-  /// Assets for svgNoBookmarked
-  /// assets/svg/noBookmarked.svg
-  static const String svgNoBookmarked = "assets/svg/noBookmarked.svg";
-
-  /// Assets for svgNotifications
-  /// assets/svg/notifications.svg
-  static const String svgNotifications = "assets/svg/notifications.svg";
-
-  /// Assets for svgButtonCurve
-  /// assets/svg/button_curve.svg
-  static const String svgButtonCurve = "assets/svg/button_curve.svg";
 }

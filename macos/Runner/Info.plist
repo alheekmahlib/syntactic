@@ -32,5 +32,9 @@
     <array>
     <string>FGDTDLOBXDJ.demo</string>
     </array>
+	<key>CFBundleDisplayName</key>
+	<string>نحويّ : النحو العربي</string>
+	<key>LSApplicationCategoryType</key>
+    <string>public.app-category.lifestyle</string>
 </dict>
 </plist>

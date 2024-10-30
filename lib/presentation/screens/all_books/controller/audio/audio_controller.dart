@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -23,11 +21,16 @@ class AudioController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     createPlayList();
-    state.connectivitySubscription = state.connectivity.onConnectivityChanged
-        .listen(_updateConnectionStatus);
-    initConnectivity();
     await subscribeToPlayerState();
     createPlayList();
+  }
+
+  @override
+  void onClose() {
+    state.audioPlayer.dispose();
+    state.audioPlayer.pause();
+    state.playerStateSubscription!.cancel();
+    super.onClose();
   }
 
   late final chapterList = ConcatenatingAudioSource(
@@ -68,7 +71,12 @@ class AudioController extends GetxController {
   }
 
   Future<void> seekToNextPoem() async {
-    if (state.poemNumber.value == poemLength) {
+    if (bookCtrl.state.bookNumber.value - 1 == 0 &&
+        state.poemNumber.value == lastPoemIn - 3) {
+      await state.audioPlayer.stop();
+    } else if (state.poemNumber.value == lastPoemIn) {
+      await state.audioPlayer.stop();
+    } else if (state.poemNumber.value == poemLength) {
       moveToNextPage;
       // createPlayList();
       state.poemNumber.value += 1;
@@ -103,49 +111,10 @@ class AudioController extends GetxController {
     }
   }
 
-  @override
-  void onClose() {
-    state.audioPlayer.dispose();
-    state.connectivitySubscription.cancel();
-    state.audioPlayer.pause();
-    state.playerStateSubscription!.cancel();
-    super.onClose();
-  }
-
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused) {
       // state.audioPlayer.pause();
     }
     //print('state = $state');
-  }
-
-  /// -------- [ConnectivityMethods] ----------
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initConnectivity() async {
-    late List<ConnectivityResult> result;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      result = await state.connectivity.checkConnectivity();
-    } on PlatformException catch (e) {
-      log('Couldn\'t check connectivity status', error: e);
-      return;
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (state.isDisposed) {
-      return Future.value(null);
-    }
-
-    return _updateConnectionStatus(result);
-  }
-
-  Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
-    state.connectionStatus = result;
-    update();
-    // ignore: avoid_log(message)
-    log('Connectivity changed: ${state.connectionStatus}');
   }
 }

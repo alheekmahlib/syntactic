@@ -5,6 +5,7 @@ import 'package:pie_menu/pie_menu.dart';
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/screens/all_books/controller/extensions/books_ui.dart';
+import '../../../../../core/services/connectivity_service.dart';
 import '../../../../../core/utils/constants/svg_constants.dart';
 import '../../../../../core/widgets/share/share_options.dart';
 import '../../../../controllers/bookmarks_controller.dart';
@@ -33,7 +34,7 @@ class SelectMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final book = bookCtrl.state.loadedPoems[bookCtrl.state.bookNumber.value];
+    final book = bookCtrl.state.booksList[bookCtrl.state.bookNumber.value];
     return PieMenu(
       theme: PieTheme(
         delayDuration: const Duration(milliseconds: 500),
@@ -60,7 +61,7 @@ class SelectMenu extends StatelessWidget {
             bookCtrl.state.selectedPoemIndex.value = -1;
             await showShareOptionsBottomSheet(
               context,
-              bookName: book.bookName!,
+              bookName: book.bookName,
               chapterTitle: chapters.chapterTitle!,
               firstPoem: poem.firstPoem!,
               secondPoem: poem.secondPoem!,
@@ -84,7 +85,7 @@ class SelectMenu extends StatelessWidget {
               poem.firstPoem!,
               poem.secondPoem!,
               chapters.chapterTitle!,
-              book.bookName!,
+              book.bookName,
             );
           },
           child: customSvgWithColor(SvgPath.svgCopy,
@@ -98,17 +99,22 @@ class SelectMenu extends StatelessWidget {
           onSelect: () {
             bookCtrl.state.selectedPoemIndex.value = -1;
             bookmarkCtrl
-                .addBookmark(
-                  book.bookName!,
-                  chapters.chapterTitle!,
-                  poem.firstPoem!,
-                  chapterNumber,
-                  book.bookNumber!,
-                  book.bookType!,
-                  index,
-                )
-                .then((value) => context
-                    .showCustomErrorSnackBar('bookmarkAdded'.tr, isDone: true));
+                    .isPoemBookmarked(book.bookNumber, poem.poemNumber!)
+                    .value
+                ? bookmarkCtrl.removeBookmark(book.bookNumber, chapterNumber)
+                : bookmarkCtrl
+                    .addBookmark(
+                      book.bookName,
+                      chapters.chapterTitle!,
+                      poem.firstPoem!,
+                      chapterNumber,
+                      book.bookNumber,
+                      book.bookType,
+                      index,
+                    )
+                    .then((value) => context.showCustomErrorSnackBar(
+                        'addBookmark'.tr,
+                        isDone: true));
             print('bookCtrl.bookNumber.value ${book.bookNumber}');
             bookmarkCtrl.update();
           },
@@ -121,12 +127,17 @@ class SelectMenu extends StatelessWidget {
               iconColor: Colors.transparent),
           tooltip: const Text(''),
           onSelect: () async {
-            audioCtrl.state.poemNumber.value = poem.poemNumber!;
-            // audioCtrl.createPlayList();
-            audioCtrl.state.audioWidgetPosition.value = 0.0;
-            await audioCtrl
-                .changeAudioSource()
-                .then((_) async => await audioCtrl.state.audioPlayer.play());
+            if (ConnectivityService.instance.noConnection.value) {
+              Get.context!.showCustomErrorSnackBar('noInternet'.tr);
+            } else {
+              audioCtrl.state.poemNumber.value = poem.poemNumber!;
+              // audioCtrl.createPlayList();
+              audioCtrl.state.audioWidgetPosition.value = 0.0;
+
+              await audioCtrl
+                  .changeAudioSource()
+                  .then((_) async => await audioCtrl.state.audioPlayer.play());
+            }
             // bookCtrl.state.selectedPoemIndex.value = -1;
           },
           child: customSvgWithColor(SvgPath.svgPlay,

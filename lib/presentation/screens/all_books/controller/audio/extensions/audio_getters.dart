@@ -8,10 +8,13 @@ import '../../../../../../core/widgets/seek_bar.dart';
 
 extension AudioGetters on AudioController {
   String get fileUrl =>
-      '${Constants.audioUrl}${bookCtrl.state.bookNumber}/${bookCtrl.state.chapterNumber.value + 1}/${state.poemNumber.value}.mp3';
+      '${Constants.audioUrl}${bookCtrl.state.bookNumber.value - 1}/${bookCtrl.state.chapterNumber.value + 1}/${state.poemNumber.value}.mp3';
 
   int get poemLength => bookCtrl.currentPoemBook!
       .chapters![bookCtrl.state.chapterNumber.value].poems!.last.poemNumber!;
+
+  int get lastPoemIn =>
+      bookCtrl.currentPoemBook!.chapters!.last.poems!.last.poemNumber!;
 
   int get firstPoem => bookCtrl.currentPoemBook!
       .chapters![bookCtrl.state.chapterNumber.value].poems!.first.poemNumber!;
