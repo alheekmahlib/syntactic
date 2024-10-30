@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/b66397e8-4f4f-45d4-93e4-91c56064b4f7)<p align="center">
+![image]()<p align="center">
   <img src="https://raw.githubusercontent.com/alheekmahlib/thegarlanded/refs/heads/master/Photos/syntactic_logo.svg" width="75" height="75" align=”middle”/>
 </p>
 
