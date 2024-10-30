@@ -1,4 +1,4 @@
-![image]()<p align="center">
+<p align="center">
   <img src="https://raw.githubusercontent.com/alheekmahlib/thegarlanded/refs/heads/master/Photos/syntactic_logo.svg" width="75" height="75" align=”middle”/>
 </p>
 
