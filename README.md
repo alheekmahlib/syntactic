@@ -52,7 +52,7 @@
 - connectivity_plus.
 
 ## روابط لتحميل التطبيق :
-[للايفون](https://apps.apple.com/us/app/%D9%86%D8%AD%D9%88%D9%8A-%D8%A7%D9%84%D9%86%D8%AD%D9%88-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A/id6476078330) - [للاندرويد](https://play.google.com/store/apps/details?id=com.alheekmahlib.nahawiapp.nahawi&hl=ar) - [للهواوي](https://appgallery.huawei.com/#/app/C110098337))
+[للايفون](https://apps.apple.com/us/app/%D9%86%D8%AD%D9%88%D9%8A-%D8%A7%D9%84%D9%86%D8%AD%D9%88-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A/id6476078330) - [للاندرويد](https://play.google.com/store/apps/details?id=com.alheekmahlib.nahawiapp.nahawi&hl=ar) - [للهواوي](https://appgallery.huawei.com/#/app/C110098337)
 
 
 # alheekmahlib
