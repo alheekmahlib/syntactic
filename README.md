@@ -1,16 +1,58 @@
-# syntactic
+![image](https://github.com/user-attachments/assets/b66397e8-4f4f-45d4-93e4-91c56064b4f7)<p align="center">
+  <img src="https://raw.githubusercontent.com/alheekmahlib/thegarlanded/refs/heads/master/Photos/syntactic_logo.svg" width="75" height="75" align=”middle”/>
+</p>
 
-A new Flutter project.
+<h1><p align="center"> نحويّ : النحو العربي </p></h1>
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/alheekmahlib/thegarlanded/refs/heads/master/Photos/nahawi/Nahawi%20playStore%20banner.jpg" width="100%" height="100%" align=”middle”>
+</p>
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## تطبيق "نحويّ" هو تطبيق يقدم محتوى متخصص في قواعد اللغة العربية. إليك شرح مختصر لمميزات هذا التطبيق:
+#### ◉     واجهة سهلة الاستخدام:
+##          يتميز التطبيق بواجهة مستخدم بسيطة وسهلة الاستخدام، مما يسهل على المستخدمين تصفح واستخدام محتوى الكتب بشكل فعال.
+#### ◉     إضافة شارات مرجعية والرجوع اليها في أي وقت آخر:
+##          يوفر التطبيق إمكانية إضافة شارات مرجعية للصفحات المهمة والعودة إليها لاحقًا، مما يسهل على المستخدمين استئناف قراءتهم والرجوع إلى المعلومات الرئيسية.
+#### ◉     الاستماع لمحتوى بعض الكتب:
+##          يقدم التطبيق خاصية الاستماع لمحتوى بعض الكتب، مما يتيح للمستخدمين تجربة الاستماع إلى النصوص بدلاً من قراءتها.
+#### ◉     نسخ المحتوى:
+##          يتيح التطبيق للمستخدمين نسخ محتوى الكتب بسهولة، مما يسهل عمليات النسخ واللصق للرجوع إلى المعلومات فيما بعد.
+#### ◉     مشاركة المحتوى كنص أو كصورة:
+##          يوفر التطبيق خاصية مشاركة المحتوى بشكل نصي أو كصورة، مما يتيح للمستخدمين مشاركة المعلومات مع الآخرين بطرق متعددة.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+#### التطبيق قيد التطوير وسيتم إضافة المزيد من المزايا قريبًا، يمكن للجميع المساعدة في تطوير التطبيق.
+
+## المكتبات المستخدمة في التطبيق :
+- State management GetX.
+- Dio.
+- shared_preferences.
+- sqflite.
+- just_audio.
+- path_provider.
+- path.
+- flutter_svg.
+- flutter_screenutil.
+- desktop_window.
+- another_xlider.
+- lottie.
+- hijri.
+- flutter_staggered_animations.
+- share_plus.
+- wakelock.
+- get_it.
+- flutter_staggered_grid_view.
+- get.
+- gap.
+- url_launcher.
+- rate_my_app.
+- device_info_plus.
+- connectivity_plus.
+
+## روابط لتحميل التطبيق :
+[للايفون](https://apps.apple.com/us/app/%D9%86%D8%AD%D9%88%D9%8A-%D8%A7%D9%84%D9%86%D8%AD%D9%88-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A/id6476078330) - [للاندرويد](https://play.google.com/store/apps/details?id=com.alheekmahlib.nahawiapp.nahawi&hl=ar) - [للهواوي](https://appgallery.huawei.com/#/app/C110098337))
+
+
+# alheekmahlib
