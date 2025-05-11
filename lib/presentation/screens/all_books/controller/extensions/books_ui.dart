@@ -8,7 +8,7 @@ import 'package:nahawi/presentation/screens/all_books/controller/extensions/book
 import 'package:nahawi/presentation/screens/all_books/controller/extensions/books_storage_getters.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '../../../../../core/utils/constants/extensions/custom_error_snack_bar.dart';
 import '../../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../screens/poems_read_view.dart';
 import '../../screens/read_view_screen.dart';
@@ -90,7 +90,7 @@ extension BooksUi on AllBooksController {
 
   Color colorSelection(BuildContext context, int index) {
     return index == state.selectedPoemIndex.value
-        ? Theme.of(context).colorScheme.surface.withOpacity(.2)
+        ? Theme.of(context).colorScheme.surface.withValues(alpha: .2)
         : Colors.transparent;
   }
 

@@ -34,15 +34,6 @@ List<String> onboardingTitle = <String>[
   'الاستماع لمحتوى بعض الكتب',
 ];
 
-List<Map<String, dynamic>> whatsNewList = [
-  {
-    'index': 1,
-    'title': "",
-    'details': "What'sNewDetails1",
-    'imagePath': '',
-  },
-];
-
 List<Map<String, dynamic>> navBarList = [
   {'svgPath': SvgPath.svgHome, 'title': 'home'},
   {'svgPath': SvgPath.svgBooks, 'title': 'books'},

@@ -39,10 +39,8 @@ class LanguageList extends StatelessWidget {
               thickness: 1.0,
               height: 1.0,
             ),
-            ButtonBar(
+            OverflowBar(
                 alignment: MainAxisAlignment.spaceAround,
-                buttonHeight: 42.0,
-                buttonMinWidth: 90.0,
                 children: List.generate(AppConstants.languages.length, (index) {
                   final lang = sl<SettingsController>().languageList[index];
                   return InkWell(
@@ -64,7 +62,7 @@ class LanguageList extends StatelessWidget {
                                       ? Theme.of(context).dividerColor
                                       : Theme.of(context)
                                           .colorScheme
-                                          .background,
+                                          .primaryContainer,
                                   width: 3),
                               color: const Color(0xff3C2A21),
                             ),
@@ -81,7 +79,7 @@ class LanguageList extends StatelessWidget {
                                   ? Theme.of(context).primaryColorLight
                                   : Theme.of(context)
                                       .primaryColorLight
-                                      .withOpacity(.5),
+                                      .withValues(alpha: .5),
                               fontSize: 18,
                               fontFamily: 'noto',
                             ),

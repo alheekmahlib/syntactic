@@ -22,7 +22,10 @@ class BooksChapterBuild extends StatelessWidget {
       children: [
         Container(
             decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface.withOpacity(.15),
+                color: Theme.of(context)
+                    .colorScheme
+                    .surface
+                    .withValues(alpha: .15),
                 borderRadius: const BorderRadius.all(Radius.circular(8))),
             child: Column(
               children: [
@@ -68,8 +71,9 @@ class BooksChapterBuild extends StatelessWidget {
     return ExpansionTile(
       collapsedIconColor: Theme.of(context).colorScheme.inversePrimary,
       collapsedBackgroundColor:
-          Theme.of(context).colorScheme.surface.withOpacity(.1),
-      backgroundColor: Theme.of(context).colorScheme.surface.withOpacity(.1),
+          Theme.of(context).colorScheme.surface.withValues(alpha: .1),
+      backgroundColor:
+          Theme.of(context).colorScheme.surface.withValues(alpha: .1),
       title: Text(
         part.partName,
         style: TextStyle(
@@ -105,7 +109,7 @@ class BooksChapterBuild extends StatelessWidget {
                               color: Theme.of(context)
                                   .colorScheme
                                   .surface
-                                  .withOpacity(.6),
+                                  .withValues(alpha: .6),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(8))),
                           child: Row(

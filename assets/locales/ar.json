@@ -332,7 +332,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails1": "۞ إضافة المزيد من الكتب.\n۞ إضافة كتب الشروح.\n۞ إضافة الإشعارات للتطبيق.\n۞ تحسينات في الأداء.",
+  "What'sNewDetails1": "۞ إصلاح الخطأ الذي يظهر عند فتح الباب الأخير في كتب الشرح.\n۞ إضافة خاصية تحميل أبيات الكتاب كاملاً.",
   "@What'sNewDetails1": {
     "type": "text",
     "placeholders": {}
@@ -356,6 +356,56 @@
   },
   "noInternet": "الجهاز غير متصل بالانترنت!",
   "@noInternet": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noAudioFile": "تنبيه: ملف الصوت غير متوفر لهذا البيت.",
+  "@noAudioFile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloedCancel": "تم إلغاء عملية التحميل.",
+  "@downloedCancel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloedError": "حدث خطأ أثناء تحميل ملف الصوت:",
+  "@downloedError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "errorDownloadedZipFile": "فشل تحميل الملف المضغوط",
+  "@errorDownloadedZipFile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "zipFileNotFound": "لم يتم العثور على الملف المضغوط",
+  "@zipFileNotFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadedSuccess": "تم تحميل جميع أبيات الكتاب بنجاح",
+  "@downloadedSuccess": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "errorOrganizedZipFile": "حدث خطأ أثناء معالجة ملف الصوت:",
+  "@errorOrganizedZipFile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downlodingFullBook": "جاري تنزيل الكتاب كاملاً...",
+  "@downlodingFullBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downlodingAudio": "جاري تنزيل الصوت...",
+  "@downlodingAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "إلغاء التحميل",
+  "@cancel": {
     "type": "text",
     "placeholders": {}
   }

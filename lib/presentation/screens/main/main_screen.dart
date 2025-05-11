@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,39 +43,33 @@ class MainScreen extends StatelessWidget {
           body: SafeArea(
             child: SliderDrawer(
               key: generalCtrl.key,
-              splashColor: Theme.of(context).colorScheme.primaryContainer,
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
               slideDirection: context.customOrientation(
-                  SlideDirection.TOP_TO_BOTTOM, SlideDirection.RIGHT_TO_LEFT),
+                  SlideDirection.topToBottom, SlideDirection.rightToLeft),
               sliderOpenSize: platformView(
                   orientation(
                       context, height / 1 / 2 * 1.1, height / 1 / 2 * 1.5),
                   height / 1 / 2 * 1.1),
-              isCupertino: true,
               isDraggable: true,
               appBar: SliderAppBar(
-                appBarColor: Theme.of(context).colorScheme.primaryContainer,
-                appBarPadding: orientation(
-                    context,
-                    const EdgeInsets.symmetric(horizontal: 16.0),
-                    const EdgeInsets.symmetric(horizontal: 40.0)),
-                drawerIconSize: 1.0,
-                drawerIconColor: Colors.transparent,
-                drawerIcon: const SizedBox.shrink(),
-                appBarHeight: 40.h,
-                isTitleCenter: false,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.menu,
-                        size: 24.h,
-                        color: Theme.of(context).colorScheme.surface,
-                      ),
-                      onPressed: () => generalCtrl.key.currentState?.toggle(),
-                    ),
-                    customSvg(SvgPath.svgSyntactic, height: 20),
-                  ],
+                config: SliderAppBarConfig(
+                  drawerIconSize: 30,
+                  drawerIconColor: Theme.of(context).colorScheme.surface,
+                  isCupertino: false,
+                  splashColor: Theme.of(context).colorScheme.primaryContainer,
+                  backgroundColor:
+                      Theme.of(context).colorScheme.primaryContainer,
+                  padding: orientation(
+                      context,
+                      const EdgeInsets.symmetric(horizontal: 16.0),
+                      const EdgeInsets.symmetric(horizontal: 40.0)),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox.shrink(),
+                      customSvg(SvgPath.svgSyntactic, height: 20),
+                    ],
+                  ),
                 ),
               ),
               slider: const SettingsList(),
@@ -81,7 +77,7 @@ class MainScreen extends StatelessWidget {
                 controller: generalCtrl.controller,
                 onPageChanged: (index) {
                   generalCtrl.selected.value = index;
-                  print('selected ${generalCtrl.selected.value}');
+                  log('selected ${generalCtrl.selected.value}');
                 },
                 children: [
                   HomeScreen(),

@@ -1,15 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../core/services/connectivity_service.dart';
-import '../data/models/ourApp_model.dart';
+import '../../../../core/utils/constants/api_constants.dart';
+import '../../../../core/utils/helpers/api_client.dart';
+import '../data/models/our_app_model.dart';
 
 class OurAppsController extends GetxController {
   static OurAppsController get instance => Get.isRegistered<OurAppsController>()
@@ -20,23 +21,28 @@ class OurAppsController extends GetxController {
 
   Future<List<OurAppInfo>> fetchApps() async {
     try {
-      if (ConnectivityService.instance.noConnection.value) {
-        throw Exception('No internet connection');
-      } else {
-        final response = await http.get(Uri.parse(
-            'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/master/ourApps.json'));
+      final response = await ApiClient().request(
+        endpoint: ApiConstants.ourAppsUrl,
+        method: HttpMethod.get,
+      );
 
-        if (response.statusCode == 200) {
-          List<dynamic> jsonData = jsonDecode(response.body);
-          return jsonData.map((data) => OurAppInfo.fromJson(data)).toList();
-        } else {
-          throw Exception('Failed to load data');
-        }
+      if (response.isRight) {
+        // إذا كانت الاستجابة صحيحة، قم بتحليل البيانات
+        // If the response is successful, parse the data
+        List<dynamic> jsonData = jsonDecode(response.right as String);
+        return jsonData.map((data) => OurAppInfo.fromJson(data)).toList();
+      } else {
+        // إذا كانت الاستجابة خاطئة، قم بتسجيل الخطأ
+        // If the response is an error, log the error
+        log('Failed to load data: ${response.left.message}',
+            name: 'OurAppsController');
+        throw Exception('Failed to load data');
       }
     } catch (e) {
-      errorMessage.value =
-          'تعذر جلب التطبيقات. يرجى التحقق من اتصال الإنترنت والمحاولة مجددًا.';
-      return []; // إرجاع قائمة فارغة لتفادي تعطل التطبيق
+      // تسجيل أي استثناء يحدث
+      // Log any exception that occurs
+      log('Error occurred: $e', name: 'OurAppsController');
+      throw Exception('Failed to load data');
     }
   }
 

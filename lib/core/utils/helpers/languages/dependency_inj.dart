@@ -13,19 +13,19 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => sharedPreference);
   Get.lazyPut(() => LocalizationController(sharedPreferences: Get.find()));
 
-  Map<String, Map<String, String>> _languages = Map();
+  Map<String, Map<String, String>> languages = {};
   for (LanguageModel languageModel in AppConstants.languages) {
     String jsonStringValues = await rootBundle
         .loadString('assets/locales/${languageModel.languageCode}.json');
-    Map<String, dynamic> _mappedJson = json.decode(jsonStringValues);
+    Map<String, dynamic> mappedJson = json.decode(jsonStringValues);
 
-    Map<String, String> _json = Map();
-    _mappedJson.forEach((key, value) {
-      _json[key] = value.toString();
+    Map<String, String> jsonData = {};
+    mappedJson.forEach((key, value) {
+      jsonData[key] = value.toString();
     });
 
-    _languages['${languageModel.languageCode}_${languageModel.countryCode}'] =
-        _json;
+    languages['${languageModel.languageCode}_${languageModel.countryCode}'] =
+        jsonData;
   }
-  return _languages;
+  return languages;
 }

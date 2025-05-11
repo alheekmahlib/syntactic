@@ -28,7 +28,8 @@ class BooksBuild extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: BeigeContainer(
               width: MediaQuery.sizeOf(context).width,
-              color: Theme.of(context).colorScheme.surface.withOpacity(.15),
+              color:
+                  Theme.of(context).colorScheme.surface.withValues(alpha: .15),
               myWidget: showAllBooks
                   ? DefaultTabController(
                       length: 3,
@@ -51,7 +52,7 @@ class BooksBuild extends StatelessWidget {
                                   color: Theme.of(context)
                                       .colorScheme
                                       .primary
-                                      .withOpacity(.3),
+                                      .withValues(alpha: .3),
                                 ),
                               ),
                               child: Row(

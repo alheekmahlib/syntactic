@@ -332,7 +332,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails1": "۞ Added more books.\n۞ Added explanation books.\n۞ Added notifications for the app.\n۞ Performance improvements.",
+  "What'sNewDetails1": "۞ Fixed the error that appears when opening the last chapter in the explanation books.\n۞ Added the feature to download all verses of the book at once.",
   "@What'sNewDetails1": {
     "type": "text",
     "placeholders": {}
@@ -356,6 +356,56 @@
   },
   "noInternet": "The device is not connected to the Internet!",
   "@noInternet": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noAudioFile": "Alert: Audio file is not available for this verse.",
+  "@noAudioFile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloedCancel": "Download operation has been canceled.",
+  "@downloedCancel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloedError": "An error occurred while downloading the audio file:",
+  "@downloedError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "errorDownloadedZipFile": "Failed to download the compressed file",
+  "@errorDownloadedZipFile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "zipFileNotFound": "The compressed file was not found",
+  "@zipFileNotFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadedSuccess": "All book verses have been downloaded successfully",
+  "@downloadedSuccess": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "errorOrganizedZipFile": "An error occurred while processing the audio file:",
+  "@errorOrganizedZipFile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downlodingFullBook": "Downloading the entire book...",
+  "@downlodingFullBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downlodingAudio": "Downloading audio...",
+  "@downlodingAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "Cancel Download",
+  "@cancel": {
     "type": "text",
     "placeholders": {}
   }

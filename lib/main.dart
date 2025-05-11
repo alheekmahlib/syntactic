@@ -17,7 +17,7 @@ Future<void> main() async {
   await ServicesLocator().init();
   await GetStorage.init();
   NotifyHelper.initAwesomeNotifications();
-  NotifyHelper().requestPermissions();
+  NotifyHelper().requistPermissions();
   await ConnectivityService.instance.init();
   runApp(MyApp(languages: languages, theme: initTheme));
 }

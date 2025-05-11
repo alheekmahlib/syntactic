@@ -17,7 +17,7 @@ class LastRead extends StatelessWidget {
       child: BeigeContainer(
         // height: 125,
         width: Get.width,
-        color: Theme.of(context).colorScheme.surface.withOpacity(.15),
+        color: Theme.of(context).colorScheme.surface.withValues(alpha: .15),
         myWidget: Row(
           children: [
             Expanded(
@@ -85,7 +85,7 @@ class LastRead extends StatelessWidget {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .primary
-                                            .withOpacity(.15),
+                                            .withValues(alpha: .15),
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(8.0))),
                                     child: Stack(
@@ -115,11 +115,11 @@ class LastRead extends StatelessWidget {
                                             backgroundColor: Theme.of(context)
                                                 .colorScheme
                                                 .primary
-                                                .withOpacity(.15),
+                                                .withValues(alpha: .15),
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .surface
-                                                .withOpacity(.5),
+                                                .withValues(alpha: .5),
                                           ),
                                         ),
                                       ],

@@ -49,7 +49,7 @@ class ThemeChange extends StatelessWidget {
                             : Theme.of(context)
                                 .colorScheme
                                 .primary
-                                .withOpacity(.5),
+                                .withValues(alpha: .5),
                         fontSize: 16,
                         fontFamily: 'kufi',
                       ),
@@ -111,7 +111,7 @@ class ThemeChange extends StatelessWidget {
                             : Theme.of(context)
                                 .colorScheme
                                 .primary
-                                .withOpacity(.5),
+                                .withValues(alpha: .5),
                         fontSize: 16,
                         fontFamily: 'kufi',
                       ),

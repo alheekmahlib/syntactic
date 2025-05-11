@@ -53,7 +53,7 @@ class BookmarksBuild extends StatelessWidget {
                                     color: Theme.of(context)
                                         .colorScheme
                                         .surface
-                                        .withOpacity(.15),
+                                        .withValues(alpha: .15),
                                     myWidget: Row(
                                       children: [
                                         Expanded(
@@ -122,7 +122,7 @@ class BookmarksBuild extends StatelessWidget {
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .surface
-                                                .withOpacity(.15))),
+                                                .withValues(alpha: .15))),
                                     child: Text(
                                       bookmarkCtrl.getChapterOrPage(index),
                                       style: TextStyle(

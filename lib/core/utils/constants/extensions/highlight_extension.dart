@@ -15,19 +15,19 @@ extension HighlightExtension on String {
       final startIndex =
           lineWithoutDiacritics.indexOf(searchTermWithoutDiacritics, start);
       if (startIndex == -1) {
-        spans.add(TextSpan(text: this.substring(start)));
+        spans.add(TextSpan(text: substring(start)));
         break;
       }
 
       if (startIndex > start) {
-        spans.add(TextSpan(text: this.substring(start, startIndex)));
+        spans.add(TextSpan(text: substring(start, startIndex)));
       }
 
       int endIndex = startIndex + searchTermWithoutDiacritics.length;
-      endIndex = endIndex <= this.length ? endIndex : this.length;
+      endIndex = endIndex <= length ? endIndex : length;
 
       spans.add(TextSpan(
-        text: this.substring(startIndex, endIndex),
+        text: substring(startIndex, endIndex),
         style: const TextStyle(
             color: Color(0xffa24308), fontWeight: FontWeight.bold),
       ));
@@ -260,7 +260,7 @@ extension HighlightExtension on String {
               : 0;
           List<String> beforeWords =
               allWords.sublist(startBeforeIndex, beforeWordIndex);
-          spans.add(TextSpan(text: beforeWords.join(' ') + ' '));
+          spans.add(TextSpan(text: '${beforeWords.join(' ')} '));
         }
       }
 
@@ -283,7 +283,7 @@ extension HighlightExtension on String {
             : allWords.length;
         List<String> afterWords =
             allWords.sublist(afterWordIndex, endAfterIndex);
-        spans.add(TextSpan(text: ' ' + afterWords.join(' ')));
+        spans.add(TextSpan(text: ' ${afterWords.join(' ')}'));
       }
 
       start = endIndex;
@@ -295,7 +295,7 @@ extension HighlightExtension on String {
   List<InlineSpan> toFlutterTextWithSearchHighlight(String searchTerm) {
     final dom.Document document = html_parser.parse(this);
     final List<InlineSpan> children = [];
-    String cleanText = removeTashkil(this);
+    // String cleanText = removeTashkil(this);
     String searchTermWithoutDiacritics = removeTashkil(searchTerm);
 
     void parseNode(dom.Node node, TextStyle? parentStyle) {

@@ -48,7 +48,7 @@ Future<void> showShareOptionsBottomSheet(
                           color: Theme.of(context)
                               .colorScheme
                               .surface
-                              .withOpacity(.5),
+                              .withValues(alpha: .5),
                           color2: Theme.of(context).colorScheme.surface),
                       context.customSvg(SvgPath.svgSharing, width: 20.0),
                     ],
@@ -76,7 +76,7 @@ Future<void> showShareOptionsBottomSheet(
                       margin: const EdgeInsets.only(
                           top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
                       decoration: BoxDecoration(
-                          color: const Color(0xFFC39B7B).withOpacity(.3),
+                          color: const Color(0xFFC39B7B).withValues(alpha: .3),
                           borderRadius:
                               const BorderRadius.all(Radius.circular(4))),
                       child: Row(
@@ -170,8 +170,8 @@ Future<void> showShareOptionsBottomSheet(
                                   right: 16.0,
                                   left: 16.0),
                               decoration: BoxDecoration(
-                                  color:
-                                      const Color(0xFFC39B7B).withOpacity(.3),
+                                  color: const Color(0xFFC39B7B)
+                                      .withValues(alpha: .3),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(4))),
                               child: VerseImageCreator(

@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:nahawi/core/utils/constants/extensions/highlight_extension.dart';
-import 'package:nahawi/presentation/screens/all_books/controller/extensions/books_getters.dart';
-import 'package:nahawi/presentation/screens/search/controller/extensions/search_ui.dart';
 
+import '/core/utils/constants/extensions/highlight_extension.dart';
 import '/presentation/screens/all_books/controller/books_controller.dart';
+import '/presentation/screens/all_books/controller/extensions/books_getters.dart';
+import '/presentation/screens/search/controller/extensions/search_ui.dart';
 import '../../all_books/data/models/books_model.dart';
 import '../../all_books/data/models/page_model.dart';
 import '../data/models/search_result_model.dart';

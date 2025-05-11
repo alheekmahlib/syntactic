@@ -3,81 +3,75 @@ description: "A new Flutter project."
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-
-version: 1.0.6+6
+version: 1.0.7+7
 
 environment:
   sdk: '>=3.5.3 <4.0.0'
 
-
 dependencies:
+  animated_theme_switcher: ^2.0.10
+  animated_toggle_switch: ^0.8.5
+  another_xlider: ^3.0.2
+  arabic_numbers: ^1.0.0
+  archive: ^4.0.7
+  awesome_notifications: ^0.10.0
+  awesome_notifications_core: ^0.10.0
+  badges: ^3.1.2
+  bot_toast: ^4.1.3
+  connectivity_plus: ^6.1.4
+  cupertino_icons: ^1.0.8
+  device_info_plus: ^11.1.0
+  diacritic: ^0.1.6
+  dio: ^5.8.0+1
+  drift: ^2.26.1
+  easy_url_launcher: ^0.0.7
+  either_dart: ^1.0.0
+  expansion_tile_card: ^3.0.0
   flutter:
     sdk: flutter
-
-  cupertino_icons: ^1.0.8
-  get_it: ^8.0.1
-  shared_preferences: ^2.3.2
-  get: ^4.6.6
-  animated_theme_switcher: ^2.0.10
-  another_xlider: ^3.0.2
-  flutter_svg: ^2.0.10+1
-  gap: ^3.0.1
-  hijri: ^3.0.0
-  flutter_slider_drawer: ^2.1.3
-  arabic_numbers: ^1.0.0
-  screenshot: ^3.0.0
-  path_provider: ^2.1.4
-  share_plus: ^10.1.1
-  flutter_screenutil: ^5.9.3
-  stylish_bottom_bar: ^1.1.0
-  expansion_tile_card: ^3.0.0
-  device_info_plus: ^11.1.0
-  http: ^1.2.2
-  url_launcher: ^6.3.1
-  info_popup: ^4.3.1
-  lottie: ^3.1.3
-  pie_menu: ^3.2.7
-  just_audio: ^0.9.41
-  connectivity_plus: ^6.1.0
-  dio: ^5.7.0
-#  objectbox: ^4.0.3
-#  objectbox_flutter_libs: any
-  diacritic: ^0.1.6
-  group_button: ^5.3.4
-  image: ^4.3.0
-  horizontal_stepper_step: ^0.0.5
   flutter_native_splash: ^2.4.2
-  path: ^1.9.0
-  package_rename: ^1.7.1
-  rxdart: ^0.28.0
-  easy_url_launcher: ^0.0.7
-  bot_toast: ^4.1.3
+  flutter_screenutil: ^5.9.3
+  flutter_slider_drawer: ^3.0.2
+  flutter_svg: ^2.1.0
+  gap: ^3.0.1
+  get: ^4.7.2
+  get_it: ^8.0.3
   get_storage: ^2.1.1
-  shimmer: ^3.0.0
-  animated_toggle_switch: ^0.8.3
-  html: ^0.15.4
+  group_button: ^5.3.4
+  hijri: ^3.0.0
+  horizontal_stepper_step: ^0.0.5
+  html: ^0.15.6
+  http: ^1.4.0
+  icons_launcher: ^3.0.1
+  image: ^4.5.4
+  infinite_scroll_pagination: ^4.1.0
+  info_popup: ^4.3.2
+  just_audio: ^0.10.2
+  lottie: ^3.3.1
+  # package_rename: ^1.10.0
+  path: ^1.9.0
+  path_provider: ^2.1.5
+  pie_menu: ^3.3.0
   read_more_less: ^1.0.1
-  infinite_scroll_pagination: ^4.0.0
-  awesome_notifications: ^0.9.3+1
-  awesome_notifications_core: ^0.9.3
-  badges: ^3.1.2
-  smooth_page_indicator: ^1.2.0+3
-  icons_launcher: ^3.0.0
-  drift: ^2.21.0
+  rxdart: ^0.28.0
+  screenshot: ^3.0.0
+  share_plus: ^11.0.0
+  shared_preferences: ^2.5.3
+  shimmer: ^3.0.0
+  smooth_page_indicator: ^1.2.1
+  stylish_bottom_bar: ^1.1.1
+  url_launcher: ^6.3.1
 
-
-# Commit this line if you want to run or build on ios / macOS
-#  drift_flutter: ^0.2.1
+# remove this line if you wish to build for iOS or macOS
+  # drift_flutter: ^0.2.4
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
-
-  flutter_lints: ^5.0.0
   build_runner: ^2.4.13
   drift_dev: ^2.21.0
 
+  flutter_lints: ^5.0.0
+  flutter_test:
+    sdk: flutter
 
 flutter_native_splash:
   color: "#FFFFFE"
@@ -91,10 +85,7 @@ flutter_native_splash:
     image_dark: assets/images/syntactic_logo240.png
     icon_background_color_dark: "#181818"
 
-
-
 flutter:
-
 
   uses-material-design: true
 
@@ -112,10 +103,8 @@ flutter:
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
@@ -130,13 +119,11 @@ flutter:
     - family: naskh
       fonts:
         - asset: assets/fonts/NotoNaskhArabic-VariableFont_wght.ttf
-  #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-
 package_rename_config:
-    macos:
-      package_name: com.alheekmahlib.nahawiapp.nahawi
+  macos:
+    package_name: com.alheekmahlib.nahawiapp.nahawi
 
 flutter_assets:
   # assets_path: assets/lottie/
@@ -144,9 +131,8 @@ flutter_assets:
   output_path: lib/core/utils/constants/
   # filename: lottie_constants.dart
   filename: svg_constants.dart
-  field_prefix:
+  field_prefix: null
   class_name: SvgPath
-
 
 icons_launcher:
   image_path: "assets/images/syntactic_logo.png"

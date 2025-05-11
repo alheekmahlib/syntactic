@@ -13,7 +13,8 @@ class AboutAppText extends StatelessWidget {
     return ExpansionTileCard(
       elevation: 0.0,
       initialElevation: 0.0,
-      expandedTextColor: Theme.of(context).colorScheme.surface.withOpacity(.15),
+      expandedTextColor:
+          Theme.of(context).colorScheme.surface.withValues(alpha: .15),
       title: SizedBox(
         width: 100.0,
         child: Text(
@@ -25,56 +26,59 @@ class AboutAppText extends StatelessWidget {
           ),
         ),
       ),
-      baseColor: Theme.of(context).colorScheme.surface.withOpacity(.15),
-      expandedColor: Theme.of(context).colorScheme.surface.withOpacity(.15),
+      baseColor: Theme.of(context).colorScheme.surface.withValues(alpha: .15),
+      expandedColor:
+          Theme.of(context).colorScheme.surface.withValues(alpha: .15),
       children: <Widget>[
         hDivider(context, width: MediaQuery.sizeOf(context).width * .5),
-        ButtonBar(
-          alignment: MainAxisAlignment.spaceAround,
-          buttonHeight: 42.0,
-          buttonMinWidth: 90.0,
-          children: [
-            Text(
-              'aboutAppDetails'.tr,
-              style: TextStyle(
-                fontFamily: 'naskh',
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColorLight,
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: OverflowBar(
+            alignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                'aboutAppDetails'.tr,
+                style: TextStyle(
+                  fontFamily: 'naskh',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColorLight,
+                ),
+                textAlign: TextAlign.justify,
               ),
-              textAlign: TextAlign.justify,
-            ),
-            const Gap(24),
-            Column(
-              children: List.generate(
-                5,
-                (index) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      ('aboutAppTitle${index + 1}').tr,
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'naskh',
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColorLight,
-                      ),
-                    ),
-                    Text(('aboutApp${index + 1}').tr,
+              const Gap(24),
+              Column(
+                children: List.generate(
+                  5,
+                  (index) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        ('aboutAppTitle${index + 1}').tr,
                         style: TextStyle(
                           fontSize: 18.0,
                           fontFamily: 'naskh',
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.bold,
                           color: Theme.of(context).primaryColorLight,
                         ),
-                        textAlign: TextAlign.justify),
-                    hDivider(context, width: MediaQuery.sizeOf(context).width),
-                    const Gap(16),
-                  ],
+                      ),
+                      Text(('aboutApp${index + 1}').tr,
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontFamily: 'naskh',
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context).primaryColorLight,
+                          ),
+                          textAlign: TextAlign.justify),
+                      hDivider(context,
+                          width: MediaQuery.sizeOf(context).width),
+                      const Gap(16),
+                    ],
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ],
     );

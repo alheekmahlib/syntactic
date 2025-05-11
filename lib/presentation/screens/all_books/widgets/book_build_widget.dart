@@ -125,7 +125,7 @@ class BookBuildWidget extends StatelessWidget {
                           children: [
                             Hero(
                                 tag: 'book-tag:${book.bookNumber}',
-                                child: book_cover(context,
+                                child: bookCover(context,
                                     index: index + 1,
                                     height: 138.h,
                                     width: 176.w)),

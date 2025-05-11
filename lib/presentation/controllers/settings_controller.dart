@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,7 +25,7 @@ class SettingsController extends GetxController {
     String? langCode = sl<SharedPreferences>().getString("lang");
     String? langName = sl<SharedPreferences>().getString("lang_name");
 
-    debugPrint('Lang code: $langCode');
+    log('Lang code: $langCode');
 
     if (langCode == null || langCode.isEmpty) {
       initialLang = const Locale('ar', 'AE');
@@ -36,7 +38,7 @@ class SettingsController extends GetxController {
       languageName.value = langName;
     }
 
-    debugPrint('get lang $initialLang');
+    log('get lang $initialLang');
   }
 
   List languageList = [
