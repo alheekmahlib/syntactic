@@ -34,8 +34,10 @@ class SettingsList extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
                 decoration: BoxDecoration(
-                    color:
-                        Theme.of(context).colorScheme.onSurface.withOpacity(.7),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: .7),
                     borderRadius: const BorderRadius.all(
                       Radius.circular(8.0),
                     )),
@@ -59,8 +61,10 @@ class SettingsList extends StatelessWidget {
                     horizontal: 16.0, vertical: 16.0),
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 decoration: BoxDecoration(
-                    color:
-                        Theme.of(context).colorScheme.onSurface.withOpacity(.7),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: .7),
                     borderRadius: const BorderRadius.all(
                       Radius.circular(8.0),
                     )),
@@ -89,7 +93,7 @@ class SettingsList extends StatelessWidget {
                         color: Theme.of(context)
                             .colorScheme
                             .onSurface
-                            .withOpacity(.7),
+                            .withValues(alpha: .7),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(4.0),
                         )),
@@ -150,7 +154,7 @@ class SettingsList extends StatelessWidget {
                         color: Theme.of(context)
                             .colorScheme
                             .onSurface
-                            .withOpacity(.7),
+                            .withValues(alpha: .7),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(4.0),
                         )),
@@ -162,9 +166,11 @@ class SettingsList extends StatelessWidget {
                             children: [
                               Expanded(
                                   flex: 2,
-                                  child: customSvg(
+                                  child: customSvgWithColor(
                                     SvgPath.svgSyntacticR,
                                     height: 35.0,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                   )),
                               vDivider(context),
                               Expanded(

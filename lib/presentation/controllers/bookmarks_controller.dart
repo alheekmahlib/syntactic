@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '../../core/utils/constants/extensions/custom_error_snack_bar.dart';
 import '../screens/all_books/controller/books_controller.dart';
 import '../screens/all_books/screens/poems_read_view.dart';
 import '../screens/all_books/screens/read_view_screen.dart';
@@ -110,7 +112,7 @@ class BookmarksController extends GetxController {
     await _db.insertBookmark(bookmark);
     allBookmarks.add(bookmark);
     update();
-    print('added bookmark ${bookmark.id}');
+    log('added bookmark ${bookmark.id}');
   }
 
   Future<void> onTapBookmarkBuild(int index) async {
@@ -133,9 +135,9 @@ class BookmarksController extends GetxController {
           bookmark.chapterNumber == chapterNumber);
       update();
       Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr, isDone: false);
-      print('Bookmark removed successfully');
+      log('Bookmark removed successfully');
     } else {
-      print('No bookmark found for the given bookNumber and chapterNumber');
+      log('No bookmark found for the given bookNumber and chapterNumber');
     }
   }
 

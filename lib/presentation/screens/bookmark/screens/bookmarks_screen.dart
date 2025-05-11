@@ -25,7 +25,8 @@ class BookmarksScreen extends StatelessWidget {
             child: BeigeContainer(
               height: height,
               width: width,
-              color: Theme.of(context).colorScheme.surface.withOpacity(.15),
+              color:
+                  Theme.of(context).colorScheme.surface.withValues(alpha: .15),
               myWidget: SingleChildScrollView(
                 child: Column(
                   children: [BookmarksTitle(), BookmarksBuild(), Gap(16)],

@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../core/utils/constants/svg_constants.dart';
 import '../../../core/widgets/widgets.dart';
-import '../../controllers/splashScreen_controller.dart';
+import '../../controllers/splash_screen_controller.dart';
 import 'widgets/alheekmah_and_loading.dart';
 
 class SplashScreen extends StatelessWidget {

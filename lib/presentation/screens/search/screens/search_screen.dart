@@ -52,7 +52,7 @@ class SearchScreen extends StatelessWidget {
                           color: Theme.of(context)
                               .colorScheme
                               .surface
-                              .withOpacity(.5),
+                              .withValues(alpha: .5),
                           color2: Theme.of(context).colorScheme.surface),
                       Text(
                         'search'.tr,
@@ -84,7 +84,7 @@ class SearchScreen extends StatelessWidget {
                             color: Theme.of(context)
                                 .colorScheme
                                 .primary
-                                .withOpacity(.7),
+                                .withValues(alpha: .7),
                           ),
                           decoration: InputDecoration(
                             hintText: 'searchHintText'.tr,
@@ -107,13 +107,13 @@ class SearchScreen extends StatelessWidget {
                               color: Theme.of(context)
                                   .colorScheme
                                   .primary
-                                  .withOpacity(.3),
+                                  .withValues(alpha: .3),
                             ),
                             filled: true,
                             fillColor: Theme.of(context)
                                 .colorScheme
                                 .surface
-                                .withOpacity(.12),
+                                .withValues(alpha: .12),
                             prefixIcon: Container(
                               height: 20,
                               padding: const EdgeInsets.all(10.0),
@@ -138,7 +138,7 @@ class SearchScreen extends StatelessWidget {
                               color: Theme.of(context)
                                   .colorScheme
                                   .primary
-                                  .withOpacity(.5),
+                                  .withValues(alpha: .5),
                             ),
                           ),
                           onSubmitted: (query) =>

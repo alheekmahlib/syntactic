@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:nahawi/core/utils/constants/extensions/custom_error_snackBar.dart';
+import 'package:nahawi/core/utils/constants/extensions/custom_error_snack_bar.dart';
 import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
 import 'package:nahawi/core/utils/constants/svg_constants.dart';
 
@@ -31,7 +31,9 @@ class PlayButton extends StatelessWidget {
               if (ConnectivityService.instance.noConnection.value) {
                 Get.context!.showCustomErrorSnackBar('noInternet'.tr);
               } else {
-                await audioCtrl.state.audioPlayer.play();
+                // التحقق من وجود ملف الصوت وتشغيله
+                // Check for audio file and play it
+                await audioCtrl.togglePlayPause();
               }
             },
             child: customSvgWithColor(SvgPath.svgPlay,

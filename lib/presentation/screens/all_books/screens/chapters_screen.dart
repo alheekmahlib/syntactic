@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:nahawi/core/utils/constants/extensions.dart';
 import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
 
 import '../../../../core/utils/constants/svg_constants.dart';
@@ -50,28 +51,56 @@ class ChaptersPage extends StatelessWidget {
           leadingWidth: 56,
         ),
         body: SafeArea(
-            child: ListView(
-          children: [
-            const Gap(8),
-            BookDetails(
-              bookNumber: bookNumber,
-              bookName: bookName,
-              bookType: bookType,
-              aboutBook: aboutBook,
-            ),
-            const Gap(16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: SingleChildScrollView(
-                child: BooksChapterBuild(
-                  bookNumber: bookNumber,
-                  bookType: bookType,
+            child: context.customOrientation(
+                ListView(
+                  children: [
+                    const Gap(8),
+                    BookDetails(
+                      bookNumber: bookNumber,
+                      bookName: bookName,
+                      bookType: bookType,
+                      aboutBook: aboutBook,
+                    ),
+                    const Gap(16),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      child: SingleChildScrollView(
+                        child: BooksChapterBuild(
+                          bookNumber: bookNumber,
+                          bookType: bookType,
+                        ),
+                      ),
+                    ),
+                    const Gap(16),
+                  ],
                 ),
-              ),
-            ),
-            const Gap(16),
-          ],
-        )),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: SingleChildScrollView(
+                        child: BookDetails(
+                          bookNumber: bookNumber,
+                          bookName: bookName,
+                          bookType: bookType,
+                          aboutBook: aboutBook,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        child: SingleChildScrollView(
+                          child: BooksChapterBuild(
+                            bookNumber: bookNumber,
+                            bookType: bookType,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ))),
       ),
     );
   }

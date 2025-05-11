@@ -7,8 +7,8 @@ import '/core/utils/constants/extensions.dart';
 import '../../../../core/services/connectivity_service.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../../core/widgets/widgets.dart';
-import '../controller/ourApps_controller.dart';
-import '../data/models/ourApp_model.dart';
+import '../controller/our_apps_controller.dart';
+import '../data/models/our_app_model.dart';
 
 class OurAppsBuild extends StatelessWidget {
   OurAppsBuild({super.key});
@@ -119,7 +119,8 @@ class OurAppsBuild extends StatelessWidget {
                                                         color: Theme.of(context)
                                                             .colorScheme
                                                             .surface
-                                                            .withOpacity(.7),
+                                                            .withValues(
+                                                                alpha: .7),
                                                         fontSize: 11,
                                                         fontFamily: 'kufi',
                                                         fontWeight:

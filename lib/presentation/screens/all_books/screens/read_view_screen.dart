@@ -129,7 +129,7 @@ class BookReadView extends StatelessWidget {
                                               context.theme.colorScheme.surface,
                                           selectionColor: context
                                               .theme.colorScheme.surface
-                                              .withOpacity(.2),
+                                              .withValues(alpha: .2),
                                           selectionHandleColor:
                                               context.theme.colorScheme.surface,
                                         )),
@@ -177,7 +177,8 @@ class BookReadView extends StatelessWidget {
                                                           .theme
                                                           .colorScheme
                                                           .inversePrimary
-                                                          .withOpacity(.5),
+                                                          .withValues(
+                                                              alpha: .5),
                                                       height: 1.5,
                                                       fontSize: generalCtrl
                                                               .fontSizeArabic
@@ -188,7 +189,7 @@ class BookReadView extends StatelessWidget {
                                                         TextDirection.rtl,
                                                   ),
                                                 );
-                                              }).toList(),
+                                              }),
                                               const Gap(32),
                                             ],
                                           ),

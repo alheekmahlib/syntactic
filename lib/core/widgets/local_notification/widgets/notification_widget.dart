@@ -6,7 +6,7 @@ import '../controller/local_notifications_controller.dart';
 
 class NotificationWidget extends StatelessWidget {
   final int postId;
-  NotificationWidget({required this.postId});
+  NotificationWidget({super.key, required this.postId});
 
   final notiCtrl = LocalNotificationsController.instance;
 
@@ -38,7 +38,7 @@ class NotificationWidget extends StatelessWidget {
                     color: Theme.of(context)
                         .colorScheme
                         .secondary
-                        .withOpacity(.5)),
+                        .withValues(alpha: .5)),
                 Icon(Icons.close_outlined,
                     size: 16, color: Theme.of(context).colorScheme.secondary),
               ],

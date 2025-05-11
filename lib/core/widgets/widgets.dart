@@ -213,7 +213,7 @@ Widget customClose(
         Icon(Icons.close_outlined,
             size: 32,
             color: color ??
-                Theme.of(context).colorScheme.secondary.withOpacity(.5)),
+                Theme.of(context).colorScheme.secondary.withValues(alpha: .5)),
         Icon(Icons.close_outlined,
             size: 16, color: color2 ?? Theme.of(context).colorScheme.secondary),
       ],

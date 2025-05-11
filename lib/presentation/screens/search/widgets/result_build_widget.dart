@@ -63,7 +63,7 @@ class ResultBuild extends StatelessWidget {
                               color: Theme.of(context)
                                   .colorScheme
                                   .surface
-                                  .withOpacity(.15),
+                                  .withValues(alpha: .15),
                               myWidget: Column(
                                 children: [
                                   Padding(

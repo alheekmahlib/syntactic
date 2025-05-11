@@ -18,7 +18,8 @@ class ChaptersBuild extends StatelessWidget {
       return Stack(
         children: [
           BeigeContainer(
-              color: Theme.of(context).colorScheme.surface.withOpacity(.15),
+              color:
+                  Theme.of(context).colorScheme.surface.withValues(alpha: .15),
               myWidget: Column(
                 children: [
                   Container(

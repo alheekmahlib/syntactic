@@ -36,8 +36,10 @@ class OnboardingScreen extends StatelessWidget {
                     totalStep: 5,
                     completedStep: onboarding.pageNumber.value,
                     selectedColor: Theme.of(context).colorScheme.surface,
-                    backGroundColor:
-                        Theme.of(context).colorScheme.surface.withOpacity(.2),
+                    backGroundColor: Theme.of(context)
+                        .colorScheme
+                        .surface
+                        .withValues(alpha: .2),
                   ),
                 ),
               ),
@@ -193,7 +195,7 @@ class OnboardingScreen extends StatelessWidget {
                                 color: Theme.of(context)
                                     .colorScheme
                                     .surface
-                                    .withOpacity(.4),
+                                    .withValues(alpha: .4),
                                 fontSize: 16.0,
                                 fontFamily: 'kufi',
                                 fontWeight: FontWeight.w600,

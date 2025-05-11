@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '../../../../core/utils/constants/extensions/custom_error_snack_bar.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/font_size_extension.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
@@ -87,7 +87,7 @@ class BooksTopTitleWidget extends StatelessWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(.3),
+                  color: Colors.grey.withValues(alpha: .3),
                   offset: const Offset(0, 5),
                   blurRadius: 70,
                   spreadRadius: 0,

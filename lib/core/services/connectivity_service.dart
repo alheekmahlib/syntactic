@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
 
@@ -68,13 +67,13 @@ class ConnectivityService extends GetxService {
     // _showConnectivityStatusSnackBar(result);
   }
 
-  void _showConnectivityStatusSnackBar(List<ConnectivityResult> result) {
-    if (result.contains(ConnectivityResult.none)) {
-      Get.context?.showCustomErrorSnackBar('noInternet'.tr);
-    } else if (result.contains(ConnectivityResult.mobile)) {
-      Get.context?.showCustomErrorSnackBar('mobileDataAyat'.tr);
-    }
-  }
+  // void _showConnectivityStatusSnackBar(List<ConnectivityResult> result) {
+  //   if (result.contains(ConnectivityResult.none)) {
+  //     Get.context?.showCustomErrorSnackBar('noInternet'.tr);
+  //   } else if (result.contains(ConnectivityResult.mobile)) {
+  //     Get.context?.showCustomErrorSnackBar('mobileDataAyat'.tr);
+  //   }
+  // }
 
   /// -------- [Dispose] ----------
 

@@ -57,7 +57,7 @@ class AudioWidget extends StatelessWidget {
                               color: Theme.of(context)
                                   .colorScheme
                                   .secondary
-                                  .withOpacity(.4),
+                                  .withValues(alpha: .4),
                               size: 18,
                             ),
                             Icon(

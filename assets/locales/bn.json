@@ -222,7 +222,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "aboutApp1": "এই অ্যাপ্লিকেশনটির একটি সহজ এবং ব্যবহারকারী-বন্ধুত্বপূর্ণ ইন্টারফেস রয়েছে, যা ব্যবহারকারীদেরকে বইগুলির সামগ্রী পরিচর্চা এবং দক্ষভাবে ব্যবহার করতে সুগম করে।",
+  "aboutApp1": "এই অ্যাপ্লিকেশনটির একটি সহজ এবং ব্যবহারকারী-বন্ধুত্বপূর্ণ ইন্টারফেস রয়েছে, যা ব্যবহারকারীদেরকে বইগুলির সামগ্রী পরিচর্চা এবং দক্ষতার সাথে ব্যবহার করতে সুগম করে।",
   "@aboutApp1": {
     "type": "text",
     "placeholders": {}
@@ -332,7 +332,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails1": "۞ আরও বই যোগ করা হয়েছে।\n۞ ব্যাখ্যা বই যোগ করা হয়েছে।\n۞ অ্যাপের জন্য বিজ্ঞপ্তি যোগ করা হয়েছে।\n۞ কর্মক্ষমতা উন্নত করা হয়েছে।",
+  "What'sNewDetails1": "۞ ব্যাখ্যা বইগুলিতে শেষ অধ্যায় খোলার সময় যে ত্রুটি দেখা যায় তা সংশোধন করা হয়েছে।\n۞ বইয়ের সব শ্লোক একসাথে ডাউনলোড করার সুবিধা যোগ করা হয়েছে।",
   "@What'sNewDetails1": {
     "type": "text",
     "placeholders": {}
@@ -356,6 +356,56 @@
   },
   "noInternet": "ডিভাইসটি ইন্টারনেটের সাথে সংযুক্ত নয়!",
   "@noInternet": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noAudioFile": "সতর্কতা: এই শ্লোকের জন্য অডিও ফাইল উপলব্ধ নয়।",
+  "@noAudioFile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloedCancel": "ডাউনলোড প্রক্রিয়া বাতিল করা হয়েছে।",
+  "@downloedCancel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloedError": "অডিও ফাইল ডাউনলোড করার সময় একটি ত্রুটি ঘটেছে:",
+  "@downloedError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "errorDownloadedZipFile": "সংকুচিত ফাইল ডাউনলোড করতে ব্যর্থ হয়েছে",
+  "@errorDownloadedZipFile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "zipFileNotFound": "সংকুচিত ফাইল পাওয়া যায়নি",
+  "@zipFileNotFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadedSuccess": "সব বইয়ের শ্লোকগুলি সফলভাবে ডাউনলোড করা হয়েছে",
+  "@downloadedSuccess": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "errorOrganizedZipFile": "অডিও ফাইল প্রক্রিয়া করার সময় একটি ত্রুটি ঘটেছে:",
+  "@errorOrganizedZipFile": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downlodingFullBook": "পুরো বইটি ডাউনলোড করা হচ্ছে...",
+  "@downlodingFullBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downlodingAudio": "অডিও ডাউনলোড করা হচ্ছে...",
+  "@downlodingAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "ডাউনলোড বাতিল করুন",
+  "@cancel": {
     "type": "text",
     "placeholders": {}
   }

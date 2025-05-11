@@ -4,9 +4,10 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../services/connectivity_service.dart';
+import '../../../utils/constants/api_constants.dart';
+import '../../../utils/helpers/api_client.dart';
 import '../../../utils/helpers/notifications_helper.dart';
 import '../data/model/post_model.dart';
 
@@ -25,7 +26,7 @@ class LocalNotificationsController extends GetxController {
     super.onInit();
     // NotifyHelper.initAwesomeNotifications();
     if (!ConnectivityService.instance.noConnection.value) {
-      fetchAndScheduleNotifications();
+      fetchNewNotifications();
     }
     loadReadStatus();
   }
@@ -36,16 +37,21 @@ class LocalNotificationsController extends GetxController {
     super.onClose();
   }
 
-  Future<void> fetchAndScheduleNotifications() async {
-    // box.remove('lastSeenPostId');
-    try {
-      final response = await http.get(Uri.parse(
-          'https://github.com/alheekmahlib/thegarlanded/blob/master/noti.json?raw=true'));
+  int get unreadCount =>
+      postsList.where((n) => n.appName == 'quran' && !n.opened).length;
 
-      if (response.statusCode == 200 && response.body.isNotEmpty) {
-        List<PostModel> jsonResponse = (jsonDecode(response.body) as List)
-            .map((item) => PostModel.fromJson(item))
-            .toList();
+  Future<void> fetchNewNotifications() async {
+    try {
+      final response = await ApiClient().request(
+        endpoint: ApiConstants.notificationsUrl,
+        method: HttpMethod.get,
+      );
+
+      if (response.isRight) {
+        // فك ترميز JSON الخام إلى كائن Dart
+        List<dynamic> jsonData = jsonDecode(response.right as String);
+        List<PostModel> jsonResponse =
+            jsonData.map((item) => PostModel.fromJson(item)).toList();
         postsList.value = jsonResponse;
         log('Posts loaded: ${postsList.length}');
 
@@ -60,7 +66,14 @@ class LocalNotificationsController extends GetxController {
             String body = post.body;
             int id = post.id;
 
-            await NotifyHelper().scheduledNotification(id, title, body);
+            await NotifyHelper().scheduledNotification(
+              reminderId: id,
+              title: title,
+              summary: title,
+              body: body,
+              time: DateTime.now().add(const Duration(seconds: 10)),
+              isRepeats: false,
+            );
 
             if (id > newLastSeenPostId) {
               newLastSeenPostId = id;
@@ -70,10 +83,10 @@ class LocalNotificationsController extends GetxController {
 
         await box.write('lastSeenPostId', newLastSeenPostId);
       } else {
-        print('Failed to load posts, status code: ${response.statusCode}');
+        log('Failed to load posts, error: ${response.left.message}');
       }
     } catch (e) {
-      print('Error fetching notifications: $e');
+      log('Error fetching notifications: $e');
     }
   }
 
@@ -95,7 +108,7 @@ class LocalNotificationsController extends GetxController {
     if (isRead) {
       if (!readPosts.contains(postId)) {
         readPosts.add(postId);
-        log('post read: ${postId}');
+        log('post read: $postId');
         box.write('readPosts', readPosts);
       }
     } else {

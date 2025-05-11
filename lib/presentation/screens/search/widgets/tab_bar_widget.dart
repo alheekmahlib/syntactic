@@ -13,7 +13,7 @@ class TabBarWidget extends StatelessWidget {
       width: Get.width,
       margin: const EdgeInsets.symmetric(horizontal: 16.0),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface.withOpacity(.12),
+        color: Theme.of(context).colorScheme.surface.withValues(alpha: .12),
         borderRadius: const BorderRadius.all(
           Radius.circular(8),
         ),

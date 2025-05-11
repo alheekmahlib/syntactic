@@ -18,7 +18,7 @@ class SeekBar extends StatelessWidget {
   final double? padding;
 
   SeekBar(
-      {Key? key,
+      {super.key,
       required this.duration,
       required this.position,
       required this.bufferedPosition,
@@ -31,8 +31,7 @@ class SeekBar extends StatelessWidget {
       this.timeShow,
       this.dragValue,
       this.onDragValueChanged,
-      this.padding})
-      : super(key: key);
+      this.padding});
 
   late final SliderThemeData sliderThemeData;
 
@@ -176,12 +175,12 @@ class PositionData {
   PositionData(this.position, this.bufferedPosition, this.duration);
 }
 
-class pagePositionData {
+class PagePositionData {
   final Duration position;
   final Duration bufferedPosition;
   final Duration duration;
 
-  pagePositionData(this.position, this.bufferedPosition, this.duration);
+  PagePositionData(this.position, this.bufferedPosition, this.duration);
 }
 
 void showSliderDialog({

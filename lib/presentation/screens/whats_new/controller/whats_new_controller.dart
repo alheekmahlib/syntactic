@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '/presentation/screens/whats_new/controller/extensions/whats_new_getters.dart';
 import '/presentation/screens/whats_new/controller/whats_new_state.dart';
-import '../../../../core/utils/constants/lists.dart';
 import '../screen/whats_new_screen.dart';
 
 class WhatsNewController extends GetxController {
@@ -54,4 +53,13 @@ class WhatsNewController extends GetxController {
       saveLastShownIndex(newFeatures.last['index']);
     }
   }
+
+  List<Map<String, dynamic>> whatsNewList = [
+    {
+      'index': 2,
+      'title': "",
+      'details': "What'sNewDetails1",
+      'imagePath': '',
+    },
+  ];
 }

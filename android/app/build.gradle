@@ -30,8 +30,8 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.alheekmahlib.nahawiapp.nahawi"
-    compileSdkVersion 34
-    ndkVersion flutter.ndkVersion
+    compileSdk = 35
+    ndkVersion = "27.0.12077973" // flutter.ndkVersion
 
     compileOptions {
         coreLibraryDesugaringEnabled true

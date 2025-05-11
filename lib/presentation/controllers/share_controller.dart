@@ -1,13 +1,11 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
-
-import '../screens/all_books/controller/books_controller.dart';
 
 class ShareController extends GetxController {
   final ScreenshotController ayahScreenController = ScreenshotController();
@@ -26,13 +24,13 @@ class ShareController extends GetxController {
       ayahToImageBytes = imageBytes;
       update();
     } catch (e) {
-      debugPrint('Error capturing verse image: $e');
+      log('Error capturing verse image: $e');
     }
   }
 
   shareText(String bookName, String chapterTitle, String pageText,
       String firstPoem, String secondPoem, int pageNumber) {
-    final bookCtrl = AllBooksController.instance;
+    // final bookCtrl = AllBooksController.instance;
     Share.share(
         '$bookName\n'
         '$chapterTitle\n\n'
@@ -42,12 +40,9 @@ class ShareController extends GetxController {
   }
 
   Future<void> shareVerse() async {
-    if (ayahToImageBytes! != null) {
-      final directory = await getTemporaryDirectory();
-      final imagePath =
-          await File('${directory.path}/verse_image.png').create();
-      await imagePath.writeAsBytes(ayahToImageBytes!);
-      await Share.shareXFiles([XFile((imagePath.path))], text: 'appName'.tr);
-    }
+    final directory = await getTemporaryDirectory();
+    final imagePath = await File('${directory.path}/verse_image.png').create();
+    await imagePath.writeAsBytes(ayahToImageBytes!);
+    await Share.shareXFiles([XFile((imagePath.path))], text: 'appName'.tr);
   }
 }

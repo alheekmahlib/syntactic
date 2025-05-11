@@ -7,7 +7,7 @@ import '../../presentation/controllers/general_controller.dart';
 class ExpandableText extends StatelessWidget {
   const ExpandableText({
     required this.text,
-    Key? key,
+    super.key,
     this.readLessText,
     this.readMoreText,
     this.animationDuration = const Duration(milliseconds: 200),
@@ -18,7 +18,7 @@ class ExpandableText extends StatelessWidget {
     this.textAlign = TextAlign.center,
     this.iconColor = Colors.black,
     this.buttonTextStyle,
-  }) : super(key: key);
+  });
 
   final String text;
   final String? readLessText;

@@ -2,16 +2,13 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
-import 'package:nahawi/core/utils/constants/extensions/custom_error_snackBar.dart';
 import 'package:nahawi/presentation/screens/all_books/controller/extensions/books_getters.dart';
 import 'package:nahawi/presentation/screens/all_books/controller/extensions/books_storage_getters.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../../../core/services/connectivity_service.dart';
 import '../data/models/books_model.dart';
 import '../data/models/page_model.dart';
 import '../data/models/part_model.dart';
@@ -74,10 +71,10 @@ class AllBooksController extends GetxController
             .loadString('assets/json/books/$poemBookNumber.json', cache: false);
         var decodedData = jsonDecode(jsonData);
         state.loadedPoems.add(PoemBook.fromJson(decodedData));
-        print(state.loadedPoems.length);
+        log('${state.loadedPoems.length}');
       }
     } catch (e) {
-      print('Error loading books: $e');
+      log('Error loading books: $e');
     }
   }
 
@@ -94,44 +91,8 @@ class AllBooksController extends GetxController
     }
   }
 
-  Future<void> downloadBook(int bookNumber, String type) async {
-    if (ConnectivityService.instance.noConnection.value) {
-      Get.context!.showCustomErrorSnackBar('noInternet'.tr);
-    } else {
-      try {
-        state.downloading[bookNumber] = true;
-        state.downloadProgress[bookNumber] = 0.0;
-        update();
-        var response = await Dio().get(
-          'https://raw.githubusercontent.com/alheekmahlib/thegarlanded/refs/heads/master/nahawi_book/$bookNumber.json',
-          options: Options(responseType: ResponseType.stream),
-          onReceiveProgress: (received, total) {
-            if (total != -1) {
-              state.downloadProgress[bookNumber] = (received / total);
-            }
-          },
-        );
-
-        final directory = await getApplicationDocumentsDirectory();
-        final file = File('${directory.path}/$bookNumber.json');
-
-        var data = <int>[];
-        await for (var value in response.data.stream) {
-          data.addAll(value);
-        }
-        await file.writeAsBytes(data);
-        addDownloadedBook(type, bookNumber);
-        saveDownloadedBooks();
-      } catch (e) {
-        log('Error downloading book: $e');
-      } finally {
-        state.downloading[bookNumber] = false;
-        Get.context!
-            .showCustomErrorSnackBar('booksDownloaded'.tr, isDone: true);
-      }
-    }
-    update();
-  }
+  // دالة downloadBook تم نقلها إلى ملف books_download_extension.dart كـ extension
+  // downloadBook function has been moved to books_download_extension.dart as an extension
 
   void addDownloadedBook(String type, int bookNumber) {
     if (!state.downloadedBooksByType.containsKey(type)) {
@@ -229,8 +190,8 @@ class AllBooksController extends GetxController
         for (var part in toc) {
           // التحقق من أن الجزء (part) يحتوي على عنصرين
           if (part is List && part.length >= 2) {
-            var partInfo =
-                part[0]; // معلومات الجزء مثل {"page": 1, "text": "الجزء الأول"}
+            // var partInfo =
+            //     part[0]; // معلومات الجزء مثل {"page": 1, "text": "الجزء الأول"}
             var chapters = part[1]; // قائمة الفصول
 
             // التحقق من أن الفصول هي قائمة (List)

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,7 +26,7 @@ class ThemeService {
     String? themeName = prefs.getString('previousThemeName');
     if (themeName == null) {
       final isPlatformDark =
-          WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+          PlatformDispatcher.instance.platformBrightness == Brightness.dark;
       themeName = isPlatformDark ? 'light' : 'dark';
     }
     return themeName;
@@ -35,7 +36,7 @@ class ThemeService {
     String? themeName = prefs.getString('theme');
     if (themeName == null) {
       final isPlatformDark =
-          WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+          PlatformDispatcher.instance.platformBrightness == Brightness.dark;
       themeName = isPlatformDark ? 'dark' : 'light';
     }
     return allThemes[themeName];

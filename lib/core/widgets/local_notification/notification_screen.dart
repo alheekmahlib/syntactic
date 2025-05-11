@@ -44,7 +44,7 @@ class NotificationsScreen extends StatelessWidget {
                           color: Theme.of(context)
                               .colorScheme
                               .surface
-                              .withOpacity(.5)),
+                              .withValues(alpha: .5)),
                       Icon(Icons.close_outlined,
                           size: 16,
                           color: Theme.of(context).colorScheme.inversePrimary),
@@ -113,10 +113,10 @@ class NotificationsScreen extends StatelessWidget {
                                         initialElevation: 0.0,
                                         baseColor: Theme.of(context)
                                             .canvasColor
-                                            .withOpacity(.2),
+                                            .withValues(alpha: .2),
                                         expandedColor: Theme.of(context)
                                             .canvasColor
-                                            .withOpacity(.2),
+                                            .withValues(alpha: .2),
                                         onExpansionChanged: (_) => notiCtrl
                                             .markNotificationAsRead(noti.id),
                                         title: Container(
@@ -128,11 +128,11 @@ class NotificationsScreen extends StatelessWidget {
                                             color: noti.opened
                                                 ? Theme.of(context)
                                                     .canvasColor
-                                                    .withOpacity(.1)
+                                                    .withValues(alpha: .1)
                                                 : Theme.of(context)
                                                     .colorScheme
                                                     .surface
-                                                    .withOpacity(.15),
+                                                    .withValues(alpha: .15),
                                             borderRadius:
                                                 const BorderRadius.all(
                                                     Radius.circular(8)),
@@ -166,7 +166,7 @@ class NotificationsScreen extends StatelessWidget {
                                                 color: noti.opened
                                                     ? Theme.of(context)
                                                         .primaryColorDark
-                                                        .withOpacity(.7)
+                                                        .withValues(alpha: .7)
                                                     : Theme.of(context)
                                                         .primaryColorDark,
                                               ),
@@ -214,7 +214,7 @@ class NotificationsScreen extends StatelessWidget {
                                                   decoration: BoxDecoration(
                                                     color: Theme.of(context)
                                                         .canvasColor
-                                                        .withOpacity(.15),
+                                                        .withValues(alpha: .15),
                                                     borderRadius:
                                                         const BorderRadius.all(
                                                             Radius.circular(8)),
@@ -246,7 +246,7 @@ class NotificationsScreen extends StatelessWidget {
                                                   decoration: BoxDecoration(
                                                     color: Theme.of(context)
                                                         .canvasColor
-                                                        .withOpacity(.15),
+                                                        .withValues(alpha: .15),
                                                     borderRadius:
                                                         const BorderRadius.all(
                                                             Radius.circular(8)),

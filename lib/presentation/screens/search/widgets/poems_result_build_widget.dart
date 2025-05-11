@@ -47,7 +47,7 @@ class PoemsResultBuildWidget extends StatelessWidget {
                             color: Theme.of(context)
                                 .colorScheme
                                 .surface
-                                .withOpacity(.15),
+                                .withValues(alpha: .15),
                             myWidget: Row(
                               children: [
                                 Expanded(
