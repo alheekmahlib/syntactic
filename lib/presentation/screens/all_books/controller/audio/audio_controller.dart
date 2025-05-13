@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
+import '/core/services/connectivity_service.dart'; // استيراد خدمة التحقق من الاتصال بالإنترنت
 import '/core/utils/constants/extensions/custom_error_snack_bar.dart';
 import '/presentation/screens/all_books/controller/audio/extensions/audio_getters.dart';
 import '/presentation/screens/audio_player/extensions/audio_download_extension.dart';
@@ -111,18 +112,55 @@ class AudioController extends GetxController {
       final bool hasSpecificVerse =
           state.downloadedAudios.containsKey(bookKey) &&
               state.downloadedAudios[bookKey]!.contains(poemKey);
-
-      // تحديد مسار الملف المحلي
-      // Determine local file path
       final cachePath = await appCacheDir;
       final localPath = '$cachePath/book_${bookIndex}_audio_$poemId.mp3';
       final file = File(localPath);
 
-      // إذا كان الملف موجودًا محليًا، استخدمه
-      // If file exists locally, use it
+      // متغير لتحديد إذا كان التشغيل من ملف محلي
+      // Variable to determine if playing from local file
+      state.isPlayingFromLocal = false;
+
+      // أوقف المشغل قبل تعيين مصدر جديد
+      // Stop the player before setting a new source
+      await state.audioPlayer.stop();
+      log('تم إيقاف المشغل قبل تعيين المصدر الجديد', name: 'AudioController');
+
       if ((hasFullBook || hasSpecificVerse) && await file.exists()) {
+        // تحقق من حجم الملف قبل محاولة التشغيل
+        // Check file size before trying to play
+        final fileSize = await file.length();
+        log('حجم الملف الصوتي المحلي: $fileSize بايت', name: 'AudioController');
+        if (fileSize < 1024) {
+          // الملف تالف أو غير صالح
+          // File is corrupted or invalid
+          log('الملف الصوتي تالف أو صغير جداً، سيتم حذف الملف ولن يتم التشغيل',
+              name: 'AudioController');
+          state.errorMessage.value =
+              'الملف الصوتي غير صالح، يرجى إعادة التحميل';
+          await file.delete();
+          state.isLoading.value = false;
+          Get.context?.showCustomErrorSnackBar(
+              'الملف الصوتي غير صالح، يرجى إعادة التحميل');
+          return;
+        }
+        // فحص صلاحية الملف mp3
+        // Check mp3 file validity
+        final isValid = await isValidMp3File(file);
+        if (!isValid) {
+          log('الملف الصوتي ليس mp3 صالح (header غير صحيح)، سيتم حذف الملف ولن يتم التشغيل',
+              name: 'AudioController');
+          state.errorMessage.value =
+              'الملف الصوتي غير صالح، يرجى إعادة التحميل';
+          await file.delete();
+          state.isLoading.value = false;
+          Get.context?.showCustomErrorSnackBar(
+              'الملف الصوتي غير صالح، يرجى إعادة التحميل');
+          return;
+        }
         log('استخدام ملف صوتي محلي: $localPath', name: 'AudioController');
         await state.audioPlayer.setFilePath(localPath);
+        log('تم تعيين ملف محلي كمصدر للصوت', name: 'AudioController');
+        state.isPlayingFromLocal = true; // تشغيل من ملف محلي
       }
       // إذا لم يكن الملف متوفرًا، اعرض خيارات التحميل
       // If file is not available, show download options
@@ -140,24 +178,24 @@ class AudioController extends GetxController {
             log('استخدام ملف صوتي تم تحميله حديثًا: $newLocalPath',
                 name: 'AudioController');
             await state.audioPlayer.setFilePath(newLocalPath);
+            log('تم تعيين الملف الذي تم تحميله كمصدر للصوت',
+                name: 'AudioController');
+            state.isPlayingFromLocal = true;
           } else {
-            // استخدام الملف من الإنترنت كخيار أخير
-            // Use file from internet as last resort
             log('تحميل الملف الصوتي من الإنترنت: $fileUrl',
                 name: 'AudioController');
             await state.audioPlayer
                 .setAudioSource(AudioSource.uri(Uri.parse(fileUrl)));
+            log('تم تعيين مصدر الإنترنت كمصدر للصوت', name: 'AudioController');
           }
         } else {
-          // فشل التحميل، استخدام الملف من الإنترنت كخيار أخير
-          // Download failed, use file from internet as last resort
           log('تحميل الملف الصوتي من الإنترنت: $fileUrl',
               name: 'AudioController');
           await state.audioPlayer
               .setAudioSource(AudioSource.uri(Uri.parse(fileUrl)));
+          log('تم تعيين مصدر الإنترنت كمصدر للصوت', name: 'AudioController');
         }
       }
-
       state.isLoading.value = false;
     } catch (e) {
       state.isLoading.value = false;
@@ -198,24 +236,60 @@ class AudioController extends GetxController {
   /// الاشتراك في حالة المشغل لمعالجة الأحداث كإنتهاء التشغيل
   /// Subscribe to player state to handle events like playback completion
   Future<void> subscribeToPlayerState() async {
+    // تجنب الاشتراكات المتكررة عن طريق إلغاء أي اشتراك سابق
+    // Avoid multiple subscriptions by cancelling any previous subscription
+    await state.playerStateSubscription?.cancel();
+
     state.playerStateSubscription =
         state.audioPlayer.playerStateStream.listen((playerState) async {
       // تحديث حالة التشغيل
       // Update playing state
       state.isPlaying.value = playerState.playing;
 
-      // معالجة حالة الانتهاء من تشغيل المقطع الصوتي
-      // Handle completion of audio playback
+      // إذا انتهى التشغيل
+      // If playback completed
       if (playerState.processingState == ProcessingState.completed) {
         log('انتهى تشغيل المقطع الصوتي', name: 'AudioController');
-        if (bookCtrl.state.chapterNumber.value == lastChapter) {
-          // إذا كان هذا آخر فصل، قم بإيقاف التشغيل
-          // If this is the last chapter, stop playback
-          await state.audioPlayer.stop();
-        } else {
-          // انتقل إلى القصيدة التالية
-          // Move to the next poem
-          await seekToNextPoem();
+        // مباشرة انتقل للبيت التالي إذا لم نصل للنهاية
+        // Directly move to next poem if not at the end
+        if (state.audioPlayer.processingState == ProcessingState.completed) {
+          if (bookCtrl.state.chapterNumber.value == lastChapter) {
+            // إذا كان هذا آخر فصل، قم بإيقاف التشغيل
+            // If this is the last chapter, stop playback
+            await state.audioPlayer.stop();
+          } else {
+            // التحقق من توفر البيت التالي
+            // Check availability of next poem
+            final nextPoemNumber = state.poemNumber.value + 1;
+            if (nextPoemNumber <= poemLength) {
+              final bookIndex = bookCtrl.state.bookNumber.value - 1;
+              final bookKey = bookIndex.toString();
+              final nextPoemKey = nextPoemNumber.toString();
+              final cachePath = await appCacheDir;
+              final localPath =
+                  '$cachePath/book_${bookIndex}_audio_$nextPoemNumber.mp3';
+              final file = File(localPath);
+              final bool hasFullBook =
+                  state.downloadedBooksList.contains(bookIndex);
+              final bool hasSpecificVerse =
+                  state.downloadedAudios.containsKey(bookKey) &&
+                      state.downloadedAudios[bookKey]!.contains(nextPoemKey);
+              if ((hasFullBook || hasSpecificVerse) && await file.exists()) {
+                log('الملف التالي متوفر، الانتقال إلى البيت التالي: $nextPoemNumber',
+                    name: 'AudioController');
+                await seekToNextPoem();
+              } else {
+                log('الملف التالي غير متوفر محليًا، إيقاف التشغيل التلقائي',
+                    name: 'AudioController');
+                state.isPlaying.value = false;
+                await state.audioPlayer.pause();
+              }
+            } else {
+              log('الوصول إلى نهاية الفصل، إيقاف التشغيل الآلي',
+                  name: 'AudioController');
+              await seekToNextPoem();
+            }
+          }
         }
       }
     });
@@ -234,16 +308,16 @@ class AudioController extends GetxController {
 
       // حالة خاصة للكتاب الأول
       // Special case for the first book
-      if (bookCtrl.state.bookNumber.value - 1 == 0 &&
-          state.poemNumber.value == lastPoemIn - 3) {
-        log('وصلنا لنهاية قصائد الكتاب الأول الخاصة', name: 'AudioController');
-        await state.audioPlayer.stop();
-        return;
-      }
+      // if (bookCtrl.state.bookNumber.value - 1 == 0 &&
+      //     state.poemNumber.value == lastPoemInBook - 3) {
+      //   log('وصلنا لنهاية قصائد الكتاب الأول الخاصة', name: 'AudioController');
+      //   await state.audioPlayer.stop();
+      //   return;
+      // }
 
       // إذا وصلنا إلى آخر قصيدة في الكتاب
       // If we reached the last poem in the book
-      else if (state.poemNumber.value == lastPoemIn) {
+      else if (state.poemNumber.value == lastPoemInBook) {
         log('وصلنا لآخر قصيدة في الكتاب', name: 'AudioController');
         await state.audioPlayer.stop();
         return;
@@ -284,13 +358,38 @@ class AudioController extends GetxController {
           // Recreate playlist for the new chapter
           await changeAudioSource();
 
-          // إذا لم يكن هناك أخطاء، قم بالتشغيل
-          // If there are no errors, play
-          if (state.errorMessage.isEmpty) {
+          // التحقق من توفر الملف الصوتي للبيت الأول في الفصل الجديد
+          // Check if audio file is available for the first poem in the new chapter
+          final poemId = state.poemNumber.value;
+          final bookIndex = bookCtrl.state.bookNumber.value - 1;
+          final bookKey = bookIndex.toString();
+          final poemKey = poemId.toString();
+
+          final cachePath = await appCacheDir;
+          final localPath = '$cachePath/book_${bookIndex}_audio_$poemId.mp3';
+          final file = File(localPath);
+
+          final bool hasFullBook =
+              state.downloadedBooksList.contains(bookIndex);
+          final bool hasSpecificVerse =
+              state.downloadedAudios.containsKey(bookKey) &&
+                  state.downloadedAudios[bookKey]!.contains(poemKey);
+
+          // فقط تشغيل الملف إذا كان متوفرًا محليًا وبدون أخطاء
+          // Only play file if available locally and no errors
+          if ((hasFullBook || hasSpecificVerse) &&
+              await file.exists() &&
+              state.errorMessage.isEmpty) {
+            log('ملف الفصل الجديد متوفر محليًا، بدء التشغيل',
+                name: 'AudioController');
             await state.audioPlayer.play();
           } else {
-            // محاولة معالجة حالة عدم وجود الملف
-            // Try to handle file not found
+            // الملف غير متوفر، إيقاف التشغيل التلقائي
+            // File not available, stop auto-play
+            log('ملف الفصل الجديد غير متوفر محليًا أو هناك خطأ، لن يتم التشغيل تلقائيًا',
+                name: 'AudioController');
+            state.isPlaying.value = false;
+            await state.audioPlayer.pause();
             await handleFileNotFound();
           }
         } catch (e) {
@@ -308,12 +407,18 @@ class AudioController extends GetxController {
         state.poemNumber.value += 1;
         bookCtrl.state.selectedPoemIndex.value += 1;
 
+        // تغيير مصدر الصوت للبيت الجديد
+        // Change audio source for the new poem
         await changeAudioSource();
+
+        // تشغيل البيت الجديد مباشرة بعد تغيير المصدر
+        // Play the new poem immediately after changing the source
         if (state.errorMessage.isEmpty) {
           await state.audioPlayer.play();
+          log('تم تشغيل البيت الجديد تلقائياً', name: 'AudioController');
         } else {
-          // محاولة معالجة حالة عدم وجود الملف
-          // Try to handle file not found
+          log('تعذر تشغيل البيت الجديد بسبب خطأ: \\${state.errorMessage.value}',
+              name: 'AudioController');
           await handleFileNotFound();
         }
       }
@@ -471,25 +576,27 @@ class AudioController extends GetxController {
       if (state.isPlaying.value) {
         // إيقاف مؤقت إذا كان قيد التشغيل
         // Pause if currently playing
-        await state.audioPlayer.pause();
         state.isPlaying.value = false;
+        await state.audioPlayer.pause();
         log('تم إيقاف التشغيل مؤقتاً', name: 'AudioController');
       } else {
         // تشغيل إذا لم يكن قيد التشغيل
         // Play if not playing
 
-        // التحقق مما إذا كان الملف متوفر محليًا
-        // Check if audio file is available locally
+        // التحقق مما إذا كان الملف متوفر محليًا أو الكتاب كله محمّل
+        // Check if audio file or full book is downloaded
         final poemId = state.poemNumber.value;
         final bookIndex = bookCtrl.state.bookNumber.value - 1;
-        final bookKey = bookIndex.toString();
-        final poemKey = poemId.toString();
+        // final bookKey = bookIndex.toString();
+        // final poemKey = poemId.toString();
         final chapterIndex = bookCtrl.state.chapterNumber.value + 1;
 
         final bool hasFullBook = state.downloadedBooksList.contains(bookIndex);
-        final bool hasSpecificVerse =
-            state.downloadedAudios.containsKey(bookKey) &&
-                state.downloadedAudios[bookKey]!.contains(poemKey);
+        final hasSpecificVerse =
+            await checkAndDownloadAudio(bookIndex, chapterIndex, poemId);
+        // final bool hasSpecificVerse =
+        //     state.downloadedAudios.containsKey(bookKey) &&
+        //         state.downloadedAudios[bookKey]!.contains(poemKey);
 
         // تحديد مسار الملف المحلي
         // Determine local file path
@@ -497,29 +604,44 @@ class AudioController extends GetxController {
         final localPath = '$cachePath/book_${bookIndex}_audio_$poemId.mp3';
         final file = File(localPath);
 
-        // إذا كان الملف غير متوفر محليًا، عرض خيارات التحميل
-        // If file not available locally, show download options
-        if (!(hasFullBook || hasSpecificVerse) || !await file.exists()) {
-          log('الملف الصوتي غير متوفر محلياً. عرض خيارات التحميل.',
+        // إذا كان البيت أو الكتاب محمّلًا بالكامل، شغّل مباشرة بدون نافذة تحميل
+        // If poem or full book is downloaded, play directly without download dialog
+
+        // إذا لم يكن محمّلًا، تحقق من وجود الإنترنت
+        // If not downloaded, check for internet connection
+        if ((hasFullBook || hasSpecificVerse) || await file.exists()) {
+          state.isPlaying.value = true;
+          await state.audioPlayer.play();
+          log('تم بدء التشغيل مباشرة لأن الملف محمّل', name: 'AudioController');
+        } else if (ConnectivityService.instance.noConnection.value) {
+          // لا يوجد إنترنت، أظهر رسالة خطأ
+          // No internet, show error message
+          Get.context!.showCustomErrorSnackBar('noInternet'.tr);
+          log('لا يوجد اتصال بالإنترنت، لا يمكن التحميل',
               name: 'AudioController');
+          return;
+        } else {
+          // يوجد إنترنت، أظهر نافذة خيارات التحميل
+          // Internet available, show download options dialog
           await showDownloadOptions(bookIndex, chapterIndex, poemId);
 
-          // التحقق مرة أخرى بعد عرض خيارات التحميل
-          // Check again after showing download options
-          if ((state.downloadedBooksList.contains(bookIndex) ||
-                  (state.downloadedAudios.containsKey(bookKey) &&
-                      state.downloadedAudios[bookKey]!.contains(poemKey))) &&
-              await file.exists()) {
+          // إعادة فحص وجود الملف محليًا بعد التحميل مباشرة
+          // Re-check file existence after download dialog
+          final bool fileNowExists = await file.exists();
+          if (fileNowExists) {
+            // إذا كان الملف موجود فعلاً بعد التحميل، شغّل مباشرة
+            // If file exists after download, play directly
             await changeAudioSource(); // تحديث مصدر الصوت بعد التحميل
             await state.audioPlayer.play();
             state.isPlaying.value = true;
+            log('تم بدء التشغيل بعد التحميل (الملف موجود فعلياً)',
+                name: 'AudioController');
+          } else {
+            // إذا لم يتم التحميل لأي سبب، لا تفعل شيئاً
+            // If not downloaded for any reason, do nothing
+            log('لم يتم العثور على الملف بعد نافذة التحميل',
+                name: 'AudioController');
           }
-        } else {
-          // إذا كان الملف متوفر، قم بتشغيله مباشرة
-          // If file exists, play it directly
-          await state.audioPlayer.play();
-          state.isPlaying.value = true;
-          log('تم بدء التشغيل', name: 'AudioController');
         }
       }
     } catch (e) {
@@ -559,47 +681,51 @@ class AudioController extends GetxController {
   /// Handle case when audio file is not found
   Future<void> handleFileNotFound() async {
     try {
-      // الملف غير موجود بالموقع الأصلي، يمكن تجربة مسار بديل
-      // File not found at the original location, try an alternative path
-      log('الملف غير موجود بالمسار الأصلي، محاولة استخدام مسار بديل',
+      // الملف غير موجود بالموقع الأصلي
+      // File not found at the original location
+      log('الملف غير موجود بالمسار الأصلي، عرض خيارات التحميل',
           name: 'AudioController');
 
-      // يجب ضبط رقم القصيدة على 1 في حالة الانتقال لفصل جديد
-      // Set poem number to 1 when moving to a new chapter
-      if (state.lastChapterNumber.value != bookCtrl.state.chapterNumber.value) {
-        state.poemNumber.value = 1;
-        log('تم إعادة ضبط رقم القصيدة إلى 1 للفصل الجديد',
-            name: 'AudioController');
+      // عرض رسالة للمستخدم بأن الملف غير متوفر
+      // Show message to user that file is not available
+      state.errorMessage.value = 'ملف الصوت غير متوفر';
 
-        // إعادة محاولة التشغيل بعد ضبط رقم القصيدة
-        // Retry playback after setting poem number
-        await Future.delayed(const Duration(milliseconds: 300));
+      // عرض خيارات التنزيل للمستخدم
+      final bookIndex = bookCtrl.state.bookNumber.value - 1;
+      final chapterIndex = bookCtrl.state.chapterNumber.value + 1;
+      final poemId = state.poemNumber.value;
+
+      // تأكد من إيقاف التشغيل قبل عرض خيارات التنزيل
+      state.isPlaying.value = false;
+      await state.audioPlayer.pause();
+
+      // عرض خيارات التنزيل
+      await showDownloadOptions(bookIndex, chapterIndex, poemId);
+
+      // التحقق مما إذا تم التنزيل بنجاح
+      final bookKey = bookIndex.toString();
+      final poemKey = poemId.toString();
+      final cachePath = await appCacheDir;
+      final localPath = '$cachePath/book_${bookIndex}_audio_$poemId.mp3';
+      final file = File(localPath);
+
+      if ((state.downloadedBooksList.contains(bookIndex) ||
+              (state.downloadedAudios.containsKey(bookKey) &&
+                  state.downloadedAudios[bookKey]!.contains(poemKey))) &&
+          await file.exists()) {
+        // تم التنزيل بنجاح، يمكن التشغيل الآن
+        // Download successful, play now
         await changeAudioSource();
-
-        // محاولة التشغيل بعد تغيير المصدر
-        // Try playback after changing source
         if (state.errorMessage.isEmpty) {
           await state.audioPlayer.play();
+          state.isPlaying.value = true;
         }
       } else {
-        // محاولة القصيدة التالية إذا كانت متوفرة
-        // Try next poem if available
-        if (state.poemNumber.value < poemLength) {
-          log('محاولة تشغيل القصيدة التالية', name: 'AudioController');
-          state.poemNumber.value += 1;
-          await changeAudioSource();
-
-          if (state.errorMessage.isEmpty) {
-            await state.audioPlayer.play();
-          }
-        } else {
-          // إظهار رسالة للمستخدم
-          // Show message to user
-          state.errorMessage.value = 'ملف الصوت غير متوفر';
-          Get.context!.showCustomErrorSnackBar(
-            'noAudioFile'.tr,
-          );
-        }
+        // عدم محاولة الانتقال تلقائيًا إلى الأبيات التالية
+        // Do not try to automatically move to next poems
+        // إظهار رسالة للمستخدم
+        // Show message to user
+        Get.context!.showCustomErrorSnackBar('noAudioFile'.tr);
       }
     } catch (e) {
       log('فشل في معالجة حالة عدم وجود الملف: $e', name: 'AudioController');
@@ -625,6 +751,31 @@ class AudioController extends GetxController {
           name: 'AudioController');
       state.poemNumber.value = 1; // البدء من أول قصيدة في الفصل الجديد
       changeAudioSource();
+    }
+  }
+
+  /// فحص صلاحية ملف mp3 عبر قراءة أول بايتات من الملف
+  /// Check if the mp3 file is valid by reading its header bytes
+  Future<bool> isValidMp3File(File file) async {
+    try {
+      // قراءة أول 16 بايت من الملف
+      // Read first 16 bytes of the file
+      final raf = await file.open();
+      final header = await raf.read(16);
+      await raf.close();
+      log('أول 16 بايت من الملف الصوتي: $header', name: 'AudioController');
+      // تحقق من وجود توقيع mp3 (ID3 أو sync word)
+      // Check for mp3 signature (ID3 or sync word)
+      if (header.length < 3) return false;
+      // ID3 tag
+      if (header[0] == 0x49 && header[1] == 0x44 && header[2] == 0x33)
+        return true;
+      // Frame sync (0xFFEx)
+      if (header[0] == 0xFF && (header[1] & 0xE0) == 0xE0) return true;
+      return false;
+    } catch (e) {
+      log('خطأ أثناء فحص صلاحية ملف mp3: $e', name: 'AudioController');
+      return false;
     }
   }
 }

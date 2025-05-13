@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:nahawi/core/utils/constants/extensions/custom_error_snack_bar.dart';
-import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
-import 'package:nahawi/core/utils/constants/svg_constants.dart';
 
-import '../../../../../core/services/connectivity_service.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/core/utils/constants/svg_constants.dart';
 import '../../../../../core/utils/constants/lottie.dart';
 import '../../controller/audio/audio_controller.dart';
 
@@ -27,15 +25,7 @@ class PlayButton extends StatelessWidget {
           return playButtonLottie(20.0, 20.0);
         } else if (playing != true) {
           return GestureDetector(
-            onTap: () async {
-              if (ConnectivityService.instance.noConnection.value) {
-                Get.context!.showCustomErrorSnackBar('noInternet'.tr);
-              } else {
-                // التحقق من وجود ملف الصوت وتشغيله
-                // Check for audio file and play it
-                await audioCtrl.togglePlayPause();
-              }
-            },
+            onTap: () async => await audioCtrl.togglePlayPause(),
             child: customSvgWithColor(SvgPath.svgPlay,
                 height: 24, color: context.theme.colorScheme.surface),
           );
@@ -46,9 +36,7 @@ class PlayButton extends StatelessWidget {
               size: 24.0,
               color: Theme.of(context).colorScheme.surface,
             ),
-            onTap: () {
-              audioCtrl.state.audioPlayer.pause();
-            },
+            onTap: () async => await audioCtrl.togglePlayPause(),
           );
         }
       },

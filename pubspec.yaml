@@ -3,7 +3,7 @@ description: "A new Flutter project."
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.7+7
+version: 1.0.8+8
 
 environment:
   sdk: '>=3.5.3 <4.0.0'
@@ -63,7 +63,7 @@ dependencies:
   url_launcher: ^6.3.1
 
 # remove this line if you wish to build for iOS or macOS
-  # drift_flutter: ^0.2.4
+  drift_flutter: ^0.2.4
 
 dev_dependencies:
   build_runner: ^2.4.13

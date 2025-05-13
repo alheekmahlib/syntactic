@@ -72,7 +72,7 @@ extension AudioGetters on AudioController {
 
   /// الحصول على رقم آخر قصيدة في الكتاب
   /// Get the number of the last poem in the book
-  int get lastPoemIn {
+  int get lastPoemInBook {
     if (bookCtrl.currentPoemBook == null ||
         bookCtrl.currentPoemBook!.chapters == null ||
         bookCtrl.currentPoemBook!.chapters!.isEmpty ||

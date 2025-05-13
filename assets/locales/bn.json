@@ -408,5 +408,30 @@
   "@cancel": {
     "type": "text",
     "placeholders": {}
+  },
+  "downloadAudio": "অডিও ডাউনলোড করুন",
+  "@downloadAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseDownloadMethod": "অডিও ফাইল ডাউনলোড করার পদ্ধতি নির্বাচন করুন:",
+  "@chooseDownloadMethod": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadFullBook": "সব বইয়ের শ্লোক ডাউনলোড করুন",
+  "@downloadFullBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadCurrentVerse": "শুধুমাত্র একটি শ্লোক ডাউনলোড করুন",
+  "@downloadCurrentVerse": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDownloaded": "শুধুমাত্র একটি শ্লোক ডাউনলোড করা হয়েছে",
+  "@audioDownloaded": {
+    "type": "text",
+    "placeholders": {}
   }
 }

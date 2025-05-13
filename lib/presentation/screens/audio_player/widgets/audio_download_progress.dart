@@ -72,13 +72,13 @@ class AudioDownloadProgress extends StatelessWidget {
                   onPressed: () => audioCtrl.cancelDownload(audioId),
                   icon: Icon(
                     Icons.cancel_rounded,
-                    color: Theme.of(context).colorScheme.error,
+                    color: Theme.of(context).colorScheme.surface,
                     size: 16,
                   ),
                   label: Text(
                     'cancel'.tr,
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.error,
+                      color: Theme.of(context).colorScheme.surface,
                       fontSize: 12,
                       fontFamily: 'kufi',
                     ),

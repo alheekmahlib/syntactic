@@ -8,6 +8,5 @@ class ApiConstants {
       'alheekmahlib/thegarlanded/blob/master/ourApps.json?raw=true';
   static const String booksUrl =
       'alheekmahlib/thegarlanded/blob/master/nahawi_book/';
-  static const String zipFilebookUrl =
-      'alheekmahlib/syntactic_audio/blob/main/';
+  static const String zipFilebookUrl = 'alheekmahlib/syntactic_audio/raw/main/';
 }
