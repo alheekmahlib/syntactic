@@ -57,4 +57,8 @@ class AudioState {
   /// آخر فصل تم الانتقال إليه
   /// Last chapter navigated to
   RxInt lastChapterNumber = 0.obs;
+
+  /// هل التشغيل الحالي من ملف محلي؟
+  /// Is the current playback from a local file?
+  bool isPlayingFromLocal = false;
 }

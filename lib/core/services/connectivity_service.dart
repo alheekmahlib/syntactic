@@ -35,12 +35,13 @@ class ConnectivityService extends GetxService {
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
 
+  /// متغير يحدد إذا كان هناك اتصال بالإنترنت أم لا (يتم تحديثه تلقائياً)
+  /// RxBool that indicates if there is no internet connection (auto-updated)
+  final RxBool noConnection = true.obs;
+
   /// -------- [Getter] ----------
 
   RxList<ConnectivityResult> get connectionStatus => _connectionStatus;
-
-  RxBool get noConnection =>
-      _connectionStatus.contains(ConnectivityResult.none).obs;
 
   /// -------- [Initialization] ----------
 
@@ -63,6 +64,9 @@ class ConnectivityService extends GetxService {
 
   void _updateConnectionStatus(List<ConnectivityResult> result) {
     _connectionStatus.value = result;
+    // تحديث حالة الاتصال
+    // Update noConnection state
+    noConnection.value = result.contains(ConnectivityResult.none);
     log('Connectivity changed: $_connectionStatus');
     // _showConnectivityStatusSnackBar(result);
   }

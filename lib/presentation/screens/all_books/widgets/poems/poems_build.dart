@@ -30,22 +30,23 @@ class PoemsBuild extends StatelessWidget {
           final poem = bookCtrl.currentPoemBook!.chapters![chapterNumber];
           return Obx(() {
             return SelectMenu(
-              index: poem.poems![index].poemNumber!,
+              index: index,
+              poemNumber: poem.poems![index].poemNumber!,
               poem: poem.poems![index],
               chapters: poem,
               poemBook: bookCtrl.currentPoemBook!,
               chapterNumber: chapterNumber,
               myWidget: GestureDetector(
-                onLongPress: () {
-                  audioCtrl.state.poemNumber.value =
-                      poem.poems![index].poemNumber!;
-                  bookCtrl.poemSelect(index);
-                },
-                onTap: () {
-                  audioCtrl.state.poemNumber.value =
-                      poem.poems![index].poemNumber!;
-                  bookCtrl.state.selectedPoemIndex.value = -1;
-                },
+                // onLongPress: () {
+                //   audioCtrl.state.poemNumber.value =
+                //       poem.poems![index].poemNumber!;
+                //   bookCtrl.poemSelect(index);
+                // },
+                // onTap: () {
+                //   audioCtrl.state.poemNumber.value =
+                //       poem.poems![index].poemNumber!;
+                //   bookCtrl.state.selectedPoemIndex.value = -1;
+                // },
                 child: BeigeContainer(
                   width: MediaQuery.sizeOf(context).width,
                   color: bookCtrl.colorSelection(context, index),

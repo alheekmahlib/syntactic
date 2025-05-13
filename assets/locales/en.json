@@ -408,5 +408,30 @@
   "@cancel": {
     "type": "text",
     "placeholders": {}
+  },
+  "downloadAudio": "Download audio",
+  "@downloadAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseDownloadMethod": "Choose the method to download audio files:",
+  "@chooseDownloadMethod": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadFullBook": "Download all book verses",
+  "@downloadFullBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadCurrentVerse": "Download only one verse",
+  "@downloadCurrentVerse": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDownloaded": "Only one verse has been downloaded",
+  "@audioDownloaded": {
+    "type": "text",
+    "placeholders": {}
   }
 }

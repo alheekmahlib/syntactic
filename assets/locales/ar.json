@@ -408,5 +408,30 @@
   "@cancel": {
     "type": "text",
     "placeholders": {}
+  },
+  "downloadAudio": "تحميل الصوت",
+  "@downloadAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseDownloadMethod": "اختر طريقة تحميل ملفات الصوت:",
+  "@chooseDownloadMethod": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadFullBook": "تحميل جميع أبيات الكتاب",
+  "@downloadFullBook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "downloadCurrentVerse": "تحميل بيت واحد فقط",
+  "@downloadCurrentVerse": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "audioDownloaded": "تم تحميل بيت واحد فقط",
+  "@audioDownloaded": {
+    "type": "text",
+    "placeholders": {}
   }
 }

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart' as path;
 
@@ -59,14 +60,14 @@ extension AudioDownloadExtension on AudioController {
                 decoration: BoxDecoration(
                   color: Theme.of(Get.context!)
                       .colorScheme
-                      .secondary
-                      .withOpacity(0.5),
+                      .surface
+                      .withValues(alpha: .5),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
             ),
             Text(
-              'تحميل الصوت',
+              'downloadAudio'.tr,
               style: TextStyle(
                 fontSize: 18,
                 fontFamily: 'kufi',
@@ -74,51 +75,51 @@ extension AudioDownloadExtension on AudioController {
                 color: Theme.of(Get.context!).colorScheme.primary,
               ),
             ),
-            const SizedBox(height: 16),
+            const Gap(16),
             Text(
-              'اختر طريقة تحميل ملفات الصوت:',
+              'chooseDownloadMethod'.tr,
               style: TextStyle(
                 fontSize: 16,
                 fontFamily: 'naskh',
                 color: Theme.of(Get.context!).colorScheme.primary,
               ),
             ),
-            const SizedBox(height: 16),
+            const Gap(16),
             _buildOptionButton(
-              title: 'تحميل جميع أبيات الفصل',
-              subtitle: 'يتم تحميل ملف مضغوط يحتوي على جميع الأبيات',
+              title: 'downloadFullBook'.tr,
               onTap: () => Get.back(result: 'full'),
               icon: Icons.cloud_download_rounded,
             ),
-            const SizedBox(height: 12),
+            const Gap(12),
             _buildOptionButton(
-              title: 'تحميل بيت بيت أثناء التشغيل',
-              subtitle: 'تحميل البيت الحالي فقط والأبيات الأخرى عند الحاجة',
+              title: 'downloadCurrentVerse'.tr,
               onTap: () => Get.back(result: 'verse'),
               icon: Icons.play_circle_outline_rounded,
             ),
-            const SizedBox(height: 12),
+            const Gap(12),
             _buildOptionButton(
-              title: 'إلغاء',
+              title: 'cancel'.tr,
               onTap: () => Get.back(result: 'cancel'),
               icon: Icons.close_rounded,
               color: Colors.red.shade300,
             ),
-            const SizedBox(height: 16),
+            const Gap(16),
           ],
         ),
       ),
       backgroundColor: Colors.transparent,
-      isDismissible: true,
+      isDismissible: false,
       enableDrag: true,
     );
 
     if (result == 'full') {
-      await downloadChapterAudioZip(bookIndex, chapterIndex);
+      await downloadChapterAudioZip(bookIndex, chapterIndex)
+          .then((_) async => await state.audioPlayer.play());
     } else if (result == 'verse') {
-      await downloadAudio(poemNumber);
+      await downloadAudio(chapterIndex, poemNumber)
+          .then((_) async => await state.audioPlayer.play());
     } else if (result == 'cancel') {
-      await state.audioPlayer.stop();
+      await state.audioPlayer.pause();
     }
   }
 
@@ -126,7 +127,6 @@ extension AudioDownloadExtension on AudioController {
   /// Option button in bottom sheet
   Widget _buildOptionButton({
     required String title,
-    String? subtitle,
     required VoidCallback onTap,
     required IconData icon,
     Color? color,
@@ -140,7 +140,10 @@ extension AudioDownloadExtension on AudioController {
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: color ??
-                Theme.of(Get.context!).colorScheme.secondary.withOpacity(0.3),
+                Theme.of(Get.context!)
+                    .colorScheme
+                    .surface
+                    .withValues(alpha: .3),
             width: 1,
           ),
         ),
@@ -148,35 +151,19 @@ extension AudioDownloadExtension on AudioController {
           children: [
             Icon(
               icon,
-              color: color ?? Theme.of(Get.context!).colorScheme.secondary,
+              color: color ?? Theme.of(Get.context!).colorScheme.surface,
               size: 24,
             ),
-            const SizedBox(width: 12),
+            const Gap(12),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(Get.context!).colorScheme.primary,
-                      fontFamily: 'kufi',
-                    ),
-                  ),
-                  if (subtitle != null) ...[
-                    const SizedBox(height: 4),
-                    Text(
-                      subtitle,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Theme.of(Get.context!).colorScheme.secondary,
-                        fontFamily: 'naskh',
-                      ),
-                    ),
-                  ],
-                ],
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(Get.context!).colorScheme.primary,
+                  fontFamily: 'kufi',
+                ),
               ),
             ),
           ],
@@ -193,19 +180,19 @@ extension AudioDownloadExtension on AudioController {
 
       if (audioId == -1) {
         // إلغاء تحميل الفصل الكامل
-        // Cancel full chapter download
         state.isDownloadingChapter.value = false;
         state.downloadProgress[-1] = 0.0;
       } else {
         // إلغاء تحميل ملف صوتي محدد
-        // Cancel specific audio file download
         state.downloading[audioId] = false;
         state.downloadProgress[audioId] = 0.0;
       }
 
-      // إغلاق نافذة التقدم
-      // Close progress dialog
-      Get.back();
+      // إغلاق نافذة التقدم فقط إذا كان هناك Dialog مفتوح
+      // Close progress dialog only if dialog is open
+      if (Navigator.of(Get.context!, rootNavigator: true).canPop()) {
+        Get.back();
+      }
 
       // إظهار رسالة للمستخدم
       // Show message to user
@@ -218,14 +205,14 @@ extension AudioDownloadExtension on AudioController {
       log('خطأ في إلغاء التحميل: $e', name: 'AudioDownloadExtension');
     } finally {
       // إغلاق مؤشر التقدم إذا لم يتم إغلاقه بالفعل
-      // Close progress indicator if not already closed
       BotToast.closeAllLoading();
     }
   }
 
   /// تحميل ملف صوتي بواسطة رقمه
   /// Download audio file by its number
-  Future<void> downloadAudio(int audioId, {String? audioUrl}) async {
+  Future<void> downloadAudio(int chapterIndex, int audioId,
+      {String? audioUrl}) async {
     try {
       // تعيين حالة التنزيل والتقدم
       // Set download state and progress
@@ -237,12 +224,13 @@ extension AudioDownloadExtension on AudioController {
       _showProgressOverlay(audioId);
 
       update();
+      final bookIndex = bookCtrl.state.bookNumber.value - 1;
 
-      final endpoint = audioUrl ?? '${ApiConstants.zipFilebookUrl}$audioId.mp3';
+      final endpoint = audioUrl ??
+          '${ApiConstants.zipFilebookUrl}$bookIndex/$chapterIndex/$audioId.mp3';
 
       // الحصول على رقم الكتاب الحالي
       // Get current book number
-      final bookIndex = bookCtrl.state.bookNumber.value - 1;
       final bookKey = bookIndex.toString();
 
       final cachePath = await appCacheDir;
@@ -290,8 +278,11 @@ extension AudioDownloadExtension on AudioController {
     } finally {
       state.downloading[audioId] = false;
       update();
-      // إغلاق مؤشر التقدم
-      // Close progress indicator
+      // إغلاق مؤشر التقدم فقط إذا كان هناك Dialog مفتوح
+      // Close progress indicator only if dialog is open
+      if (Navigator.of(Get.context!, rootNavigator: true).canPop()) {
+        Get.back();
+      }
       BotToast.closeAllLoading();
     }
   }
@@ -449,8 +440,11 @@ extension AudioDownloadExtension on AudioController {
     } finally {
       state.isDownloadingChapter.value = false;
       update();
-      // إغلاق مؤشر التقدم
-      // Close progress indicator
+      // إغلاق مؤشر التقدم فقط إذا كان هناك Dialog مفتوح
+      // Close progress indicator only if dialog is open
+      if (Navigator.of(Get.context!, rootNavigator: true).canPop()) {
+        Get.back();
+      }
       BotToast.closeAllLoading();
     }
   }
@@ -501,6 +495,12 @@ extension AudioDownloadExtension on AudioController {
     // Add poem number to the book's list if not already present
     if (!state.downloadedAudios[bookKey]!.contains(poemKey)) {
       state.downloadedAudios[bookKey]!.add(poemKey);
+      // سجل محتوى الخريطة بعد الإضافة
+      // Log the map content after adding
+      log(
+          'downloadedAudios after add: '
+          '${state.downloadedAudios.map((k, v) => MapEntry(k, v.toString()))}',
+          name: 'AudioDownloadExtension');
     }
 
     update();
@@ -568,12 +568,15 @@ extension AudioDownloadExtension on AudioController {
     // If context is not available, cannot show UI
     if (Get.context == null) return;
 
-    // استخدام BotToast لعرض مؤشر التقدم
-    // Use BotToast to show progress indicator
+    // استخدام GetBuilder لضمان تحديث مؤشر التحميل
+    // Use GetBuilder to ensure progress indicator updates
     Get.dialog(Dialog(
       alignment: Alignment.center,
       backgroundColor: Colors.transparent,
-      child: AudioDownloadProgress(audioId: audioId),
+      child: GetBuilder<AudioController>(
+        init: AudioController.instance,
+        builder: (_) => AudioDownloadProgress(audioId: audioId),
+      ),
     ));
   }
 }
