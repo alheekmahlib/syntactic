@@ -142,6 +142,10 @@ class SvgPath {
   /// assets/svg/share.svg
   static const String svgShare = "assets/svg/share.svg";
 
+  /// Assets for svgShareAndCopy
+  /// assets/svg/shareAndCopy.svg
+  static const String svgShareAndCopy = "assets/svg/shareAndCopy.svg";
+
   /// Assets for svgSharing
   /// assets/svg/sharing.svg
   static const String svgSharing = "assets/svg/sharing.svg";

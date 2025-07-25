@@ -1,5 +1,5 @@
 {
-  "appName": "سُنتي",
+  "appName": "نحويّ : النحو العربي",
   "@appName": {
     "description": "The App Name"
   },
@@ -79,6 +79,11 @@
   },
   "shareImage": "كصورة",
   "@shareImage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copyText": "نسخ",
+  "@copyText": {
     "type": "text",
     "placeholders": {}
   },
@@ -332,7 +337,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails1": "۞ إصلاح الخطأ الذي يظهر عند فتح الباب الأخير في كتب الشرح.\n۞ إضافة خاصية تحميل أبيات الكتاب كاملاً.",
+  "What'sNewDetails1": "۞ إضافة خاصية نسخ أو مشاركة أكثر من بيت.\n۞ إصلاح مشكلة الإشعارات.",
   "@What'sNewDetails1": {
     "type": "text",
     "placeholders": {}
@@ -431,6 +436,31 @@
   },
   "audioDownloaded": "تم تحميل بيت واحد فقط",
   "@audioDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choicePoems": "اختيار الأبيات",
+  "@choicePoems": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "from": "من",
+  "@from": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "to": "إلى",
+  "@to": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "couplet": "البيت",
+  "@couplet": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareOptions": "خيارات المشاركة",
+  "@shareOptions": {
     "type": "text",
     "placeholders": {}
   }

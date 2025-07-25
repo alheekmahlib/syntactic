@@ -1,5 +1,5 @@
 {
-  "appName": "সুন্নী",
+  "appName": "নাহওয়ি : আরবি ব্যাকরণ",
   "@appName": {
     "description": "The App Name"
   },
@@ -79,6 +79,11 @@
   },
   "shareImage": "একটি চিত্র হিসেবে",
   "@shareImage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copyText": "অনুলিপি করুন",
+  "@copyText": {
     "type": "text",
     "placeholders": {}
   },
@@ -332,7 +337,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails1": "۞ ব্যাখ্যা বইগুলিতে শেষ অধ্যায় খোলার সময় যে ত্রুটি দেখা যায় তা সংশোধন করা হয়েছে।\n۞ বইয়ের সব শ্লোক একসাথে ডাউনলোড করার সুবিধা যোগ করা হয়েছে।",
+  "What'sNewDetails1": "۞ একাধিক শ্লোক কপি বা শেয়ার করার বৈশিষ্ট্য যোগ করা হয়েছে।\n۞ নোটিফিকেশন সমস্যা সমাধান করা হয়েছে।",
   "@What'sNewDetails1": {
     "type": "text",
     "placeholders": {}
@@ -431,6 +436,31 @@
   },
   "audioDownloaded": "শুধুমাত্র একটি শ্লোক ডাউনলোড করা হয়েছে",
   "@audioDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choicePoems": "শ্লোকগুলি নির্বাচন করুন",
+  "@choicePoems": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "from": "থেকে",
+  "@from": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "to": "পর্যন্ত",
+  "@to": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "couplet": "শ্লোক",
+  "@couplet": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareOptions": "শেয়ারিং অপশনস",
+  "@shareOptions": {
     "type": "text",
     "placeholders": {}
   }

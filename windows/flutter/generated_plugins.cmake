@@ -7,7 +7,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   awesome_notifications_core
   connectivity_plus
   share_plus
-  sqlite3_flutter_libs
   url_launcher_windows
 )
 
