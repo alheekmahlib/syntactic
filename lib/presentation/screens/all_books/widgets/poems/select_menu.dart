@@ -77,8 +77,9 @@ class SelectMenu extends StatelessWidget {
             secondPoem: poem.secondPoem!,
             pageText: '',
             pageNumber: 1,
+            poemsList: chapters.poems, // إضافة قائمة الأبيات الشعرية كاملة
           );
-        }, svgPath: SvgPath.svgShare),
+        }, svgPath: SvgPath.svgShareAndCopy, height: 25),
         _customPieAction(context, onSelect: () {
           bookCtrl.state.selectedPoemIndex.value = -1;
 
@@ -128,7 +129,7 @@ class SelectMenu extends StatelessWidget {
   }
 
   PieAction _customPieAction(BuildContext context,
-      {required Function() onSelect, required String svgPath}) {
+      {required Function() onSelect, required String svgPath, double? height}) {
     return PieAction(
       buttonTheme: PieButtonTheme(
           backgroundColor: Theme.of(context).colorScheme.surface,
@@ -136,7 +137,7 @@ class SelectMenu extends StatelessWidget {
       tooltip: const Text(''),
       onSelect: onSelect,
       child: customSvgWithColor(svgPath,
-          height: 22, color: Theme.of(context).colorScheme.secondary),
+          height: height ?? 22, color: Theme.of(context).colorScheme.secondary),
     );
   }
 }

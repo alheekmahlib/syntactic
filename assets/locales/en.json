@@ -1,5 +1,5 @@
 {
-  "appName": "Sunnti",
+  "appName": "Nahwi : Arabic Grammar",
   "@appName": {
     "description": "The App Name"
   },
@@ -79,6 +79,11 @@
   },
   "shareImage": "As an image",
   "@shareImage": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copyText": "Copy",
+  "@copyText": {
     "type": "text",
     "placeholders": {}
   },
@@ -332,7 +337,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails1": "۞ Fixed the error that appears when opening the last chapter in the explanation books.\n۞ Added the feature to download all verses of the book at once.",
+  "What'sNewDetails1": "۞ Added the feature to copy or share multiple verses.\n۞ Fixed notification issues.",
   "@What'sNewDetails1": {
     "type": "text",
     "placeholders": {}
@@ -431,6 +436,31 @@
   },
   "audioDownloaded": "Only one verse has been downloaded",
   "@audioDownloaded": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "choicePoems": "Select Verses",
+  "@choicePoems": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "from": "From",
+  "@from": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "to": "To",
+  "@to": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "couplet": "Couplet",
+  "@couplet": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shareOptions": "Sharing Options",
+  "@shareOptions": {
     "type": "text",
     "placeholders": {}
   }

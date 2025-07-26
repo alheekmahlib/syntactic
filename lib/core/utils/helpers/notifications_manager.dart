@@ -46,7 +46,7 @@ class NotificationManager {
 
   void displayReadingProgress() {
     booksReadingProgress.forEach((bookName, lastPage) {
-      print('الكتاب: $bookName، آخر صفحة: $lastPage');
+      log('الكتاب: $bookName، آخر صفحة: $lastPage');
     });
   }
 

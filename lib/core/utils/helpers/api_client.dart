@@ -39,6 +39,7 @@ class ApiClient {
     required HttpMethod method,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? data,
+    bool? printResponse = false,
     Map<String, String>? headers,
     String? token,
   }) async {
@@ -59,7 +60,9 @@ class ApiClient {
         data: data,
       );
 
-      log('Response received: ${response.data}', name: 'ApiClient');
+      if (printResponse!) {
+        log('Response received: ${response.data}', name: 'ApiClient');
+      }
       return Right(response.data);
     } on DioException catch (e) {
       // تسجيل الأخطاء المتعلقة بـ Dio

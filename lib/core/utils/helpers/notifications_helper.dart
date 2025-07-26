@@ -33,7 +33,7 @@ class NotifyHelper {
           body: body,
           payload: payload,
           wakeUpScreen: true,
-          badge: LocalNotificationsController.instance.unreadCount,
+          badge: LocalNotificationsController.instance.unreadCount.value,
           customSound: 'resource://raw/notification',
           // إذا كان "bell"، يتم استخدام الصوت الافتراضي للنظام
         ),
@@ -78,7 +78,7 @@ class NotifyHelper {
   Future<void> notificationBadgeListener() async {
     await AwesomeNotifications().getGlobalBadgeCounter().then((_) async {
       await AwesomeNotifications().setGlobalBadgeCounter(
-        LocalNotificationsController.instance.unreadCount,
+        LocalNotificationsController.instance.unreadCount.value,
       );
     });
   }

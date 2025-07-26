@@ -37,8 +37,8 @@ class LocalNotificationsController extends GetxController {
     super.onClose();
   }
 
-  int get unreadCount =>
-      postsList.where((n) => n.appName == 'quran' && !n.opened).length;
+  RxInt get unreadCount =>
+      postsList.where((n) => n.appName == 'nahawi' && !n.opened).length.obs;
 
   Future<void> fetchNewNotifications() async {
     try {
