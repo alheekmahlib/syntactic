@@ -113,11 +113,15 @@ extension AudioDownloadExtension on AudioController {
     );
 
     if (result == 'full') {
+      state.isPlayingSingleVerse.value = false; // تشغيل مستمر
       await downloadChapterAudioZip(bookIndex, chapterIndex)
           .then((_) async => await state.audioPlayer.play());
     } else if (result == 'verse') {
-      await downloadAudio(chapterIndex, poemNumber)
-          .then((_) async => await state.audioPlayer.play());
+      state.isPlayingSingleVerse.value = true; // تشغيل بيت واحد فقط
+      await downloadAudio(chapterIndex, poemNumber).then((_) async {
+        await changeAudioSource();
+        await state.audioPlayer.play();
+      });
     } else if (result == 'cancel') {
       await state.audioPlayer.pause();
     }

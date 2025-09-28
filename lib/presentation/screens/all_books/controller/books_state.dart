@@ -34,7 +34,7 @@ class BooksState {
   List<PoemBook> loadedPoems = [];
   RxInt selectedPoemIndex = (-1).obs;
   RxInt bookNumber = 0.obs;
-  var bookJsonList;
+  dynamic bookJsonList;
   late TabController tabBarController;
   PageController pPageController = PageController();
   // Rx<Part> currentPart = Part.empty().obs;

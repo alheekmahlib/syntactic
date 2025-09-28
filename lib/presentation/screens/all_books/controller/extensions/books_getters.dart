@@ -65,7 +65,7 @@ extension BooksGetters on AllBooksController {
 
     // إذا تجاوز رقم الصفحة آخر صفحة في الكتاب، أرجع الجزء الأخير مباشرة
     // If page number exceeds last page, return last part directly
-    if (parts.isNotEmpty && pageNumber > (book.pageTotal ?? 0)) {
+    if (parts.isNotEmpty && pageNumber > (book.pageTotal)) {
       log('رقم الصفحة $pageNumber تجاوز آخر صفحة في الكتاب $bookNumber، سيتم إرجاع الجزء الأخير',
           name: 'BooksGetters');
       return parts.last;

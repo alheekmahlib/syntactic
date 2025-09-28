@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -54,23 +53,23 @@ class OurAppsController extends GetxController {
         } else {
           throw 'Could not launch ${ourAppInfo.urlAppStore}';
         }
-      } else if (Theme.of(context).platform == TargetPlatform.android) {
-        final deviceInfo = DeviceInfoPlugin();
-        AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+        // } else if (Theme.of(context).platform == TargetPlatform.android) {
+        //   final deviceInfo = DeviceInfoPlugin();
+        //   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
 
-        if (androidInfo.manufacturer.toLowerCase() != 'huawei') {
-          if (await canLaunchUrl(Uri.parse(ourAppInfo.urlPlayStore))) {
-            await launchUrl(Uri.parse(ourAppInfo.urlPlayStore));
-          } else {
-            throw 'Could not launch ${ourAppInfo.urlPlayStore}';
-          }
+        //   if (androidInfo.manufacturer.toLowerCase() != 'huawei') {
+        //     if (await canLaunchUrl(Uri.parse(ourAppInfo.urlPlayStore))) {
+        //       await launchUrl(Uri.parse(ourAppInfo.urlPlayStore));
+        //     } else {
+        //       throw 'Could not launch ${ourAppInfo.urlPlayStore}';
+        //     }
+      } else {
+        if (await canLaunchUrl(Uri.parse(ourAppInfo.urlAppGallery))) {
+          await launchUrl(Uri.parse(ourAppInfo.urlAppGallery));
         } else {
-          if (await canLaunchUrl(Uri.parse(ourAppInfo.urlAppGallery))) {
-            await launchUrl(Uri.parse(ourAppInfo.urlAppGallery));
-          } else {
-            throw 'Could not launch ${ourAppInfo.urlAppGallery}';
-          }
+          throw 'Could not launch ${ourAppInfo.urlAppGallery}';
         }
+        // }
       }
     } else {
       if (await canLaunchUrl(Uri.parse(ourAppInfo.urlMacAppStore))) {

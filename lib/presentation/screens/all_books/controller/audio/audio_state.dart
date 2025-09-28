@@ -61,4 +61,8 @@ class AudioState {
   /// هل التشغيل الحالي من ملف محلي؟
   /// Is the current playback from a local file?
   bool isPlayingFromLocal = false;
+
+  /// نوع التشغيل - بيت واحد أم تشغيل مستمر
+  /// Playback mode - single verse or continuous
+  RxBool isPlayingSingleVerse = false.obs;
 }

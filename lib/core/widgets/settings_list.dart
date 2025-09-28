@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
 
 import '/core/utils/constants/extensions.dart';
-import '../../presentation/screens/ourApp/ourApps_screen.dart';
+import '../../presentation/screens/ourApp/our_apps_screen.dart';
 import '../utils/constants/svg_constants.dart';
 import 'about_app.dart';
 import 'language_list.dart';
