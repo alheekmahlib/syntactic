@@ -7,6 +7,8 @@ import 'package:flutter/services.dart'
 import 'package:path_provider/path_provider.dart' show getTemporaryDirectory;
 import 'package:share_plus/share_plus.dart';
 
+import '../api_constants.dart';
+
 extension ShareAppExtension on void {
   Future<void> shareApp(BuildContext context) async {
     try {
@@ -36,7 +38,7 @@ extension ShareAppExtension on void {
 
       // نص وصورة للمشاركة - Text and image for sharing
       final shareText =
-          'تطبيق "نحويّ : النحو العربي" تطبيق يحتوي على العديد من كتب النحو العربي.\n\nللتحميل:\nalheekmahlib.com/#/download/app/2';
+          'تطبيق "نحويّ : النحو العربي" تطبيق يحتوي على العديد من كتب النحو العربي.\n\nللتحميل:\n${ApiConstants.downloadAppUrl}nahawi';
       final xFile = XFile(file.path);
 
       log('محاولة مشاركة الملف: ${file.path}', name: 'ShareAppExtension');

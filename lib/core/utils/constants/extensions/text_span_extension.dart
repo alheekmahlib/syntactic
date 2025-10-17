@@ -95,9 +95,9 @@ extension TextSpanExtension on String {
     final Iterable<Match> matchesQuotes = regExpQuotes.allMatches(text);
     final Iterable<Match> matchesBraces = regExpBraces.allMatches(text);
     final Iterable<Match> matchesParentheses =
-    regExpParentheses.allMatches(text);
+        regExpParentheses.allMatches(text);
     final Iterable<Match> matchesSquareBrackets =
-    regExpSquareBrackets.allMatches(text);
+        regExpSquareBrackets.allMatches(text);
     final Iterable<Match> matchesDash = regExpDash.allMatches(text);
 
     final List<Match> allMatches = [
@@ -118,11 +118,12 @@ extension TextSpanExtension on String {
         final bool isBraceMatch = regExpBraces.hasMatch(matchedText);
         final bool isParenthesesMatch = regExpParentheses.hasMatch(matchedText);
         final bool isSquareBracketMatch =
-        regExpSquareBrackets.hasMatch(matchedText);
+            regExpSquareBrackets.hasMatch(matchedText);
         final bool isDashMatch = regExpDash.hasMatch(matchedText);
 
         if (preText.isNotEmpty) {
-          spans.add(TextSpan(text: preText, style: TextStyle(color: Colors.black)));
+          spans.add(
+              TextSpan(text: preText, style: TextStyle(color: Colors.black)));
         }
 
         TextStyle matchedTextStyle;
@@ -138,7 +139,7 @@ extension TextSpanExtension on String {
           matchedTextStyle = const TextStyle(color: Color(0xff814714));
         } else {
           matchedTextStyle =
-          const TextStyle(color: Color(0xffa24308), fontFamily: 'naskh');
+              const TextStyle(color: Color(0xffa24308), fontFamily: 'naskh');
         }
 
         spans.add(TextSpan(
@@ -151,7 +152,9 @@ extension TextSpanExtension on String {
     }
 
     if (lastMatchEnd < text.length) {
-      spans.add(TextSpan(text: text.substring(lastMatchEnd), style: TextStyle(color: Colors.black)));
+      spans.add(TextSpan(
+          text: text.substring(lastMatchEnd),
+          style: TextStyle(color: Colors.black)));
     }
 
     return RichText(
@@ -161,5 +164,4 @@ extension TextSpanExtension on String {
       ),
     );
   }
-
 }

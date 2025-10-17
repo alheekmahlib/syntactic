@@ -112,6 +112,8 @@ class BookmarksController extends GetxController {
     await _db.insertBookmark(bookmark);
     allBookmarks.add(bookmark);
     update();
+
+    Get.context!.showCustomErrorSnackBar('addBookmark'.tr, isDone: true);
     log('added bookmark ${bookmark.id}');
   }
 

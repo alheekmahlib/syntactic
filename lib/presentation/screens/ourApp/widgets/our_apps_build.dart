@@ -176,10 +176,9 @@ class OurAppsBuild extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      onTap: () {
-                                        ourApps.launchURL(
-                                            context, index, apps[index]);
-                                      },
+                                      onTap: () async =>
+                                          await ourApps.launchURL(
+                                              context, index, apps[index]),
                                     );
                             },
                           ),

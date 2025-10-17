@@ -45,37 +45,15 @@ class OurAppsController extends GetxController {
     }
   }
 
-  launchURL(BuildContext context, int index, OurAppInfo ourAppInfo) async {
+  Future<void> launchURL(
+      BuildContext context, int index, OurAppInfo ourAppInfo) async {
     if (!kIsWeb) {
-      if (Theme.of(context).platform == TargetPlatform.iOS) {
-        if (await canLaunchUrl(Uri.parse(ourAppInfo.urlAppStore))) {
-          await launchUrl(Uri.parse(ourAppInfo.urlAppStore));
-        } else {
-          throw 'Could not launch ${ourAppInfo.urlAppStore}';
-        }
-        // } else if (Theme.of(context).platform == TargetPlatform.android) {
-        //   final deviceInfo = DeviceInfoPlugin();
-        //   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-
-        //   if (androidInfo.manufacturer.toLowerCase() != 'huawei') {
-        //     if (await canLaunchUrl(Uri.parse(ourAppInfo.urlPlayStore))) {
-        //       await launchUrl(Uri.parse(ourAppInfo.urlPlayStore));
-        //     } else {
-        //       throw 'Could not launch ${ourAppInfo.urlPlayStore}';
-        //     }
+      final Uri uri =
+          Uri.parse(ApiConstants.downloadAppUrl + ourAppInfo.appName);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri);
       } else {
-        if (await canLaunchUrl(Uri.parse(ourAppInfo.urlAppGallery))) {
-          await launchUrl(Uri.parse(ourAppInfo.urlAppGallery));
-        } else {
-          throw 'Could not launch ${ourAppInfo.urlAppGallery}';
-        }
-        // }
-      }
-    } else {
-      if (await canLaunchUrl(Uri.parse(ourAppInfo.urlMacAppStore))) {
-        await launchUrl(Uri.parse(ourAppInfo.urlMacAppStore));
-      } else {
-        throw 'Could not launch ${ourAppInfo.urlMacAppStore}';
+        throw 'Could not launch ${ApiConstants.downloadAppUrl + ourAppInfo.appName}';
       }
     }
   }

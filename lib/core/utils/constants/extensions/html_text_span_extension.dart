@@ -101,12 +101,32 @@ extension HtmlTextSpanExtension on String {
       if (node is dom.Element) {
         TextStyle? textStyle;
         switch (node.localName) {
+          case 'br':
+            // Convert <br> tags to newline characters
+            children.add(TextSpan(
+                text: '\n',
+                style: parentStyle ??
+                    TextStyle(color: Get.theme.colorScheme.inversePrimary)));
+            return;
           case 'p':
             textStyle = parentStyle?.merge(TextStyle(
                   color: Get.theme.colorScheme.inversePrimary,
                 )) ??
                 TextStyle(color: Get.theme.colorScheme.inversePrimary);
-            break;
+            // Process children of paragraph
+            for (var child in node.nodes) {
+              parseNode(child, textStyle);
+            }
+            // After </p>, ensure a single newline
+            bool needsNewline = true;
+            if (children.isNotEmpty && children.last is TextSpan) {
+              final lastText = (children.last as TextSpan).text ?? '';
+              if (lastText.endsWith('\n')) needsNewline = false;
+            }
+            if (needsNewline) {
+              children.add(TextSpan(text: '\n', style: textStyle));
+            }
+            return;
           case 'span':
             if (node.classes.contains('c5')) {
               textStyle =
@@ -141,7 +161,7 @@ extension HtmlTextSpanExtension on String {
         String text = node.text.trim();
         if (text.contains(RegExp(r'\[.*?\]'))) {
           children.add(TextSpan(
-              text: '\n\n',
+              text: '\n',
               style: parentStyle ??
                   TextStyle(color: Get.theme.colorScheme.inversePrimary)));
           children.add(TextSpan(
@@ -149,13 +169,13 @@ extension HtmlTextSpanExtension on String {
               style: parentStyle ??
                   TextStyle(color: Get.theme.colorScheme.inversePrimary)));
           children.add(TextSpan(
-              text: '\n\n',
+              text: '\n',
               style: parentStyle ??
                   TextStyle(color: Get.theme.colorScheme.inversePrimary)));
         } else {
           final updatedText = text
-              .replaceAllMapped(RegExp(r'\.(?!\s|\n|\.)'), (match) => '.\n')
-              .replaceAllMapped(RegExp(r':(?!\s)'), (match) => ':\n')
+              // .replaceAllMapped(RegExp(r'\.(?!\s|\n|\.)'), (match) => '.\n')
+              // .replaceAllMapped(RegExp(r':(?!\s)'), (match) => ':\n')
               .replaceAllMapped(RegExp(r'\s"'), (match) => ' "')
               .replaceAllMapped(RegExp(r'"\s'), (match) => '" ')
               .replaceAllMapped(RegExp(r',(?=\S)'), (match) => ', ')

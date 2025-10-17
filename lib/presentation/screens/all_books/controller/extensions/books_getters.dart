@@ -13,8 +13,8 @@ extension BooksGetters on AllBooksController {
   /// -------- [Getter] ----------
 
   PageController get bookPageController {
-    return state.bPageController = PageController(
-        initialPage: state.currentPageIndex.value, keepPage: true);
+    // استخدم نفس الـ PageController دون إعادة إنشائه لتجنّب إعادة التموضع غير المقصود
+    return state.bPageController;
   }
 
   PageController get poemPageController => state.pPageController =

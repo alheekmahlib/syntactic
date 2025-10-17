@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '../../../../core/utils/constants/extensions/custom_error_snack_bar.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/font_size_extension.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
@@ -13,6 +12,7 @@ import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../controllers/bookmarks_controller.dart';
 import '../controller/books_controller.dart';
 import '../data/models/page_model.dart';
+import 'chapter_dropdown.dart';
 
 class BooksTopTitleWidget extends StatelessWidget {
   final int bookNumber;
@@ -30,48 +30,51 @@ class BooksTopTitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final page = pages[index];
+    // تحضير قائمة الفصول
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
-          child: Wrap(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                page.bookTitle,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'kufi',
-                  color: Theme.of(context).colorScheme.inversePrimary,
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
-              context.vDivider(height: 20),
-              Obx(() => Text(
-                    booksCtrl
-                        .getPartByPageNumber(bookNumber,
-                            booksCtrl.state.currentPageIndex.value + 1)
-                        .partNumber,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'kufi',
-                      color: Theme.of(context).colorScheme.inversePrimary,
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      page.bookTitle,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'kufi',
+                        height: 1.2,
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    overflow: TextOverflow.ellipsis,
-                  )),
-              context.vDivider(height: 20),
-              Text(
-                booksCtrl
-                    .getChaptersByPage(
-                        bookNumber, booksCtrl.state.currentPageIndex.value + 1)
-                    .chapterName,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'kufi',
-                  color: Theme.of(context).colorScheme.inversePrimary,
-                ),
-                overflow: TextOverflow.ellipsis,
+                  ),
+                  context.vDivider(height: 20),
+                  Obx(() => Text(
+                        booksCtrl
+                            .getPartByPageNumber(bookNumber,
+                                booksCtrl.state.currentPageIndex.value + 1)
+                            .partNumber
+                            .convertNumbers(),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'kufi',
+                          height: 1.2,
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      )),
+                  context.vDivider(height: 20),
+                ],
               ),
+              // قائمة منسدلة للفصول عند توفرها
+              ChapterDropdown(
+                  bookNumber: bookNumber, pages: pages, maxWidth: Get.width),
             ],
           ),
         ),
@@ -99,12 +102,11 @@ class BooksTopTitleWidget extends StatelessWidget {
               Expanded(
                 flex: 7,
                 child: Text(
-                  (booksCtrl.state.currentPageIndex.value + 1)
-                      .toString()
-                      .convertNumbers(),
+                  pages[index].pageNumber.toString().convertNumbers(),
                   style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'kufi',
+                    height: 2.4,
                     color: Theme.of(context).colorScheme.inversePrimary,
                   ),
                   overflow: TextOverflow.ellipsis,
@@ -165,19 +167,15 @@ class BooksTopTitleWidget extends StatelessWidget {
                         .isBookmarked(bookNumber, page.pageNumber)
                         .value
                     ? bookmarkCtrl.removeBookmark(bookNumber, page.pageNumber)
-                    : bookmarkCtrl
-                        .addBookmark(
-                          booksCtrl.state.booksList[bookNumber - 1].bookName,
-                          page.title,
-                          page.content,
-                          page.pageNumber,
-                          bookNumber,
-                          booksCtrl.state.booksList[bookNumber - 1].bookType,
-                          -1,
-                        )
-                        .then((_) => context.showCustomErrorSnackBar(
-                            'addBookmark'.tr,
-                            isDone: true)),
+                    : bookmarkCtrl.addBookmark(
+                        booksCtrl.state.booksList[bookNumber - 1].bookName,
+                        page.title,
+                        page.content,
+                        page.pageNumber,
+                        bookNumber,
+                        booksCtrl.state.booksList[bookNumber - 1].bookType,
+                        -1,
+                      ),
                 child: Container(
                   height: 30,
                   width: 30,

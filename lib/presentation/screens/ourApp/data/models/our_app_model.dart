@@ -3,6 +3,7 @@ class OurAppInfo {
   final String appTitle;
   final String body;
   final String appLogo;
+  final String appName;
   final String appBanner;
   final String banner1;
   final String banner2;
@@ -20,6 +21,7 @@ class OurAppInfo {
     required this.appTitle,
     required this.body,
     required this.appLogo,
+    required this.appName,
     required this.appBanner,
     required this.banner1,
     required this.banner2,
@@ -39,6 +41,7 @@ class OurAppInfo {
       appTitle: json['appTitle'],
       body: json['body'],
       appLogo: json['appLogo'],
+      appName: json['appName'],
       appBanner: json['appBanner'],
       banner1: json['banner1'],
       banner2: json['banner2'],

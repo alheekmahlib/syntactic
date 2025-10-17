@@ -3,7 +3,7 @@ description: "A new Flutter project."
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.11+11
+version: 1.0.12+12
 
 environment:
   sdk: '>=3.5.3 <4.0.0'
@@ -24,7 +24,7 @@ dependencies:
   diacritic: ^0.1.6
   dio: ^5.9.0
   drift: ^2.28.2
-  # drift_flutter: ^0.2.7
+  drift_flutter: ^0.2.7
   easy_url_launcher: ^0.0.7
   either_dart: ^1.0.0
   expansion_tile_card: ^3.0.0
@@ -43,7 +43,7 @@ dependencies:
   horizontal_stepper_step: ^0.0.5
   html: ^0.15.6
   http: ^1.5.0
-  icons_launcher: ^3.0.1
+  icons_launcher: ^3.0.3
   image: ^4.5.4
   infinite_scroll_pagination: ^4.1.0
   info_popup: ^4.3.2
@@ -51,7 +51,7 @@ dependencies:
   lottie: ^3.3.2
   path: ^1.9.1
   path_provider: ^2.1.5
-  pie_menu: ^3.3.0
+  pie_menu: ^3.3.2
   read_more_less: ^1.0.1
   rxdart: ^0.28.0
   screenshot: ^3.0.0

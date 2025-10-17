@@ -44,3 +44,10 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 /android/key.properties
+
+# AppGallery signing artifacts (sensitive - do not commit)
+/android/appgallery-key.properties
+/android/appgallery-keystore.jks
+/android/appgallery-sign.zip
+/android/appgallery-sign-*.zip
+/android/pepk.jar
