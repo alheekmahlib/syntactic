@@ -1,12 +1,12 @@
 class ApiConstants {
-  static const baseUrl = "https://github.com/";
+  static const String baseUrl = "https://raw.githubusercontent.com/";
   static const String notificationsUrl =
-      'alheekmahlib/thegarlanded/blob/master/noti.json?raw=true';
+      'alheekmahlib/thegarlanded/master/noti.json';
   static const String ourAppsUrl =
-      'alheekmahlib/thegarlanded/blob/master/ourApps.json?raw=true';
+      'alheekmahlib/thegarlanded/master/ourApps.json';
   static const String booksUrl =
-      'alheekmahlib/thegarlanded/blob/master/nahawi_book/';
-  static const String zipFilebookUrl = 'alheekmahlib/syntactic_audio/raw/main/';
+      'alheekmahlib/thegarlanded/master/nahawi_book/';
+  static const String zipFilebookUrl = 'alheekmahlib/syntactic_audio/main/';
   static const String downloadAppUrl =
       'https://alheekmahlib.github.io/alheekmahlib/#/download/';
 }

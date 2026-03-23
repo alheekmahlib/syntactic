@@ -308,7 +308,7 @@ extension AudioDownloadExtension on AudioController {
 
       // بناء رابط الملف المضغوط من GitHub
       // Build ZIP file URL from GitHub
-      final zipUrl = '${ApiConstants.zipFilebookUrl}$bookIndex.zip?raw=true';
+      final zipUrl = '${ApiConstants.zipFilebookUrl}$bookIndex.zip';
       log('Downloading ZIP file from: $zipUrl', name: 'AudioDownloadExtension');
 
       final bookKey = bookIndex.toString();

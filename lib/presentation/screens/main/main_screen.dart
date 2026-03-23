@@ -1,20 +1,17 @@
 import 'dart:developer';
 
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:floating_menu_expendable/floating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:get/get.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
-import '/core/utils/constants/extensions.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
-import '/core/widgets/settings_list.dart';
 import '/presentation/controllers/onboarding_controller.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../core/utils/constants/lists.dart';
-import '../../../core/widgets/widgets.dart';
+import '../../../core/widgets/settings_list.dart';
 import '../../controllers/general_controller.dart';
 import '../../controllers/settings_controller.dart';
 import '../all_books/widgets/books_build.dart';
@@ -30,133 +27,158 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.sizeOf(context).height;
     settings.loadLang();
     sl<OnboardingController>().startOnboarding();
     generalCtrl.updateGreeting();
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: ThemeSwitchingArea(
-        child: Scaffold(
-          extendBody: false,
-          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          body: SafeArea(
-            child: SliderDrawer(
-              key: generalCtrl.key,
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              slideDirection: context.customOrientation(
-                  SlideDirection.topToBottom, SlideDirection.rightToLeft),
-              sliderOpenSize: platformView(
-                  orientation(
-                      context, height / 1 / 2 * 1.1, height / 1 / 2 * 1.5),
-                  height / 1 / 2 * 1.1),
-              isDraggable: true,
-              appBar: SliderAppBar(
-                config: SliderAppBarConfig(
-                  drawerIconSize: 30,
-                  drawerIconColor: Theme.of(context).colorScheme.surface,
-                  isCupertino: false,
-                  splashColor: Theme.of(context).colorScheme.primaryContainer,
-                  backgroundColor:
-                      Theme.of(context).colorScheme.primaryContainer,
-                  padding: orientation(
-                      context,
-                      const EdgeInsets.symmetric(horizontal: 16.0),
-                      const EdgeInsets.symmetric(horizontal: 40.0)),
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox.shrink(),
-                      customSvg(SvgPath.svgSyntactic, height: 20),
-                    ],
-                  ),
+      child: Scaffold(
+        extendBody: false,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        body: SafeArea(
+          child: Stack(
+            children: [
+              // const SettingsList(),
+              Padding(
+                padding: const EdgeInsets.only(top: 48.0),
+                child: PageView(
+                  controller: generalCtrl.controller,
+                  onPageChanged: (index) {
+                    generalCtrl.selected.value = index;
+                    log('selected ${generalCtrl.selected.value}');
+                  },
+                  children: [
+                    HomeScreen(),
+                    BooksBuild(showAllBooks: true),
+                    BookmarksScreen(),
+                  ],
                 ),
               ),
-              slider: const SettingsList(),
-              child: PageView(
-                controller: generalCtrl.controller,
-                onPageChanged: (index) {
-                  generalCtrl.selected.value = index;
-                  log('selected ${generalCtrl.selected.value}');
-                },
-                children: [
-                  HomeScreen(),
-                  BooksBuild(showAllBooks: true),
-                  BookmarksScreen(),
-                ],
+              Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: customSvg(SvgPath.svgSyntactic, height: 20),
+                ),
               ),
-            ),
+              FloatingMenuWidget(
+                controller: FloatingMenuExpendableController(),
+              )
+            ],
           ),
-          bottomNavigationBar: Directionality(
-            textDirection: TextDirection.rtl,
-            child: Obx(
-              () => StylishBottomBar(
-                items: List.generate(
-                  navBarList.length,
-                  (i) => BottomBarItem(
-                    icon: customSvgWithColor(navBarList[i]['svgPath'],
-                        width: 20.h,
-                        color: Theme.of(context).colorScheme.primary),
-                    selectedIcon: customSvgWithColor(navBarList[i]['svgPath'],
-                        width: 20.h,
-                        color: Theme.of(context).colorScheme.secondary),
-                    // selectedColor: Colors.teal,
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    title: Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
-                      child: Text(
-                        '${navBarList[i]['title']}'.tr,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'kufi',
-                          color: generalCtrl.selected.value == i
-                              ? Theme.of(context).colorScheme.secondary
-                              : Theme.of(context).colorScheme.primary,
-                        ),
+        ),
+        bottomNavigationBar: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Obx(
+            () => StylishBottomBar(
+              items: List.generate(
+                navBarList.length,
+                (i) => BottomBarItem(
+                  icon: customSvgWithColor(navBarList[i]['svgPath'],
+                      width: 20.h,
+                      color: Theme.of(context).colorScheme.primary),
+                  selectedIcon: customSvgWithColor(navBarList[i]['svgPath'],
+                      width: 20.h,
+                      color: Theme.of(context).colorScheme.secondary),
+                  // selectedColor: Colors.teal,
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  title: Padding(
+                    padding: const EdgeInsets.only(top: 4.0),
+                    child: Text(
+                      '${navBarList[i]['title']}'.tr,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'kufi',
+                        color: generalCtrl.selected.value == i
+                            ? Theme.of(context).colorScheme.secondary
+                            : Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ),
                 ),
-                hasNotch: true,
-                fabLocation: StylishBarFabLocation.end,
-                currentIndex: generalCtrl.selected.value,
-                onTap: (index) {
-                  generalCtrl.controller.jumpToPage(index);
-                  generalCtrl.selected.value = index;
-                },
-                option: AnimatedBarOptions(
-                    barAnimation: BarAnimation.fade,
-                    iconStyle: IconStyle.Default,
-                    inkEffect: false,
-                    inkColor: context.theme.primaryColor),
-                backgroundColor: Theme.of(context).colorScheme.surface,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20.0),
-                  topRight: Radius.circular(20.0),
-                ),
-                elevation: 80,
               ),
-            ),
-          ),
-          floatingActionButton: SizedBox(
-            height: 50.0,
-            width: 50.0,
-            child: FloatingActionButton(
-              onPressed: () {
-                Get.bottomSheet(
-                  SearchScreen(),
-                  isScrollControlled: true,
-                );
+              hasNotch: true,
+              fabLocation: StylishBarFabLocation.end,
+              currentIndex: generalCtrl.selected.value,
+              onTap: (index) {
+                generalCtrl.controller.jumpToPage(index);
+                generalCtrl.selected.value = index;
               },
-              backgroundColor: Theme.of(context).colorScheme.onSurface,
-              child: customSvgWithColor(SvgPath.svgSearch,
-                  width: 22.h, color: Theme.of(context).colorScheme.secondary),
+              option: AnimatedBarOptions(
+                  barAnimation: BarAnimation.fade,
+                  iconStyle: IconStyle.Default,
+                  inkEffect: false,
+                  inkColor: context.theme.primaryColor),
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0),
+              ),
+              elevation: 80,
             ),
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.startDocked,
         ),
+        floatingActionButton: SizedBox(
+          height: 50.0,
+          width: 50.0,
+          child: FloatingActionButton(
+            onPressed: () {
+              Get.bottomSheet(
+                SearchScreen(),
+                isScrollControlled: true,
+              );
+            },
+            backgroundColor: Theme.of(context).colorScheme.onSurface,
+            child: customSvgWithColor(SvgPath.svgSearch,
+                width: 22.h, color: Theme.of(context).colorScheme.secondary),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
       ),
+    );
+  }
+}
+
+class FloatingMenuWidget extends StatelessWidget {
+  const FloatingMenuWidget({
+    super.key,
+    required this.controller,
+  });
+
+  final FloatingMenuExpendableController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingMenuExpendable(
+      controller: controller,
+      panelWidth: 460,
+      panelHeight: 360,
+      handleWidth: 40,
+      handleHeight: 40,
+      expandPanelFromHandle: true,
+      initialPosition: const Offset(12, 12),
+      openMode: FloatingMenuExpendableOpenMode.vertical,
+      style: FloatingMenuExpendableStyle(
+        // Background barrier
+        showBarrierWhenOpen: true,
+        barrierDismissible: true,
+        barrierColor:
+            context.theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
+        barrierBlurSigmaX: 10,
+        barrierBlurSigmaY: 10,
+        panelDecoration: BoxDecoration(
+          color: context.theme.colorScheme.surface.withValues(alpha: 0.7),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        // Panel
+        panelBorderRadius: BorderRadius.circular(8),
+      ),
+      handleChild: Icon(
+        Icons.menu,
+        size: 24,
+        color: context.theme.canvasColor,
+      ),
+      panelChild: const SettingsList(),
     );
   }
 }

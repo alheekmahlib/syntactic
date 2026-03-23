@@ -1,4 +1,3 @@
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +6,7 @@ import 'package:get/get.dart';
 import 'core/utils/helpers/languages/app_constants.dart';
 import 'core/utils/helpers/languages/localization_controller.dart';
 import 'core/utils/helpers/languages/messages.dart';
+import 'presentation/controllers/theme_controller.dart';
 import 'presentation/screens/splashScreen/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
@@ -16,41 +16,39 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeController.instance.checkTheme();
     return ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
-          return ThemeProvider(
-              initTheme: theme,
-              builder: (context, myTheme) {
-                return GetBuilder<LocalizationController>(
-                    builder: (localizationController) {
-                  return GetMaterialApp(
-                    debugShowCheckedModeBanner: false,
-                    title: 'Syntactic',
-                    locale: localizationController.locale,
-                    translations: Messages(languages: languages),
-                    fallbackLocale: Locale(
-                        AppConstants.languages[0].languageCode,
-                        AppConstants.languages[0].countryCode),
-                    theme: myTheme,
-                    navigatorObservers: [BotToastNavigatorObserver()],
-                    builder: (context, child) {
-                      child = BotToastInit()(context, child);
-                      return MediaQuery(
-                        data: MediaQuery.of(context)
-                            .copyWith(textScaler: const TextScaler.linear(1.0)),
-                        child: child,
-                      );
-                    },
-                    home: const Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: SplashScreen(),
-                    ),
+          return GetBuilder<ThemeController>(
+            builder: (themeCtrl) => GetBuilder<LocalizationController>(
+                builder: (localizationController) {
+              return GetMaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Syntactic',
+                locale: localizationController.locale,
+                translations: Messages(languages: languages),
+                fallbackLocale: Locale(AppConstants.languages[0].languageCode,
+                    AppConstants.languages[0].countryCode),
+                theme: themeCtrl.currentThemeData,
+                navigatorObservers: [BotToastNavigatorObserver()],
+                builder: (context, child) {
+                  child = BotToastInit()(context, child);
+                  return MediaQuery(
+                    data: MediaQuery.of(context)
+                        .copyWith(textScaler: const TextScaler.linear(1.0)),
+                    child: child,
                   );
-                });
-              });
+                },
+                home: const Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: SplashScreen(),
+                ),
+              );
+            }),
+          );
         });
   }
 }

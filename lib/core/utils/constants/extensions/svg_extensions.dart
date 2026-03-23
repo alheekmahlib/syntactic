@@ -13,6 +13,18 @@ extension SvgExtensionWithColor on Widget {
           color ?? Get.theme.colorScheme.primary, BlendMode.srcIn),
     );
   }
+
+  Widget customSvgWithCustomColor(String path,
+      {double? height, double? width, Color? color}) {
+    return SvgPicture.asset(
+      path,
+      width: width,
+      height: height,
+      colorFilter: ColorFilter.mode(
+          color ?? Theme.of(Get.context!).primaryColorLight,
+          BlendMode.modulate),
+    );
+  }
 }
 
 extension SvgExtension on Widget {

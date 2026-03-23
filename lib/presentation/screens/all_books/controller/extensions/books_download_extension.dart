@@ -21,7 +21,7 @@ extension BooksDownloadExtension on AllBooksController {
       update();
 
       final endpoint =
-          '${ApiConstants.baseUrl}${ApiConstants.booksUrl}$bookNumber.json?raw=true';
+          '${ApiConstants.baseUrl}${ApiConstants.booksUrl}$bookNumber.json';
 
       final documentsPath = await appDocumentsDir;
       final savePath = '$documentsPath/$bookNumber.json';

@@ -3,14 +3,13 @@ description: "A new Flutter project."
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.12+12
+version: 1.0.13+13
 
 environment:
   sdk: '>=3.5.3 <4.0.0'
 
 dependencies:
   animated_custom_dropdown: ^3.1.1
-  animated_theme_switcher: ^2.0.10
   animated_toggle_switch: ^0.8.5
   another_xlider: ^3.0.2
   arabic_numbers: ^1.0.0
@@ -28,6 +27,7 @@ dependencies:
   easy_url_launcher: ^0.0.7
   either_dart: ^1.0.0
   expansion_tile_card: ^3.0.0
+  floating_menu_expendable: ^1.0.0
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.4.6
@@ -116,6 +116,19 @@ flutter:
     - family: naskh
       fonts:
         - asset: assets/fonts/NotoNaskhArabic-VariableFont_wght.ttf
+
+    - family: playpen
+      fonts:
+        - asset: assets/fonts/Playpen_Sans_Arabic/PlaypenSansArabic-ExtraLight.ttf
+          weight: 100
+        - asset: assets/fonts/Playpen_Sans_Arabic/PlaypenSansArabic-Light.ttf
+          weight: 200
+        - asset: assets/fonts/Playpen_Sans_Arabic/PlaypenSansArabic-Regular.ttf
+          weight: 300
+        - asset: assets/fonts/Playpen_Sans_Arabic/PlaypenSansArabic-Medium.ttf
+          weight: 400
+        - asset: assets/fonts/Playpen_Sans_Arabic/PlaypenSansArabic-Bold.ttf
+          weight: 700
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 package_rename_config:

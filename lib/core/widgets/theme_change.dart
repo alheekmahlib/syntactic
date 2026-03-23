@@ -1,144 +1,74 @@
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '/core/widgets/theme_service.dart';
-import '../utils/helpers/theme_config.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '../../../core/utils/constants/svg_constants.dart';
+import '../../presentation/controllers/theme_controller.dart';
 
 class ThemeChange extends StatelessWidget {
-  const ThemeChange({super.key});
+  ThemeChange({super.key});
+
+  final themeCtrl = ThemeController.instance;
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: ThemeSwitcher.withTheme(builder: (context, switcher, theme) {
-        return Column(
-          children: [
-            InkWell(
-              child: Container(
-                height: 40,
-                constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.8),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20.0)),
-                        border: Border.all(
-                            color: Theme.of(context).colorScheme.primary,
-                            width: 3),
-                        color: const Color(0xff3C2A21),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+      child: SizedBox(
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+            themeCtrl.themeList.length,
+            (index) {
+              final currentTheme =
+                  themeCtrl.themeList[index]['name'] == themeCtrl.currentTheme;
+              return GestureDetector(
+                onTap: () async {
+                  await themeCtrl.setTheme(themeCtrl.themeList[index]['name']);
+                  Get.forceAppUpdate().then((_) {
+                    Get.back();
+                  });
+                },
+                // value: themeList[index]['name'] == themeCtrl.currentTheme,
+                child: Container(
+                  height: 60,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: index.isEven
+                        ? context.theme.colorScheme.surface
+                        : Colors.black87,
+                  ),
+                  child: Row(
+                    children: [
+                      currentTheme
+                          ? Container(
+                              height: 60,
+                              width: 4,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: context.theme.canvasColor,
+                              ),
+                            )
+                          : SizedBox.shrink(),
+                      currentTheme ? Gap(8) : SizedBox.shrink(),
+                      customSvgWithCustomColor(
+                        SvgPath.svgSyntactic,
+                        height: 20,
+                        color: Get.theme.canvasColor,
                       ),
-                      child: theme == brownTheme
-                          ? Icon(Icons.done,
-                              size: 14, color: Theme.of(context).dividerColor)
-                          : null,
-                    ),
-                    const SizedBox(
-                      width: 16.0,
-                    ),
-                    Text(
-                      'brown'.tr,
-                      style: TextStyle(
-                        color: theme == brownTheme
-                            ? Theme.of(context).colorScheme.primary
-                            : Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withValues(alpha: .5),
-                        fontSize: 16,
-                        fontFamily: 'kufi',
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              onTapDown: (details) async {
-                switcher.changeTheme(
-                  theme: brownTheme,
-                  isReversed: false,
-                  offset: details.localPosition,
-                );
-                final themeName =
-                    ThemeModelInheritedNotifier.of(context).theme == brownTheme
-                        ? 'light'
-                        : 'dark';
-                final service = await ThemeService.instance
-                  ..save(themeName);
-                final theme = service.getByName(themeName);
-                switcher.changeTheme(theme: theme);
-              },
-            ),
-            InkWell(
-              child: Container(
-                height: 40,
-                constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.8),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20.0)),
-                        border: Border.all(
-                            color: theme == darkBrownTheme
-                                ? Theme.of(context).dividerColor
-                                : Theme.of(context)
-                                    .colorScheme
-                                    .primaryContainer,
-                            width: 3),
-                        color: const Color(0xff2d2d2d),
-                      ),
-                      child: theme == darkBrownTheme
-                          ? Icon(Icons.done,
-                              size: 14, color: Theme.of(context).dividerColor)
-                          : null,
-                    ),
-                    const SizedBox(
-                      width: 16.0,
-                    ),
-                    Text(
-                      'dark'.tr,
-                      style: TextStyle(
-                        color: theme == darkBrownTheme
-                            ? Theme.of(context).colorScheme.primary
-                            : Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withValues(alpha: .5),
-                        fontSize: 16,
-                        fontFamily: 'kufi',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              onTapDown: (details) async {
-                switcher.changeTheme(
-                  theme: darkBrownTheme,
-                  isReversed: true,
-                  offset: details.localPosition,
-                );
-                final themeName =
-                    ThemeModelInheritedNotifier.of(context).theme ==
-                            darkBrownTheme
-                        ? 'dark'
-                        : 'light';
-                final service = await ThemeService.instance
-                  ..save(themeName);
-                final theme = service.getByName(themeName);
-                switcher.changeTheme(theme: theme);
-              },
-            ),
-          ],
-        );
-      }),
+              );
+            },
+          ),
+        ),
+      ),
     );
   }
 }
