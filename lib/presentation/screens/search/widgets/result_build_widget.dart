@@ -42,118 +42,122 @@ class ResultBuild extends StatelessWidget {
         : GetBuilder<SearchControllers>(builder: (searchCtrl) {
             return searchCtrl.state.searchResults.isEmpty
                 ? searchLoading(height: 100.0)
-                : PagedListView<int, PageContent>(
-                    pagingController: searchCtrl.state.pagingController,
-                    builderDelegate: PagedChildBuilderDelegate<PageContent>(
-                      itemBuilder: (context, r, index) {
-                        final result =
-                            searchCtrl.state.pagingController.itemList![index];
-                        return GestureDetector(
-                          onTap: () => booksCtrl.moveToBookPage(
-                            result.pageNumber - 1,
-                            result.bookNumber,
-                            type: booksCtrl.state
-                                .booksList[result.bookNumber - 1].bookType,
-                          ),
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 24.0, vertical: 6.0),
-                            child: BeigeContainer(
-                              width: 380,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surface
-                                  .withValues(alpha: .15),
-                              myWidget: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16.0, vertical: 8.0),
-                                    child: RichText(
-                                      text: TextSpan(
-                                        children: result.content
-                                            .toFlutterTextWithSearchHighlight(
-                                                searchCtrl.state
-                                                    .searchController.text),
-                                        style: AppTextStyles.titleMedium(
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.w500,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
-                                            height: 1.5),
+                : PagingListener(
+                    controller: searchCtrl.state.pagingController,
+                    builder: (context, pagingState, fetchNextPage) =>
+                        PagedListView<int, PageContent>(
+                      state: pagingState,
+                      fetchNextPage: fetchNextPage,
+                      builderDelegate: PagedChildBuilderDelegate<PageContent>(
+                        itemBuilder: (context, result, index) {
+                          return GestureDetector(
+                            onTap: () => booksCtrl.moveToBookPage(
+                              result.pageNumber - 1,
+                              result.bookNumber,
+                              type: booksCtrl.state
+                                  .booksList[result.bookNumber - 1].bookType,
+                            ),
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 24.0, vertical: 6.0),
+                              child: BeigeContainer(
+                                width: 380,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .surface
+                                    .withValues(alpha: .15),
+                                myWidget: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16.0, vertical: 8.0),
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: result.content
+                                              .toFlutterTextWithSearchHighlight(
+                                                  searchCtrl.state
+                                                      .searchController.text),
+                                          style: AppTextStyles.titleMedium(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w500,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
+                                              height: 1.5),
+                                        ),
+                                        textAlign: TextAlign.justify,
+                                        textDirection: TextDirection.rtl,
                                       ),
-                                      textAlign: TextAlign.justify,
-                                      textDirection: TextDirection.rtl,
                                     ),
-                                  ),
-                                  Container(
-                                    height: 32,
-                                    width: Get.width,
-                                    alignment: Alignment.center,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 8.0),
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface,
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(4))),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          flex: 3,
-                                          child: FittedBox(
-                                            fit: BoxFit.scaleDown,
+                                    Container(
+                                      height: 32,
+                                      width: Get.width,
+                                      alignment: Alignment.center,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8.0),
+                                      decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .surface,
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(4))),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            flex: 3,
+                                            child: FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: Text(
+                                                result.bookTitle,
+                                                style:
+                                                    AppTextStyles.titleMedium(
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .secondary,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                          const Gap(16),
+                                          context.vDivider(
+                                              height: 20,
+                                              color: context.theme.canvasColor),
+                                          const Gap(16),
+                                          Expanded(
+                                            flex: 6,
                                             child: Text(
-                                              result.bookTitle,
+                                              booksCtrl
+                                                  .getChaptersByPage(
+                                                      result.bookNumber,
+                                                      result.pageNumber)
+                                                  .chapterName,
                                               style: AppTextStyles.titleMedium(
-                                                fontSize: 14.0,
-                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w500,
                                                 color: Theme.of(context)
                                                     .colorScheme
                                                     .secondary,
                                               ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                               textAlign: TextAlign.center,
                                             ),
                                           ),
-                                        ),
-                                        const Gap(16),
-                                        context.vDivider(
-                                            height: 20,
-                                            color: context.theme.canvasColor),
-                                        const Gap(16),
-                                        Expanded(
-                                          flex: 6,
-                                          child: Text(
-                                            booksCtrl
-                                                .getChaptersByPage(
-                                                    result.bookNumber,
-                                                    result.pageNumber)
-                                                .chapterName,
-                                            style: AppTextStyles.titleMedium(
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.w500,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .secondary,
-                                            ),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   );
           });

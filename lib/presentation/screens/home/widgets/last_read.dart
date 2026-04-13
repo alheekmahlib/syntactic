@@ -93,7 +93,7 @@ class LastRead extends StatelessWidget {
                                         Text(
                                           book.bookName,
                                           style: AppTextStyles.titleSmall(
-                                            fontSize: 12.0,
+                                            fontSize: 14.0,
                                             color: Theme.of(context).hintColor,
                                             height: 1.5,
                                           ),

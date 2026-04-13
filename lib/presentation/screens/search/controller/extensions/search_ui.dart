@@ -8,7 +8,7 @@ import '../../data/models/search_model.dart';
 extension SearchUi on SearchControllers {
   void clearList() {
     if (state.tabController.index == 1) {
-      state.pagingController.itemList!.clear();
+      state.pagingController.refresh();
     }
     state.currentQuery.value = '';
     state.searchResults.clear();

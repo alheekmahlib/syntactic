@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -33,13 +32,11 @@ class MyApp extends StatelessWidget {
                 fallbackLocale: Locale(AppConstants.languages[0].languageCode,
                     AppConstants.languages[0].countryCode),
                 theme: themeCtrl.currentThemeData,
-                navigatorObservers: [BotToastNavigatorObserver()],
                 builder: (context, child) {
-                  child = BotToastInit()(context, child);
                   return MediaQuery(
                     data: MediaQuery.of(context)
                         .copyWith(textScaler: const TextScaler.linear(1.0)),
-                    child: child,
+                    child: child!,
                   );
                 },
                 home: const Directionality(

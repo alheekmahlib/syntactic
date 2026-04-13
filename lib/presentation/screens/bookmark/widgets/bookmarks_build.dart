@@ -30,7 +30,7 @@ class BookmarksBuild extends StatelessWidget {
                     assignId: true,
                     builder: (bookmarkCtrl) => Container(
                         height: 125,
-                        width: 380,
+                        width: double.infinity,
                         margin: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Dismissible(
                           key: ValueKey<int>(bookmark.chapterNumber!),
@@ -50,7 +50,7 @@ class BookmarksBuild extends StatelessWidget {
                                       vertical: 16.0),
                                   child: BeigeContainer(
                                     height: 125,
-                                    width: 380,
+                                    width: double.infinity,
                                     color: Theme.of(context)
                                         .colorScheme
                                         .surface

@@ -24,11 +24,13 @@ class SearchControllers extends GetxController
   @override
   void onInit() {
     state.pagingController = PagingController<int, PageContent>(
-      firstPageKey: 0,
+      getNextPageKey: (state) {
+        final lastPage = state.pages?.lastOrNull;
+        if (lastPage != null && lastPage.length < 5) return null;
+        return (state.keys?.length ?? 0);
+      },
+      fetchPage: (pageKey) => processNextBatch(5),
     );
-    state.pagingController.addPageRequestListener((pageKey) {
-      fetchPage(pageKey);
-    });
     state.tabController = TabController(length: 3, vsync: this);
     state.tabController.addListener(() {
       if (state.tabController.index == 0) {
@@ -67,25 +69,6 @@ class SearchControllers extends GetxController
     state.isSingleBook.value = isSingleBook;
     state.pagingController.refresh();
     update();
-  }
-
-  void fetchPage(int pageKey) async {
-    log('fetchPage called with pageKey: $pageKey');
-    try {
-      final newItems = await processNextBatch(5);
-      final isLastPage = newItems.length < 5;
-
-      if (isLastPage) {
-        state.pagingController.appendLastPage(newItems);
-      } else {
-        final nextPageKey = pageKey + 1; // التحديث بناءً على الصفحة التالية
-        state.pagingController.appendPage(newItems, nextPageKey);
-      }
-    } catch (error, stackTrace) {
-      log('Error in fetchPage: $error');
-      log('Stack trace: $stackTrace');
-      state.pagingController.error = error;
-    }
   }
 
   Future<List<PageContent>> processNextBatch(int limit) async {
