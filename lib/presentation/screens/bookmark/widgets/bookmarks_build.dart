@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:nahawi/core/utils/constants/extensions/extensions.dart';
-import 'package:nahawi/core/utils/constants/extensions/html_text_span_extension.dart';
-import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
 
-import '../../../../core/utils/constants/svg_constants.dart';
-import '../../../../core/widgets/beige_container.dart';
-import '../../../../core/widgets/widgets.dart';
+import '/core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/extensions/html_text_span_extension.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/core/utils/constants/svg_constants.dart';
+import '/core/widgets/beige_container.dart';
+import '/core/widgets/widgets.dart';
+import '../../../../core/utils/helpers/app_text_styles.dart';
 import '../../../controllers/bookmarks_controller.dart';
 
 class BookmarksBuild extends StatelessWidget {
@@ -61,10 +62,9 @@ class BookmarksBuild extends StatelessWidget {
                                           child: Text(
                                             bookmarkCtrl
                                                 .allBookmarks[index].bookName!,
-                                            style: TextStyle(
+                                            style: AppTextStyles.titleSmall(
                                                 fontSize: 14.0,
-                                                fontFamily: 'kufi',
-                                                fontWeight: FontWeight.bold,
+                                                fontWeight: FontWeight.w500,
                                                 color: Theme.of(context)
                                                     .colorScheme
                                                     .primary,
@@ -78,7 +78,7 @@ class BookmarksBuild extends StatelessWidget {
                                                 .colorScheme
                                                 .primary),
                                         Expanded(
-                                          flex: 8,
+                                          flex: 9,
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 8.0),
@@ -88,9 +88,8 @@ class BookmarksBuild extends StatelessWidget {
                                                     .allBookmarks[index]
                                                     .poemText!
                                                     .buildTextSpansFromHtml(),
-                                                style: TextStyle(
-                                                    fontSize: 20.0,
-                                                    fontFamily: 'naskh',
+                                                style: AppTextStyles.titleSmall(
+                                                    fontSize: 18.0,
                                                     color: Theme.of(context)
                                                         .colorScheme
                                                         .primary,
@@ -125,13 +124,12 @@ class BookmarksBuild extends StatelessWidget {
                                                 .withValues(alpha: .15))),
                                     child: Text(
                                       bookmarkCtrl.getChapterOrPage(index),
-                                      style: TextStyle(
+                                      style: AppTextStyles.titleSmall(
                                         fontSize: 14.0,
-                                        fontFamily: 'kufi',
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w500,
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .primary,
+                                            .inversePrimary,
                                       ),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,

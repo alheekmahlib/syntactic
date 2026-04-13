@@ -2,15 +2,15 @@ import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:nahawi/core/utils/constants/extensions/convert_number_extension.dart';
-import 'package:nahawi/core/utils/constants/extensions/extensions.dart';
 
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../presentation/controllers/share_controller.dart';
 import '../../../presentation/screens/all_books/data/models/poem_model.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/svg_constants.dart';
-import '../widgets.dart';
+import '../../utils/helpers/app_text_styles.dart';
 import 'create_image.dart';
 
 /// ShareOptionsService - خدمة مسؤولة عن خيارات المشاركة
@@ -125,8 +125,7 @@ Future<void> showShareOptionsBottomSheet(
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Container(
                     height: 1,
                     decoration: BoxDecoration(
@@ -258,13 +257,7 @@ Widget _buildHeader(BuildContext context) {
             children: [
               Text(
                 'shareOptions'.tr,
-                style: TextStyle(
-                  color: Theme.of(context).primaryColorLight,
-                  fontSize: 18,
-                  fontFamily: 'kufi',
-                  fontWeight: FontWeight.bold,
-                  height: 1.7,
-                ),
+                style: AppTextStyles.titleMedium(),
               ),
               const Gap(12),
               Container(
@@ -304,7 +297,6 @@ Widget _buildPoemRangeSelector(BuildContext context,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.only(bottom: 8.0),
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
@@ -324,42 +316,46 @@ Widget _buildPoemRangeSelector(BuildContext context,
               const Gap(8),
               Text(
                 'choicePoems'.tr,
-                style: TextStyle(
-                  color: Theme.of(context).primaryColorLight,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'kufi',
+                style: AppTextStyles.titleMedium(),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(
+              top: 4.0, bottom: 5.0, right: 16.0, left: 16.0),
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+                width: 2.0,
+              ),
+            ),
+          ),
+          child: Row(
+            children: [
+              // اختيار البيت الأول (من) - Select first poem (from)
+              Expanded(
+                child: _buildPoemDropdown(
+                  context: context,
+                  shareController: shareController,
+                  isFromSelector: true,
+                  labelText: 'from'.tr,
+                ),
+              ),
+              const Gap(16),
+              // اختيار البيت الأخير (إلى) - Select last poem (to)
+              Expanded(
+                child: _buildPoemDropdown(
+                  context: context,
+                  shareController: shareController,
+                  isFromSelector: false,
+                  labelText: 'to'.tr,
                 ),
               ),
             ],
           ),
         ),
-        const Gap(12),
-        Row(
-          children: [
-            // اختيار البيت الأول (من) - Select first poem (from)
-            Expanded(
-              child: _buildPoemDropdown(
-                context: context,
-                shareController: shareController,
-                isFromSelector: true,
-                labelText: 'from'.tr,
-              ),
-            ),
-            const Gap(16),
-            // اختيار البيت الأخير (إلى) - Select last poem (to)
-            Expanded(
-              child: _buildPoemDropdown(
-                context: context,
-                shareController: shareController,
-                isFromSelector: false,
-                labelText: 'to'.tr,
-              ),
-            ),
-          ],
-        ),
-        const Gap(16),
-        hDivider(context, width: MediaQuery.sizeOf(context).width),
       ],
     ),
   );
@@ -378,10 +374,7 @@ Widget _buildPoemDropdown({
     children: [
       Text(
         labelText,
-        style: TextStyle(
-            color: Theme.of(context).primaryColorLight,
-            fontSize: 14,
-            fontFamily: 'kufi'),
+        style: AppTextStyles.titleSmall(),
       ),
       const Gap(4),
       Obx(() => CustomDropdown<int>(
@@ -405,29 +398,20 @@ Widget _buildPoemDropdown({
             excludeSelected: false,
             hintBuilder: (context, text, select) => Text(
               '${'couplet'.tr} $text'.convertNumbers(),
-              style: TextStyle(
-                color: Theme.of(context).primaryColorLight,
-                fontSize: 14,
-                fontFamily: 'kufi',
-              ),
+              style: AppTextStyles.titleSmall(),
             ),
             headerBuilder: (context, index, select) => Text(
               '${'couplet'.tr} ${index + 1}'.convertNumbers(),
-              style: TextStyle(
-                color: Theme.of(context).primaryColorLight,
-                fontSize: 14,
-                fontFamily: 'kufi',
-              ),
+              style: AppTextStyles.titleSmall(),
             ),
             items: List.generate(shareController.poemsCount!, (index) => index),
             listItemBuilder: (context, index, selected, _) => Text(
               '${'couplet'.tr} ${index + 1}'.convertNumbers(),
-              style: TextStyle(
+              style: AppTextStyles.titleSmall().copyWith(
                 color: !selected
                     ? context.theme.canvasColor
                     : context.theme.primaryColorLight,
                 fontSize: 16,
-                fontFamily: 'kufi',
                 fontWeight: selected ? FontWeight.bold : FontWeight.normal,
               ),
             ),
@@ -479,7 +463,6 @@ Widget _buildTextShareSection({
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Container(
-          padding: const EdgeInsets.only(bottom: 8.0),
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
@@ -499,12 +482,7 @@ Widget _buildTextShareSection({
               const Gap(8),
               Text(
                 'shareText'.tr,
-                style: TextStyle(
-                  color: Theme.of(context).primaryColorLight,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'kufi',
-                ),
+                style: AppTextStyles.titleMedium(),
               ),
             ],
           ),
@@ -526,8 +504,7 @@ Widget _buildTextShareSection({
           duration: const Duration(milliseconds: 200),
           width: MediaQuery.sizeOf(context).width,
           padding: const EdgeInsets.all(16.0),
-          margin: const EdgeInsets.only(
-              top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
+          margin: const EdgeInsets.only(top: 4.0, right: 16.0, left: 16.0),
           decoration: BoxDecoration(
               color: context.theme.colorScheme.surface.withValues(alpha: .3),
               borderRadius: const BorderRadius.all(Radius.circular(12)),
@@ -655,7 +632,6 @@ Widget _buildImageShareSection({
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Container(
-          padding: const EdgeInsets.only(bottom: 8.0),
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
@@ -675,12 +651,7 @@ Widget _buildImageShareSection({
               const Gap(8),
               Text(
                 'shareImage'.tr,
-                style: TextStyle(
-                  color: Theme.of(context).primaryColorLight,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'kufi',
-                ),
+                style: AppTextStyles.titleMedium(),
               ),
             ],
           ),
@@ -778,7 +749,6 @@ Widget _buildCopySection({
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Container(
-          padding: const EdgeInsets.only(bottom: 8.0),
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
@@ -798,12 +768,7 @@ Widget _buildCopySection({
               const Gap(8),
               Text(
                 'copyText'.tr,
-                style: TextStyle(
-                  color: Theme.of(context).primaryColorLight,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'kufi',
-                ),
+                style: AppTextStyles.titleMedium(),
               ),
             ],
           ),
@@ -824,9 +789,9 @@ Widget _buildCopySection({
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           width: MediaQuery.sizeOf(context).width,
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           margin: const EdgeInsets.only(
-              top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
+              top: 4.0, bottom: 5.0, right: 16.0, left: 16.0),
           decoration: BoxDecoration(
               color: context.theme.colorScheme.surface.withValues(alpha: .3),
               borderRadius: const BorderRadius.all(Radius.circular(12)),

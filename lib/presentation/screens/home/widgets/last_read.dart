@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/services/services_locator.dart';
+import '/core/utils/helpers/app_text_styles.dart';
+import '/core/widgets/beige_container.dart';
 import '/presentation/screens/all_books/controller/books_controller.dart';
 import '/presentation/screens/all_books/controller/extensions/books_ui.dart';
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/widgets/beige_container.dart';
 
 class LastRead extends StatelessWidget {
   LastRead({super.key});
@@ -33,9 +34,7 @@ class LastRead extends StatelessWidget {
                       borderRadius: const BorderRadius.all(Radius.circular(4))),
                   child: Text(
                     'lastRead'.tr,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: 'kufi',
+                    style: AppTextStyles.heading3(
                       fontWeight: FontWeight.w500,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
@@ -93,9 +92,8 @@ class LastRead extends StatelessWidget {
                                       children: [
                                         Text(
                                           book.bookName,
-                                          style: TextStyle(
+                                          style: AppTextStyles.titleSmall(
                                             fontSize: 12.0,
-                                            fontFamily: 'kufi',
                                             color: Theme.of(context).hintColor,
                                             height: 1.5,
                                           ),
@@ -133,9 +131,7 @@ class LastRead extends StatelessWidget {
                       )
                     : Text(
                         'notAvailable'.tr,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontFamily: 'kufi',
+                        style: AppTextStyles.heading2(
                           color: Theme.of(context).hintColor,
                           height: 1.5,
                         ),

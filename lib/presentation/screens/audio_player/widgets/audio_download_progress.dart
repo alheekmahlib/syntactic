@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/presentation/screens/audio_player/extensions/audio_download_extension.dart';
+import '../../../../core/utils/helpers/app_text_styles.dart';
 import '../../all_books/controller/audio/audio_controller.dart';
 
 /// ويدجت لعرض تقدم تنزيل الملفات الصوتية
@@ -42,10 +43,9 @@ class AudioDownloadProgress extends StatelessWidget {
           children: [
             Text(
               audioId == -1 ? 'downlodingFullBook'.tr : 'downlodingAudio'.tr,
-              style: TextStyle(
+              style: AppTextStyles.titleMedium(
                 color: Theme.of(context).colorScheme.inversePrimary,
                 fontSize: 14,
-                fontFamily: 'kufi',
               ),
             ),
             const SizedBox(height: 8.0),
@@ -62,10 +62,9 @@ class AudioDownloadProgress extends StatelessWidget {
               children: [
                 Text(
                   '${(progress * 100).toInt()}%',
-                  style: TextStyle(
+                  style: AppTextStyles.titleMedium(
                     color: Theme.of(context).colorScheme.inversePrimary,
                     fontSize: 12,
-                    fontFamily: 'kufi',
                   ),
                 ),
                 TextButton.icon(
@@ -77,10 +76,9 @@ class AudioDownloadProgress extends StatelessWidget {
                   ),
                   label: Text(
                     'cancel'.tr,
-                    style: TextStyle(
+                    style: AppTextStyles.titleMedium(
                       color: Theme.of(context).colorScheme.surface,
                       fontSize: 12,
-                      fontFamily: 'kufi',
                     ),
                   ),
                   style: TextButton.styleFrom(

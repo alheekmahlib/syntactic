@@ -10,11 +10,9 @@ import '../../presentation/controllers/onboarding_controller.dart';
 import '../../presentation/controllers/splash_screen_controller.dart';
 import '../../presentation/screens/all_books/controller/audio/audio_controller.dart';
 import '../../presentation/screens/all_books/controller/books_controller.dart';
-import '../../presentation/screens/ourApp/controller/our_apps_controller.dart';
 import '../../presentation/screens/search/controller/search_controller.dart';
 import '../../presentation/screens/whats_new/controller/whats_new_controller.dart';
 import '../widgets/local_notification/controller/local_notifications_controller.dart';
-import 'connectivity_service.dart';
 
 final sl = GetIt.instance;
 
@@ -39,9 +37,6 @@ class ServicesLocator {
 
     sl.registerLazySingleton<ShareController>(
         () => Get.put<ShareController>(ShareController(), permanent: true));
-
-    sl.registerLazySingleton<OurAppsController>(
-        () => Get.put<OurAppsController>(OurAppsController(), permanent: true));
 
     sl.registerLazySingleton<AllBooksController>(() =>
         Get.put<AllBooksController>(AllBooksController(), permanent: true));
@@ -68,9 +63,6 @@ class ServicesLocator {
     sl.registerLazySingleton<LocalNotificationsController>(() =>
         Get.put<LocalNotificationsController>(LocalNotificationsController(),
             permanent: true));
-
-    sl.registerLazySingleton<ConnectivityService>(() =>
-        Get.put<ConnectivityService>(ConnectivityService(), permanent: true));
     // UiHelper.rateMyApp.init();
     //
     // if (Platform.isWindows || Platform.isLinux) {

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../presentation/controllers/settings_controller.dart';
 import '../services/services_locator.dart';
+import '../utils/helpers/app_text_styles.dart';
 import '../utils/helpers/languages/app_constants.dart';
 import '../utils/helpers/languages/localization_controller.dart';
 
@@ -24,9 +25,7 @@ class LanguageList extends StatelessWidget {
             child: Obx(() {
               return Text(
                 sl<SettingsController>().languageName.value,
-                style: TextStyle(
-                  fontFamily: 'kufi',
-                  fontSize: 18,
+                style: AppTextStyles.heading2(
                   color: Theme.of(context).primaryColorLight,
                 ),
               );
@@ -74,14 +73,12 @@ class LanguageList extends StatelessWidget {
                           ),
                           Text(
                             lang['name'],
-                            style: TextStyle(
+                            style: AppTextStyles.heading2(
                               color: 'appLang'.tr == lang['appLang']
                                   ? Theme.of(context).primaryColorLight
                                   : Theme.of(context)
                                       .primaryColorLight
                                       .withValues(alpha: .5),
-                              fontSize: 18,
-                              fontFamily: 'noto',
                             ),
                           ),
                         ],

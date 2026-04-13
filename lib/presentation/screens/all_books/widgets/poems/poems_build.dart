@@ -70,7 +70,9 @@ class PoemsBuild extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 22.0.sp,
                                     fontFamily: 'naskh',
-                                    color: Theme.of(context).primaryColorLight,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .inversePrimary,
                                   ),
                                 ),
                               ),
@@ -81,7 +83,9 @@ class PoemsBuild extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 22.0.sp,
                                     fontFamily: 'naskh',
-                                    color: Theme.of(context).primaryColorLight,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .inversePrimary,
                                   ),
                                 ),
                               ),

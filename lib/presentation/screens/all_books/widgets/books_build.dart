@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
+import 'package:nahawi/core/utils/helpers/app_text_styles.dart';
 
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../../core/widgets/beige_container.dart';
@@ -41,8 +42,8 @@ class BooksBuild extends StatelessWidget {
                                 const EdgeInsets.symmetric(horizontal: 16.0),
                             child: Container(
                               height: 35,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  8.0, 0, 0.0, 0),
                               decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(8),
@@ -71,22 +72,19 @@ class BooksBuild extends StatelessWidget {
                                           Theme.of(context).colorScheme.surface,
                                       indicatorSize: TabBarIndicatorSize.tab,
                                       dividerColor: Colors.transparent,
-                                      labelStyle: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                        fontFamily: 'kufi',
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 11,
-                                      ),
-                                      unselectedLabelStyle: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                        fontFamily: 'kufi',
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 11,
-                                      ),
+                                      padding: EdgeInsets.zero,
+                                      labelPadding: EdgeInsets.symmetric(
+                                          horizontal: 4.0, vertical: 4.0),
+                                      labelStyle: AppTextStyles.titleSmall(
+                                          color: Theme.of(context).canvasColor,
+                                          fontSize: 14,
+                                          height: 1),
+                                      unselectedLabelStyle:
+                                          AppTextStyles.titleSmall(
+                                              color:
+                                                  Theme.of(context).canvasColor,
+                                              fontSize: 14,
+                                              height: 1),
                                       indicator: BoxDecoration(
                                         borderRadius: const BorderRadius.all(
                                           Radius.circular(8),
@@ -189,9 +187,8 @@ class BooksBuild extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(4))),
               child: Text(
                 'books'.tr,
-                style: TextStyle(
+                style: AppTextStyles.titleSmall(
                   fontSize: 16.0,
-                  fontFamily: 'kufi',
                   fontWeight: FontWeight.w500,
                   color: Theme.of(context).colorScheme.secondary,
                 ),

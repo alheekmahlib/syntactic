@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:nahawi/core/utils/constants/extensions/html_text_span_extension.dart';
-import 'package:nahawi/presentation/screens/all_books/controller/extensions/books_download_extension.dart';
-import 'package:nahawi/presentation/screens/all_books/controller/extensions/books_getters.dart';
-import 'package:nahawi/presentation/screens/all_books/controller/extensions/books_ui.dart';
 
-import '../../../../core/utils/constants/svg_picture.dart';
-import '../../../../core/widgets/read_more_less/read_more_less.dart';
+import '/core/utils/constants/extensions/html_text_span_extension.dart';
+import '/core/utils/constants/svg_picture.dart';
+import '/core/utils/helpers/app_text_styles.dart';
+import '/core/widgets/read_more_less/read_more_less.dart';
+import '/presentation/screens/all_books/controller/extensions/books_download_extension.dart';
+import '/presentation/screens/all_books/controller/extensions/books_getters.dart';
+import '/presentation/screens/all_books/controller/extensions/books_ui.dart';
 import '../controller/books_controller.dart';
 
 class BookDetails extends StatelessWidget {
@@ -35,7 +36,7 @@ class BookDetails extends StatelessWidget {
         Container(
           // height: 290,
           width: Get.width,
-          margin: const EdgeInsets.only(top: 140, right: 24.0, left: 24.0),
+          margin: const EdgeInsets.only(top: 110, right: 24.0, left: 24.0),
           decoration: BoxDecoration(
               color:
                   Theme.of(context).colorScheme.surface.withValues(alpha: .15),
@@ -63,7 +64,7 @@ class BookDetails extends StatelessWidget {
     );
   }
 
-  SingleChildRenderObjectWidget _bookChaptersList(BuildContext context) {
+  Widget _bookChaptersList(BuildContext context) {
     return booksCtrl.getLocalBooks(bookNumber).value
         ? SizedBox.shrink()
         : Align(
@@ -144,14 +145,13 @@ class BookDetails extends StatelessWidget {
         Transform.translate(
           offset: const Offset(2, 20),
           child: SizedBox(
-            height: 150,
+            height: 120,
             width: 90,
             child: Text(
               bookName,
-              style: TextStyle(
+              style: AppTextStyles.titleLarge(
                   fontSize: 18.0,
-                  fontFamily: 'kufi',
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w500,
                   color: Theme.of(context).colorScheme.secondary,
                   height: 1.5),
               textAlign: TextAlign.center,
@@ -171,19 +171,13 @@ class BookDetails extends StatelessWidget {
           maxLines: 1,
           collapsedHeight:
               booksCtrl.collapsedHeight(bookNumber, bookType).value ? 130 : 30,
-          textStyle: TextStyle(
-            fontSize: 20,
-            fontFamily: 'naskh',
-            color: Theme.of(context).primaryColorLight,
+          textStyle: AppTextStyles.titleMedium(
+            fontSize: 16.0,
           ),
           textAlign: TextAlign.justify,
           readMoreText: 'readMore'.tr,
           readLessText: 'readLess'.tr,
-          buttonTextStyle: TextStyle(
-            fontSize: 12,
-            fontFamily: 'kufi',
-            color: Theme.of(context).primaryColorLight,
-          ),
+          buttonTextStyle: AppTextStyles.titleSmall(),
           iconColor: Theme.of(context).primaryColorLight,
         ),
       ),
@@ -201,10 +195,9 @@ class BookDetails extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(4))),
       child: Text(
         'aboutBook'.tr,
-        style: TextStyle(
+        style: AppTextStyles.titleSmall(
           fontSize: 16.0,
-          fontFamily: 'kufi',
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w500,
           color: Theme.of(context).colorScheme.secondary,
         ),
         textAlign: TextAlign.center,

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
 
 import '/core/utils/constants/extensions.dart';
-import '../../presentation/screens/ourApp/our_apps_screen.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '../../presentation/screens/ourApp/screen/our_apps_screen.dart';
 import '../utils/constants/svg_constants.dart';
+import '../utils/helpers/app_text_styles.dart';
 import 'about_app.dart';
 import 'language_list.dart';
 import 'theme_change.dart';
@@ -40,9 +41,7 @@ class SettingsList extends StatelessWidget {
                 children: [
                   Text(
                     'appLang'.tr,
-                    style: TextStyle(
-                      fontFamily: 'kufi',
-                      fontSize: 18,
+                    style: AppTextStyles.heading2(
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
@@ -67,9 +66,7 @@ class SettingsList extends StatelessWidget {
                 children: [
                   Text(
                     'changeTheme'.tr,
-                    style: TextStyle(
-                      fontFamily: 'kufi',
-                      fontSize: 18,
+                    style: AppTextStyles.heading2(
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
@@ -109,9 +106,7 @@ class SettingsList extends StatelessWidget {
                               flex: 8,
                               child: Text(
                                 'ourApps'.tr,
-                                style: TextStyle(
-                                  fontFamily: 'kufi',
-                                  fontSize: 16,
+                                style: AppTextStyles.heading3(
                                   fontWeight: FontWeight.bold,
                                   color: Theme.of(context).colorScheme.surface,
                                 ),
@@ -168,9 +163,7 @@ class SettingsList extends StatelessWidget {
                               flex: 8,
                               child: Text(
                                 'aboutApp'.tr,
-                                style: TextStyle(
-                                  fontFamily: 'kufi',
-                                  fontSize: 16,
+                                style: AppTextStyles.heading3(
                                   fontWeight: FontWeight.bold,
                                   color: Theme.of(context).colorScheme.surface,
                                 ),

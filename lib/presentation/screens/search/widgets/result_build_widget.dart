@@ -8,6 +8,7 @@ import '/core/utils/constants/extensions/highlight_extension.dart';
 import '/presentation/screens/all_books/controller/extensions/books_getters.dart';
 import '/presentation/screens/all_books/controller/extensions/books_ui.dart';
 import '../../../../core/utils/constants/lottie.dart';
+import '../../../../core/utils/helpers/app_text_styles.dart';
 import '../../../../core/widgets/beige_container.dart';
 import '../../all_books/controller/books_controller.dart';
 import '../../all_books/data/models/page_model.dart';
@@ -30,9 +31,8 @@ class ResultBuild extends StatelessWidget {
               Text(
                 'noBooksDownloaded'.tr,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: AppTextStyles.titleMedium(
                     color: Theme.of(context).colorScheme.surface,
-                    fontFamily: 'kufi',
                     fontWeight: FontWeight.w700,
                     fontSize: 18),
               ),
@@ -75,9 +75,8 @@ class ResultBuild extends StatelessWidget {
                                             .toFlutterTextWithSearchHighlight(
                                                 searchCtrl.state
                                                     .searchController.text),
-                                        style: TextStyle(
-                                            fontSize: 22.0,
-                                            fontFamily: 'naskh',
+                                        style: AppTextStyles.titleMedium(
+                                            fontSize: 18.0,
                                             fontWeight: FontWeight.w500,
                                             color: Theme.of(context)
                                                 .colorScheme
@@ -110,9 +109,8 @@ class ResultBuild extends StatelessWidget {
                                             fit: BoxFit.scaleDown,
                                             child: Text(
                                               result.bookTitle,
-                                              style: TextStyle(
+                                              style: AppTextStyles.titleMedium(
                                                 fontSize: 14.0,
-                                                fontFamily: 'kufi',
                                                 fontWeight: FontWeight.bold,
                                                 color: Theme.of(context)
                                                     .colorScheme
@@ -135,9 +133,8 @@ class ResultBuild extends StatelessWidget {
                                                     result.bookNumber,
                                                     result.pageNumber)
                                                 .chapterName,
-                                            style: TextStyle(
+                                            style: AppTextStyles.titleMedium(
                                               fontSize: 16.0,
-                                              fontFamily: 'kufi',
                                               fontWeight: FontWeight.w500,
                                               color: Theme.of(context)
                                                   .colorScheme

@@ -8,6 +8,7 @@ import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/screens/all_books/controller/books_controller.dart';
 import '/presentation/screens/search/controller/extensions/search_ui.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
+import '../../../../core/utils/helpers/app_text_styles.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../controller/search_controller.dart';
 import '../widgets/last_search_widget.dart';
@@ -56,9 +57,8 @@ class SearchScreen extends StatelessWidget {
                           color2: Theme.of(context).colorScheme.surface),
                       Text(
                         'search'.tr,
-                        style: TextStyle(
+                        style: AppTextStyles.titleMedium(
                           fontSize: 20.0,
-                          fontFamily: 'kufi',
                           fontWeight: FontWeight.w600,
                           color: Theme.of(context).colorScheme.primary,
                         ),
@@ -77,9 +77,8 @@ class SearchScreen extends StatelessWidget {
                         height: 50,
                         child: TextField(
                           controller: searchCtrl.state.searchController,
-                          style: TextStyle(
+                          style: AppTextStyles.titleMedium(
                             fontSize: 14.0,
-                            fontFamily: 'kufi',
                             fontWeight: FontWeight.w600,
                             color: Theme.of(context)
                                 .colorScheme
@@ -100,9 +99,8 @@ class SearchScreen extends StatelessWidget {
                                   width: 1),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            hintStyle: TextStyle(
+                            hintStyle: AppTextStyles.titleMedium(
                               fontSize: 14.0,
-                              fontFamily: 'kufi',
                               fontWeight: FontWeight.w600,
                               color: Theme.of(context)
                                   .colorScheme
@@ -131,9 +129,8 @@ class SearchScreen extends StatelessWidget {
                               },
                             ),
                             labelText: 'searchHintText'.tr,
-                            labelStyle: TextStyle(
+                            labelStyle: AppTextStyles.titleMedium(
                               fontSize: 14.0,
-                              fontFamily: 'kufi',
                               fontWeight: FontWeight.w600,
                               color: Theme.of(context)
                                   .colorScheme

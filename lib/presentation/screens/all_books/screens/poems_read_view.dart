@@ -7,6 +7,7 @@ import 'package:nahawi/presentation/screens/all_books/controller/extensions/book
 import 'package:pie_menu/pie_menu.dart';
 
 import '../../../../core/utils/constants/svg_constants.dart';
+import '../../../../core/utils/helpers/app_text_styles.dart';
 import '../../../../core/utils/helpers/notifications_manager.dart';
 import '../../../../core/widgets/beige_container.dart';
 import '../../../../core/widgets/widgets.dart';
@@ -125,10 +126,9 @@ class PoemsReadView extends StatelessWidget {
                                               Radius.circular(4))),
                                       child: Text(
                                         chapter[chapterIndex].chapterName,
-                                        style: TextStyle(
+                                        style: AppTextStyles.titleSmall(
                                           fontSize: 17.0,
-                                          fontFamily: 'kufi',
-                                          fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.w500,
                                           color: Theme.of(context)
                                               .colorScheme
                                               .secondary,

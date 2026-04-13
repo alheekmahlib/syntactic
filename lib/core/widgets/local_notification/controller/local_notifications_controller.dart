@@ -5,7 +5,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../../services/connectivity_service.dart';
+import '../../../services/internet_connection_controller.dart';
 import '../../../utils/constants/api_constants.dart';
 import '../../../utils/helpers/api_client.dart';
 import '../../../utils/helpers/notifications_helper.dart';
@@ -25,7 +25,7 @@ class LocalNotificationsController extends GetxController {
   void onInit() {
     super.onInit();
     // NotifyHelper.initAwesomeNotifications();
-    if (!ConnectivityService.instance.noConnection.value) {
+    if (InternetConnectionController.instance.isConnected) {
       fetchNewNotifications();
     }
     loadReadStatus();

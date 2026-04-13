@@ -8,6 +8,7 @@ import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../presentation/controllers/general_controller.dart';
 import '../../utils/constants/svg_constants.dart';
+import '../../utils/helpers/app_text_styles.dart';
 import 'controller/local_notifications_controller.dart';
 import 'widgets/notification_icon_widget.dart';
 
@@ -56,11 +57,9 @@ class NotificationsScreen extends StatelessWidget {
                 const Gap(8),
                 Text(
                   'notification'.tr,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.inversePrimary,
-                    fontFamily: 'kufi',
+                  style: AppTextStyles.titleMedium(
                     fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                    color: Theme.of(context).colorScheme.inversePrimary,
                   ),
                 ),
               ],
@@ -79,11 +78,9 @@ class NotificationsScreen extends StatelessWidget {
                             const Gap(32),
                             Text(
                               'noNotifications'.tr,
-                              style: TextStyle(
-                                color: context.theme.colorScheme.inversePrimary,
-                                fontFamily: 'kufi',
+                              style: AppTextStyles.bodyLarge(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 22,
+                                color: context.theme.colorScheme.inversePrimary,
                               ),
                             ),
                           ],
@@ -152,12 +149,10 @@ class NotificationsScreen extends StatelessWidget {
                                             children: [
                                               Text(
                                                 noti.title,
-                                                style: TextStyle(
+                                                style: AppTextStyles.heading2(
+                                                  fontWeight: FontWeight.bold,
                                                   color: Theme.of(context)
                                                       .primaryColorDark,
-                                                  fontFamily: 'kufi',
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18,
                                                 ),
                                               ),
                                               customSvgWithColor(
@@ -176,31 +171,29 @@ class NotificationsScreen extends StatelessWidget {
                                         children: <Widget>[
                                           Text(
                                             noti.title,
-                                            style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .primaryColorDark,
-                                              fontFamily: 'kufi',
+                                            style: AppTextStyles.heading2(
                                               fontWeight: FontWeight.bold,
                                               fontSize: GeneralController
                                                   .instance
                                                   .fontSizeArabic
                                                   .value,
+                                              color: Theme.of(context)
+                                                  .primaryColorDark,
                                             ),
                                           ),
                                           context.hDivider(width: Get.width),
                                           const Gap(16),
                                           Text(
                                             noti.body,
-                                            style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .primaryColorDark,
-                                              fontFamily: 'kufi',
+                                            style: AppTextStyles.heading2(
                                               fontWeight: FontWeight.bold,
                                               fontSize: GeneralController
                                                       .instance
                                                       .fontSizeArabic
                                                       .value -
                                                   2,
+                                              color: Theme.of(context)
+                                                  .primaryColorDark,
                                             ),
                                           ),
                                           const Gap(32),

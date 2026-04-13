@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/utils/helpers/app_text_styles.dart';
 import '../controller/search_controller.dart';
 
 class TabBarWidget extends StatelessWidget {
@@ -24,17 +25,15 @@ class TabBarWidget extends StatelessWidget {
         indicatorColor: Theme.of(context).primaryColorDark,
         indicatorSize: TabBarIndicatorSize.tab,
         dividerColor: Colors.transparent,
-        labelStyle: TextStyle(
+        labelStyle: AppTextStyles.titleMedium(
           color: Theme.of(context).canvasColor,
-          fontFamily: 'kufi',
           fontWeight: FontWeight.bold,
-          fontSize: 11,
+          fontSize: 13,
         ),
-        unselectedLabelStyle: TextStyle(
+        unselectedLabelStyle: AppTextStyles.titleMedium(
           color: Theme.of(context).primaryColorDark,
-          fontFamily: 'kufi',
           fontWeight: FontWeight.bold,
-          fontSize: 11,
+          fontSize: 13,
         ),
         indicator: BoxDecoration(
             borderRadius: const BorderRadius.all(

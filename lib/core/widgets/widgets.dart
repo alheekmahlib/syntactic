@@ -9,6 +9,7 @@ import '../../presentation/controllers/general_controller.dart';
 import '../../presentation/screens/all_books/controller/audio/audio_controller.dart';
 import '../services/services_locator.dart';
 import '../utils/constants/svg_constants.dart';
+import '../utils/helpers/app_text_styles.dart';
 
 orientation(BuildContext context, var n1, n2) {
   Orientation orientation = MediaQuery.orientationOf(context);
@@ -70,9 +71,7 @@ optionsModalBottomSheet(BuildContext context, Widget child, {double? height}) {
 Widget greeting(BuildContext context) {
   return Text(
     '| ${sl<GeneralController>().greeting.value} |',
-    style: TextStyle(
-      fontSize: 14.0,
-      fontFamily: 'kufi',
+    style: AppTextStyles.titleSmall(
       color: Theme.of(context).colorScheme.primary,
     ),
     textAlign: TextAlign.center,
@@ -110,8 +109,7 @@ Widget delete(BuildContext context) {
             ),
             Text(
               'delete'.tr,
-              style: const TextStyle(
-                  color: Colors.white, fontSize: 14, fontFamily: 'kufi'),
+              style: AppTextStyles.titleSmall(color: Colors.white),
             )
           ],
         ),
@@ -125,8 +123,7 @@ Widget delete(BuildContext context) {
             ),
             Text(
               'delete'.tr,
-              style: const TextStyle(
-                  color: Colors.white, fontSize: 14, fontFamily: 'kufi'),
+              style: AppTextStyles.titleSmall(color: Colors.white),
             )
           ],
         ),

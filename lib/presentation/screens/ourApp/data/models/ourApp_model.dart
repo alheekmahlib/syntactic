@@ -1,9 +1,9 @@
 class OurAppInfo {
   final int id;
   final String appTitle;
+  final String appName;
   final String body;
   final String appLogo;
-  final String appName;
   final String appBanner;
   final String banner1;
   final String banner2;
@@ -19,9 +19,9 @@ class OurAppInfo {
   OurAppInfo({
     required this.id,
     required this.appTitle,
+    required this.appName,
     required this.body,
     required this.appLogo,
-    required this.appName,
     required this.appBanner,
     required this.banner1,
     required this.banner2,
@@ -39,9 +39,9 @@ class OurAppInfo {
     return OurAppInfo(
       id: json['id'],
       appTitle: json['appTitle'],
+      appName: json['appName'],
       body: json['body'],
       appLogo: json['appLogo'],
-      appName: json['appName'],
       appBanner: json['appBanner'],
       banner1: json['banner1'],
       banner2: json['banner2'],

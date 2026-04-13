@@ -11,6 +11,7 @@ import 'package:path/path.dart' as path;
 import '/core/utils/constants/extensions/custom_error_snack_bar.dart';
 import '/core/utils/constants/extensions/download_extension.dart';
 import '../../../../core/utils/constants/api_constants.dart';
+import '../../../../core/utils/helpers/app_text_styles.dart';
 import '../../all_books/controller/audio/audio_controller.dart';
 import '../widgets/audio_download_progress.dart';
 
@@ -68,19 +69,18 @@ extension AudioDownloadExtension on AudioController {
             ),
             Text(
               'downloadAudio'.tr,
-              style: TextStyle(
+              style: AppTextStyles.titleMedium(
                 fontSize: 18,
-                fontFamily: 'kufi',
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w500,
                 color: Theme.of(Get.context!).colorScheme.primary,
               ),
             ),
             const Gap(16),
             Text(
               'chooseDownloadMethod'.tr,
-              style: TextStyle(
+              style: AppTextStyles.titleMedium(
                 fontSize: 16,
-                fontFamily: 'naskh',
+                fontWeight: FontWeight.w500,
                 color: Theme.of(Get.context!).colorScheme.primary,
               ),
             ),
@@ -162,11 +162,10 @@ extension AudioDownloadExtension on AudioController {
             Expanded(
               child: Text(
                 title,
-                style: TextStyle(
+                style: AppTextStyles.titleMedium(
                   fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w500,
                   color: Theme.of(Get.context!).colorScheme.primary,
-                  fontFamily: 'kufi',
                 ),
               ),
             ),

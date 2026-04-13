@@ -1,109 +1,91 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
+import 'package:flutter/foundation.dart';
 
-import '/core/utils/constants/extensions/svg_extensions.dart';
-import '/core/utils/constants/svg_constants.dart';
+// enum لتسهيل التعامل مع حالات الاتصال
+enum ConnectivityStatus {
+  connected,
+  phoneData,
+  disconnected,
+}
 
-/// Usage Example
-/// final connectivityService = Get.put(ConnectivityService());
-/// await connectivityService.init();
-/// Now you can use connectivityService.connectionStatus
-/// or connectivityService.noConnection.
-/// OR
-/// ConnectivityService.instance.init();
-/// Now you can use ConnectivityService.instance.connectionStatus
-/// or ConnectivityService.instance.noConnection.
+class InternetConnectionService {
+  // StreamController لبث التغيرات في حالة الاتصال
+  final StreamController<ConnectivityStatus> _connectionStatusController =
+      StreamController<ConnectivityStatus>.broadcast();
 
-class ConnectivityService extends GetxService {
-  static ConnectivityService get instance =>
-      Get.isRegistered<ConnectivityService>()
-          ? Get.find<ConnectivityService>()
-          : Get.put(ConnectivityService());
+  // Stream يمكن للـ Controllers الأخرى الاستماع إليه
+  Stream<ConnectivityStatus> get connectionStream =>
+      _connectionStatusController.stream;
 
-  /// -------- [ConnectivityService] ----------
+  // متغير للاحتفاظ بآخر حالة اتصال معروفة
+  ConnectivityStatus _currentStatus = ConnectivityStatus.disconnected;
+  ConnectivityStatus get currentStatus => _currentStatus;
 
-  /// -------- [Variables] ----------
-
-  final RxList<ConnectivityResult> _connectionStatus =
-      [ConnectivityResult.none].obs;
-  final Connectivity _connectivity = Connectivity();
+  // اشتراك لمراقبة التغيرات من مكتبة connectivity_plus
   late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
 
-  /// متغير يحدد إذا كان هناك اتصال بالإنترنت أم لا (يتم تحديثه تلقائياً)
-  /// RxBool that indicates if there is no internet connection (auto-updated)
-  final RxBool noConnection = true.obs;
+  // Timer لتأخير بث حالة الانقطاع (debounce) لتجنب الأحداث المؤقتة الكاذبة
+  static const _disconnectDebounce = Duration(seconds: 3);
+  Timer? _disconnectTimer;
 
-  /// -------- [Getter] ----------
-
-  RxList<ConnectivityResult> get connectionStatus => _connectionStatus;
-
-  /// -------- [Initialization] ----------
-
-  Future<ConnectivityService> init() async {
+  // دالة التهيئة الأولية — يجب استدعاؤها مع await قبل استخدام الخدمة
+  Future<void> init() async {
+    // الاستماع للتغيرات في الاتصال
     _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
-    await _initConnectivity();
-    return this;
+        Connectivity().onConnectivityChanged.listen(_updateConnectionStatus);
+
+    // التحقق من الحالة الحالية عند بدء التشغيل
+    final initialResult = await Connectivity().checkConnectivity();
+    _updateConnectionStatus(initialResult);
   }
 
-  /// Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> _initConnectivity() async {
-    try {
-      final result = await _connectivity.checkConnectivity();
-      _updateConnectionStatus(result);
-    } on PlatformException catch (e) {
-      log('Couldn\'t check connectivity status', error: e);
+  // دالة خاصة لتحديث الحالة وبثها عبر الـ Stream
+  void _updateConnectionStatus(List<ConnectivityResult> result) {
+    final newStatus = _resolveStatus(result);
+
+    if (newStatus != ConnectivityStatus.disconnected) {
+      // اتصال فعلي: ألغِ أي timer انقطاع معلّق وحدّث فوراً
+      _disconnectTimer?.cancel();
+      _disconnectTimer = null;
+      _applyStatus(newStatus);
+    } else {
+      // انقطاع محتمل: انتظر قبل البث لتجنّب الأحداث المؤقتة
+      if (_disconnectTimer?.isActive ?? false) return; // timer قيد الانتظار
+      _disconnectTimer = Timer(_disconnectDebounce, () {
+        _applyStatus(ConnectivityStatus.disconnected);
+        _disconnectTimer = null;
+      });
     }
   }
 
-  void _updateConnectionStatus(List<ConnectivityResult> result) {
-    _connectionStatus.value = result;
-    // تحديث حالة الاتصال
-    // Update noConnection state
-    noConnection.value = result.contains(ConnectivityResult.none);
-    log('Connectivity changed: $_connectionStatus');
-    // _showConnectivityStatusSnackBar(result);
+  // تحليل قائمة ConnectivityResult إلى حالة واحدة
+  // الأولوية: فحص وجود اتصال فعلي أولاً، ثم الانقطاع
+  ConnectivityStatus _resolveStatus(List<ConnectivityResult> result) {
+    if (result.contains(ConnectivityResult.wifi) ||
+        result.contains(ConnectivityResult.ethernet) ||
+        result.contains(ConnectivityResult.vpn)) {
+      return ConnectivityStatus.connected;
+    } else if (result.contains(ConnectivityResult.mobile)) {
+      return ConnectivityStatus.phoneData;
+    }
+    return ConnectivityStatus.disconnected;
   }
 
-  // void _showConnectivityStatusSnackBar(List<ConnectivityResult> result) {
-  //   if (result.contains(ConnectivityResult.none)) {
-  //     Get.context?.showCustomErrorSnackBar('noInternet'.tr);
-  //   } else if (result.contains(ConnectivityResult.mobile)) {
-  //     Get.context?.showCustomErrorSnackBar('mobileDataAyat'.tr);
-  //   }
-  // }
+  // بث الحالة الجديدة فقط إذا تغيرت عن الحالة السابقة
+  void _applyStatus(ConnectivityStatus newStatus) {
+    if (newStatus != _currentStatus) {
+      _currentStatus = newStatus;
+      _connectionStatusController.add(newStatus);
+      debugPrint('Connectivity status updated: $newStatus');
+    }
+  }
 
-  /// -------- [Dispose] ----------
-
-  @override
-  void onClose() {
+  // دالة لإغلاق الـ StreamController والاشتراك عند عدم الحاجة للخدمة
+  void dispose() {
+    _disconnectTimer?.cancel();
     _connectivitySubscription.cancel();
-    super.onClose();
+    _connectionStatusController.close();
   }
-
-  /// -------- [No Internet Widget] ----------
-
-  Widget get noInternetWidget => Column(
-        children: [
-          const Gap(60),
-          Get.context?.customSvg(SvgPath.svgAlert, height: 120) ??
-              const SizedBox(),
-          const Gap(16),
-          Text(
-            'noInternet'.tr,
-            style: TextStyle(
-              color: Get.theme.colorScheme.surface,
-              fontFamily: 'kufi',
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      );
 }

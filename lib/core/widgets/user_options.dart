@@ -4,6 +4,7 @@ import 'package:nahawi/core/utils/constants/extensions/launch_alheekmah_url_exte
 
 import '/core/utils/constants/extensions/contact_us_extension.dart';
 import '/core/utils/constants/extensions/share_app_extension.dart';
+import '../utils/helpers/app_text_styles.dart';
 import 'beige_container.dart';
 
 class UserOptions extends StatelessWidget {
@@ -33,11 +34,8 @@ class UserOptions extends StatelessWidget {
                   ),
                   Text(
                     'share'.tr,
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColorLight,
-                        fontFamily: 'kufi',
-                        fontStyle: FontStyle.italic,
-                        fontSize: 14),
+                    style: AppTextStyles.titleSmall(
+                        color: Theme.of(context).primaryColorLight),
                   ),
                 ],
               ),
@@ -64,11 +62,8 @@ class UserOptions extends StatelessWidget {
                   ),
                   Text(
                     'email'.tr,
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColorLight,
-                        fontFamily: 'kufi',
-                        fontStyle: FontStyle.italic,
-                        fontSize: 14),
+                    style: AppTextStyles.titleSmall(
+                        color: Theme.of(context).primaryColorLight),
                   ),
                 ],
               ),
@@ -91,11 +86,8 @@ class UserOptions extends StatelessWidget {
                   ),
                   Text(
                     'facebook'.tr,
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColorLight,
-                        fontFamily: 'kufi',
-                        fontStyle: FontStyle.italic,
-                        fontSize: 14),
+                    style: AppTextStyles.titleSmall(
+                        color: Theme.of(context).primaryColorLight),
                   ),
                 ],
               ),

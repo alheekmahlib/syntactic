@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '/core/services/connectivity_service.dart';
 import '/core/utils/constants/extensions/custom_error_snack_bar.dart';
 import '/presentation/screens/all_books/controller/audio/extensions/audio_getters.dart';
 import '/presentation/screens/audio_player/extensions/audio_download_extension.dart';
+import '../../../../../core/services/internet_connection_controller.dart';
 import '../books_controller.dart';
 import '../extensions/books_getters.dart';
 import 'audio_state.dart';
@@ -279,7 +279,7 @@ class AudioController extends GetxController {
           state.isPlayingSingleVerse.value = !hasFullBook;
           state.isPlaying.value = true;
           await state.audioPlayer.play();
-        } else if (ConnectivityService.instance.noConnection.value) {
+        } else if (!InternetConnectionController.instance.isConnected) {
           Get.context!.showCustomErrorSnackBar('noInternet'.tr);
           return;
         } else {

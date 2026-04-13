@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '../utils/helpers/app_text_styles.dart';
 import 'widgets.dart';
 
 class AboutAppText extends StatelessWidget {
@@ -19,9 +20,7 @@ class AboutAppText extends StatelessWidget {
         width: 100.0,
         child: Text(
           'aboutApp'.tr,
-          style: TextStyle(
-            fontFamily: 'kufi',
-            fontSize: 18,
+          style: AppTextStyles.heading2(
             color: Theme.of(context).primaryColorLight,
           ),
         ),
@@ -38,9 +37,7 @@ class AboutAppText extends StatelessWidget {
             children: [
               Text(
                 'aboutAppDetails'.tr,
-                style: TextStyle(
-                  fontFamily: 'naskh',
-                  fontSize: 20,
+                style: AppTextStyles.bodyMedium(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).primaryColorLight,
                 ),
@@ -55,17 +52,13 @@ class AboutAppText extends StatelessWidget {
                     children: [
                       Text(
                         ('aboutAppTitle${index + 1}').tr,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontFamily: 'naskh',
+                        style: AppTextStyles.bodySmall(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).primaryColorLight,
                         ),
                       ),
                       Text(('aboutApp${index + 1}').tr,
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontFamily: 'naskh',
+                          style: AppTextStyles.bodySmall(
                             fontWeight: FontWeight.w500,
                             color: Theme.of(context).primaryColorLight,
                           ),

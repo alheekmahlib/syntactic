@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../../services/connectivity_service.dart';
+import '../../../services/internet_connection_controller.dart';
 import '../../helpers/api_client.dart';
 import 'custom_error_snack_bar.dart';
 
@@ -15,7 +15,7 @@ extension DownloadExtension on Object {
   /// دالة للتحقق من الاتصال بالإنترنت
   /// Function to check internet connectivity
   bool _checkConnectivity({bool showError = true}) {
-    if (ConnectivityService.instance.noConnection.value) {
+    if (!InternetConnectionController.instance.isConnected) {
       if (showError) {
         Get.context!.showCustomErrorSnackBar('noInternet'.tr);
       }

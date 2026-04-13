@@ -3,11 +3,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hijri/hijri_calendar.dart';
 
-import '../../../../core/services/services_locator.dart';
-import '../../../../core/widgets/local_notification/notification_screen.dart';
-import '../../../../core/widgets/local_notification/widgets/notification_icon_widget.dart';
-import '../../../../core/widgets/widgets.dart';
-import '../../../controllers/general_controller.dart';
+import '/core/services/services_locator.dart';
+import '/core/utils/helpers/app_text_styles.dart';
+import '/core/widgets/local_notification/notification_screen.dart';
+import '/core/widgets/local_notification/widgets/notification_icon_widget.dart';
+import '/core/widgets/widgets.dart';
+import '/presentation/controllers/general_controller.dart';
 
 class HijriDate extends StatelessWidget {
   const HijriDate({super.key});
@@ -54,9 +55,7 @@ class HijriDate extends StatelessWidget {
                       borderRadius: const BorderRadius.all(Radius.circular(4))),
                   child: Text(
                     general.convertNumbers('${today.hDay}'),
-                    style: TextStyle(
-                      fontSize: 26.0,
-                      fontFamily: 'kufi',
+                    style: AppTextStyles.titleLarge(
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                     textAlign: TextAlign.center,
@@ -74,9 +73,7 @@ class HijriDate extends StatelessWidget {
                       borderRadius: const BorderRadius.all(Radius.circular(4))),
                   child: Text(
                     general.convertNumbers('${today.hYear} هـ'),
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontFamily: 'kufi',
+                    style: AppTextStyles.titleMedium(
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                     textAlign: TextAlign.center,

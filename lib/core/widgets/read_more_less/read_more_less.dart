@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/helpers/app_text_styles.dart';
 import 'expandable_text.dart';
 
 class ReadMoreLess extends StatelessWidget {
@@ -110,7 +111,8 @@ class ReadMoreLess extends StatelessWidget {
                     iconExpanded: iconExpanded,
                     customButtonBuilder: customButtonBuilder,
                     iconColor: iconColor,
-                    buttonTextStyle: buttonTextStyle,
+                    buttonTextStyle:
+                        buttonTextStyle ?? AppTextStyles.titleMedium(),
                   )
                 : RichText(
                     text: TextSpan(children: text, style: ts),

@@ -2,6 +2,7 @@ import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/utils/helpers/app_text_styles.dart';
 import '../controller/books_controller.dart';
 import '../controller/extensions/books_getters.dart';
 import '../data/models/page_model.dart';
@@ -36,9 +37,8 @@ class ChapterDropdown extends StatelessWidget {
             .chapterName;
         return Text(
           chapterName,
-          style: TextStyle(
+          style: AppTextStyles.titleSmall(
             fontSize: 16,
-            fontFamily: 'kufi',
             color: Theme.of(context).colorScheme.inversePrimary,
           ),
           overflow: TextOverflow.ellipsis,
@@ -99,9 +99,8 @@ class ChapterDropdown extends StatelessWidget {
             excludeSelected: false,
             headerBuilder: (context, item, select) => Text(
               chapters[item].chapterName,
-              style: TextStyle(
+              style: AppTextStyles.titleSmall(
                 fontSize: 14,
-                fontFamily: 'kufi',
                 color: Theme.of(context).colorScheme.inversePrimary,
               ),
               overflow: TextOverflow.ellipsis,
@@ -112,11 +111,10 @@ class ChapterDropdown extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: Text(
                   chapters[item].chapterName,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.inversePrimary,
+                  style: AppTextStyles.titleSmall(
                     fontSize: 14,
-                    fontFamily: 'kufi',
-                    fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+                    color: Theme.of(context).colorScheme.inversePrimary,
+                    fontWeight: selected ? FontWeight.w500 : FontWeight.normal,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),

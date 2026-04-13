@@ -9,6 +9,7 @@ import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/presentation/screens/all_books/controller/extensions/books_getters.dart';
 import '/presentation/screens/all_books/controller/extensions/books_ui.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
+import '../../../../core/utils/helpers/app_text_styles.dart';
 import '../../../controllers/bookmarks_controller.dart';
 import '../controller/books_controller.dart';
 import '../data/models/page_model.dart';
@@ -45,9 +46,8 @@ class BooksTopTitleWidget extends StatelessWidget {
                   Expanded(
                     child: Text(
                       page.bookTitle,
-                      style: TextStyle(
+                      style: AppTextStyles.titleSmall(
                         fontSize: 14,
-                        fontFamily: 'kufi',
                         height: 1.2,
                         color: Theme.of(context).colorScheme.inversePrimary,
                       ),
@@ -61,9 +61,8 @@ class BooksTopTitleWidget extends StatelessWidget {
                                 booksCtrl.state.currentPageIndex.value + 1)
                             .partNumber
                             .convertNumbers(),
-                        style: TextStyle(
+                        style: AppTextStyles.titleSmall(
                           fontSize: 16,
-                          fontFamily: 'kufi',
                           height: 1.2,
                           color: Theme.of(context).colorScheme.inversePrimary,
                         ),
@@ -103,10 +102,9 @@ class BooksTopTitleWidget extends StatelessWidget {
                 flex: 7,
                 child: Text(
                   pages[index].pageNumber.toString().convertNumbers(),
-                  style: TextStyle(
+                  style: AppTextStyles.titleSmall(
                     fontSize: 16,
-                    fontFamily: 'kufi',
-                    height: 2.4,
+                    height: 1.4,
                     color: Theme.of(context).colorScheme.inversePrimary,
                   ),
                   overflow: TextOverflow.ellipsis,

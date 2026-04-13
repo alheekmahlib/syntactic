@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:nahawi/core/utils/constants/extensions/extensions.dart';
-import 'package:nahawi/core/utils/constants/extensions/svg_extensions.dart';
-import 'package:nahawi/presentation/screens/search/controller/extensions/search_ui.dart';
 
-import '../../../../core/utils/constants/svg_constants.dart';
-import '../../../../core/widgets/beige_container.dart';
+import '/core/utils/constants/extensions/extensions.dart';
+import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/core/utils/constants/svg_constants.dart';
+import '/core/widgets/beige_container.dart';
+import '/presentation/screens/search/controller/extensions/search_ui.dart';
+import '../../../../core/utils/helpers/app_text_styles.dart';
 import '../controller/search_controller.dart';
 
 class LastSearchWidget extends StatelessWidget {
@@ -28,9 +29,8 @@ class LastSearchWidget extends StatelessWidget {
                   alignment: Alignment.topRight,
                   child: Text(
                     'lastSearch'.tr,
-                    style: TextStyle(
+                    style: AppTextStyles.titleMedium(
                       fontSize: 16.0,
-                      fontFamily: 'kufi',
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
@@ -80,9 +80,8 @@ class LastSearchWidget extends StatelessWidget {
                                     children: [
                                       Text(
                                         item.query,
-                                        style: TextStyle(
+                                        style: AppTextStyles.titleMedium(
                                           fontSize: 14.0,
-                                          fontFamily: 'kufi',
                                           fontWeight: FontWeight.w600,
                                           color: Theme.of(context)
                                               .colorScheme
@@ -92,9 +91,8 @@ class LastSearchWidget extends StatelessWidget {
                                       ),
                                       Text(
                                         item.timestamp,
-                                        style: TextStyle(
+                                        style: AppTextStyles.titleMedium(
                                           fontSize: 12.0,
-                                          fontFamily: 'kufi',
                                           fontWeight: FontWeight.w600,
                                           color: Theme.of(context)
                                               .colorScheme

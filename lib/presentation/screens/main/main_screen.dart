@@ -11,6 +11,7 @@ import '/core/utils/constants/svg_constants.dart';
 import '/presentation/controllers/onboarding_controller.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../core/utils/constants/lists.dart';
+import '../../../core/utils/helpers/app_text_styles.dart';
 import '../../../core/widgets/settings_list.dart';
 import '../../controllers/general_controller.dart';
 import '../../controllers/settings_controller.dart';
@@ -86,9 +87,7 @@ class MainScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 4.0),
                     child: Text(
                       '${navBarList[i]['title']}'.tr,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'kufi',
+                      style: AppTextStyles.titleSmall(
                         color: generalCtrl.selected.value == i
                             ? Theme.of(context).colorScheme.secondary
                             : Theme.of(context).colorScheme.primary,

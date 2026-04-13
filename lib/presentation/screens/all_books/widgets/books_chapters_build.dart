@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nahawi/presentation/screens/all_books/controller/extensions/books_getters.dart';
-import 'package:nahawi/presentation/screens/all_books/controller/extensions/books_ui.dart';
 
+import '/presentation/screens/all_books/controller/extensions/books_getters.dart';
+import '/presentation/screens/all_books/controller/extensions/books_ui.dart';
+import '../../../../core/utils/helpers/app_text_styles.dart';
 import '../controller/books_controller.dart';
 import '../data/models/part_model.dart';
 
@@ -38,10 +39,9 @@ class BooksChapterBuild extends StatelessWidget {
                       borderRadius: const BorderRadius.all(Radius.circular(4))),
                   child: Text(
                     'chapterBook'.tr,
-                    style: TextStyle(
+                    style: AppTextStyles.titleSmall(
                       fontSize: 16.0,
-                      fontFamily: 'kufi',
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w500,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                     textAlign: TextAlign.center,
@@ -131,9 +131,8 @@ class BooksChapterBuild extends StatelessWidget {
                                           horizontal: 8.0, vertical: 4.0),
                                       child: Text(
                                         chapter.chapterName,
-                                        style: TextStyle(
-                                          fontSize: 22.0,
-                                          fontFamily: 'naskh',
+                                        style: AppTextStyles.titleSmall(
+                                          fontSize: 18.0,
                                           fontWeight: FontWeight.w500,
                                           color: Theme.of(context)
                                               .colorScheme

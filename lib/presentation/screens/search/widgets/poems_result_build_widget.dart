@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nahawi/presentation/screens/all_books/controller/extensions/books_ui.dart';
 
+import '/presentation/screens/all_books/controller/extensions/books_ui.dart';
 import '../../../../core/utils/constants/lottie.dart';
+import '../../../../core/utils/helpers/app_text_styles.dart';
 import '../../../../core/widgets/beige_container.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../all_books/controller/books_controller.dart';
@@ -54,9 +55,8 @@ class PoemsResultBuildWidget extends StatelessWidget {
                                   flex: 3,
                                   child: Text(
                                     result.bookName,
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        fontFamily: 'kufi',
+                                    style: AppTextStyles.titleMedium(
+                                        fontSize: 16.0,
                                         fontWeight: FontWeight.w500,
                                         color: Theme.of(context)
                                             .colorScheme
@@ -67,12 +67,11 @@ class PoemsResultBuildWidget extends StatelessWidget {
                                 ),
                                 vDivider(context, height: 50),
                                 Expanded(
-                                  flex: 8,
+                                  flex: 9,
                                   child: Text(
                                     result.firstPoem,
-                                    style: TextStyle(
-                                        fontSize: 22.0,
-                                        fontFamily: 'naskh',
+                                    style: AppTextStyles.titleMedium(
+                                        fontSize: 18.0,
                                         fontWeight: FontWeight.w500,
                                         color: Theme.of(context)
                                             .colorScheme
@@ -100,9 +99,8 @@ class PoemsResultBuildWidget extends StatelessWidget {
                                     const BorderRadius.all(Radius.circular(4))),
                             child: Text(
                               result.chapterTitle,
-                              style: TextStyle(
+                              style: AppTextStyles.titleMedium(
                                 fontSize: 16.0,
-                                fontFamily: 'kufi',
                                 fontWeight: FontWeight.w500,
                                 color: Theme.of(context).colorScheme.secondary,
                               ),

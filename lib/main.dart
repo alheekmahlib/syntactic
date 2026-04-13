@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '/core/utils/helpers/languages/dependency_inj.dart' as dep;
 import 'core/services/connectivity_service.dart';
+import 'core/services/internet_connection_controller.dart';
 import 'core/services/services_locator.dart';
 import 'core/utils/helpers/notifications_helper.dart';
 import 'core/widgets/theme_service.dart';
@@ -18,6 +20,9 @@ Future<void> main() async {
   await GetStorage.init();
   NotifyHelper.initAwesomeNotifications();
   NotifyHelper().requistPermissions();
-  await ConnectivityService.instance.init();
+  final connectivityService = InternetConnectionService();
+  await connectivityService.init();
+  Get.put(connectivityService, permanent: true);
+  Get.put(InternetConnectionController(), permanent: true);
   runApp(MyApp(languages: languages, theme: initTheme));
 }

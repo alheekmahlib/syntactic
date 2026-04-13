@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '../../../utils/helpers/app_text_styles.dart';
 import '../controller/local_notifications_controller.dart';
 
 class NotificationWidget extends StatelessWidget {
@@ -46,17 +47,14 @@ class NotificationWidget extends StatelessWidget {
           ),
           Text(
             post.title,
-            style: const TextStyle(
-              fontSize: 24.0,
+            style: AppTextStyles.titleLarge(
               fontWeight: FontWeight.bold,
             ),
           ),
           const Gap(16.0),
           Text(
             post.body,
-            style: const TextStyle(
-              fontSize: 16.0,
-            ),
+            style: AppTextStyles.heading3(),
           ),
         ],
       ),

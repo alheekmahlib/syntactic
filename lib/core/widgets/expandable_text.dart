@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
-import '../../../../core/services/services_locator.dart';
 import '../../presentation/controllers/general_controller.dart';
+import '../services/services_locator.dart';
+import '../utils/helpers/app_text_styles.dart';
 
 class ExpandableText extends StatelessWidget {
   const ExpandableText({
@@ -51,11 +52,8 @@ class ExpandableText extends StatelessWidget {
                       child: SelectableText(
                         text,
                         textAlign: textAlign,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'naskh',
+                        style: AppTextStyles.bodySmall(
                           color: Theme.of(context).colorScheme.primary,
-                          // overflow: TextOverflow.fade,
                         ),
                         textDirection: TextDirection.rtl,
                       ),
@@ -65,9 +63,7 @@ class ExpandableText extends StatelessWidget {
                       softWrap: true,
                       overflow: TextOverflow.fade,
                       textAlign: textAlign,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'naskh',
+                      style: AppTextStyles.bodySmall(
                         color: Theme.of(context).colorScheme.primary,
                       ),
                       textDirection: TextDirection.rtl,

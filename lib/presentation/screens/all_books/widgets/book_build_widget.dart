@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:nahawi/core/utils/helpers/app_text_styles.dart';
 
 import '../../../../core/utils/constants/svg_picture.dart';
 import '../../../../core/widgets/widgets.dart';
@@ -49,9 +50,8 @@ class BookBuildWidget extends StatelessWidget {
                       borderRadius: const BorderRadius.all(Radius.circular(4))),
                   child: Text(
                     title.tr,
-                    style: TextStyle(
+                    style: AppTextStyles.titleSmall(
                       fontSize: 14.0,
-                      fontFamily: 'kufi',
                       fontWeight: FontWeight.w500,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
@@ -78,9 +78,8 @@ class BookBuildWidget extends StatelessWidget {
                                     curve: Curves.easeIn)),
                         child: Text(
                           'showAll'.tr,
-                          style: TextStyle(
+                          style: AppTextStyles.titleSmall(
                             fontSize: 14.0,
-                            fontFamily: 'kufi',
                             fontWeight: FontWeight.w500,
                             color: Theme.of(context).colorScheme.surface,
                           ),
@@ -130,14 +129,13 @@ class BookBuildWidget extends StatelessWidget {
                                     height: 138.h,
                                     width: 176.w)),
                             SizedBox(
-                              height: 90,
+                              height: 80,
                               width: 90,
                               child: Text(
                                 book.bookName,
-                                style: TextStyle(
+                                style: AppTextStyles.titleLarge(
                                     fontSize: 18.0,
-                                    fontFamily: 'kufi',
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w500,
                                     color:
                                         Theme.of(context).colorScheme.secondary,
                                     height: 1.5),
