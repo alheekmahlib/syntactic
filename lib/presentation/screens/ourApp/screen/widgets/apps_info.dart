@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 
 import '/core/utils/helpers/app_text_styles.dart';
 import '../../../../../core/widgets/widgets.dart';
-import '../../controller/ourApps_controller.dart';
-import '../../data/models/ourApp_model.dart';
+import '../../controller/our_apps_controller.dart';
+import '../../data/models/our_app_model.dart';
 
 class AppsInfo extends StatelessWidget {
   final OurAppInfo apps;

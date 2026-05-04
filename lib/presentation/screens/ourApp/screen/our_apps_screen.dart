@@ -9,8 +9,8 @@ import '/core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../controllers/general_controller.dart';
-import '../controller/ourApps_controller.dart';
-import '../data/models/ourApp_model.dart';
+import '../controller/our_apps_controller.dart';
+import '../data/models/our_app_model.dart';
 import 'widgets/app_card_widget.dart';
 import 'widgets/apps_grid_skeleton_widget.dart';
 

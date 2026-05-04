@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '/core/services/api_client.dart';
 import '../../../../core/services/internet_connection_controller.dart';
 import '../../../../core/utils/constants/api_constants.dart';
-import '../data/models/ourApp_model.dart';
+import '../data/models/our_app_model.dart';
 
 class OurAppsController extends GetxController {
   static OurAppsController get instance =>
