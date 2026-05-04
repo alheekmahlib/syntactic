@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/helpers/app_text_styles.dart';
-import '/presentation/screens/ourApp/controller/ourApps_controller.dart';
-import '../../data/models/ourApp_model.dart';
+import '../../controller/our_apps_controller.dart';
+import '../../data/models/our_app_model.dart';
 import 'apps_info.dart';
 
 class AppCard extends StatelessWidget {
-  AppCard(this.app);
+  AppCard(this.app, {super.key});
 
   final OurAppInfo app;
   final appCtrl = OurAppsController.instance;

@@ -231,6 +231,8 @@ extension AudioDownloadExtension on AudioController {
 
       final endpoint = audioUrl ??
           '${ApiConstants.zipFilebookUrl}$bookIndex/$chapterIndex/$audioId.mp3';
+      final audioGitLabUrl = audioUrl ??
+          '${ApiConstants.zipFilebookGitLabUrl}$bookIndex/$chapterIndex/$audioId.mp3';
 
       // الحصول على رقم الكتاب الحالي
       // Get current book number
@@ -244,6 +246,7 @@ extension AudioDownloadExtension on AudioController {
       final success = await downloadFile(
         url: endpoint,
         savePath: savePath,
+        fallbackUrl: audioGitLabUrl,
         showSuccessMessage: true,
         successMessage: 'audioDownloaded'.tr,
         onReceiveProgress: (received, total) {
@@ -308,6 +311,7 @@ extension AudioDownloadExtension on AudioController {
       // بناء رابط الملف المضغوط من GitHub
       // Build ZIP file URL from GitHub
       final zipUrl = '${ApiConstants.zipFilebookUrl}$bookIndex.zip';
+      final zipGitLabUrl = '${ApiConstants.zipFilebookGitLabUrl}$bookIndex.zip';
       log('Downloading ZIP file from: $zipUrl', name: 'AudioDownloadExtension');
 
       final bookKey = bookIndex.toString();
@@ -319,6 +323,7 @@ extension AudioDownloadExtension on AudioController {
       final success = await downloadFile(
         url: zipUrl,
         savePath: zipSavePath,
+        fallbackUrl: zipGitLabUrl,
         showSuccessMessage: false,
         onReceiveProgress: (received, total) {
           if (total != -1) {

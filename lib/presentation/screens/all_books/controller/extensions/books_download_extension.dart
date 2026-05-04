@@ -28,9 +28,12 @@ extension BooksDownloadExtension on AllBooksController {
 
       // استخدام امتداد التنزيل العام
       // Use the generic download extension
+      final gitLabUrl = '${ApiConstants.booksGitLabUrl}$bookNumber.json';
+
       final success = await downloadFile(
         url: endpoint,
         savePath: savePath,
+        fallbackUrl: gitLabUrl,
         showSuccessMessage: true,
         successMessage: 'booksDownloaded'.tr,
         onReceiveProgress: (received, total) {

@@ -44,6 +44,7 @@ extension DownloadExtension on Object {
     bool showSuccessMessage = true,
     String? successMessage,
     void Function(int received, int total)? onReceiveProgress,
+    String? fallbackUrl,
     void Function(File file)? onSuccess,
     void Function(String error)? onError,
   }) async {
@@ -62,6 +63,7 @@ extension DownloadExtension on Object {
         headers: headers,
         token: token,
         onReceiveProgress: onReceiveProgress,
+        fallbackUrl: fallbackUrl,
       );
 
       // معالجة نتيجة التنزيل
@@ -129,6 +131,7 @@ extension DownloadExtension on Object {
     Map<String, String>? headers,
     String? token,
     void Function(int received, int total)? onReceiveProgress,
+    String? fallbackUrl,
     void Function(String error)? onError,
   }) async {
     if (!_checkConnectivity()) return null;
@@ -145,6 +148,7 @@ extension DownloadExtension on Object {
         headers: headers,
         token: token,
         onReceiveProgress: onReceiveProgress,
+        fallbackUrl: fallbackUrl,
       );
 
       // معالجة نتيجة التنزيل

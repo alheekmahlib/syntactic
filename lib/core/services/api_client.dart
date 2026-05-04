@@ -42,6 +42,7 @@ class ApiClient {
     bool? printResponse = false,
     void Function(int, int)? onReceiveProgress,
     String? token,
+    String? fallbackUrl,
   }) async {
     try {
       final Map<String, String> finalHeaders = headers ?? {};
@@ -71,21 +72,56 @@ class ApiClient {
         'DioException occurred: ${e.message}, Status Code: ${e.response?.statusCode}',
         name: 'ApiClient',
       );
+
+      // إذا فشل الطلب ووجد رابط بديل، حاول GitLab
+      if (fallbackUrl != null) {
+        return _requestFallback(fallbackUrl, method, headers);
+      }
+
       return Left(ErrorHandler.handle(e).failure);
     } catch (e) {
       // تسجيل أي استثناء عام
       // Log any general exception
       log('Unexpected error: $e', name: 'ApiClient');
+
+      if (fallbackUrl != null) {
+        return _requestFallback(fallbackUrl, method, headers);
+      }
+
       return Left(DataSource.DEFAULT.getFailure());
     }
   }
 
-  /// تحميل ملف من رابط خارجي مع تتبع التقدم
-  /// Download file from external URL with progress tracking
+  /// طلب بديل من GitLab عند فشل GitHub
+  Future<Either<Failure, dynamic>> _requestFallback(
+    String fallbackUrl,
+    HttpMethod method,
+    Map<String, String>? headers,
+  ) async {
+    try {
+      log('Trying fallback URL: $fallbackUrl', name: 'ApiClient');
+      final response = await Dio().get(
+        fallbackUrl,
+        options: Options(headers: headers),
+      );
+      log('Fallback request succeeded', name: 'ApiClient');
+      return Right(response.data);
+    } on DioException catch (e) {
+      log('Fallback also failed: ${e.message}', name: 'ApiClient');
+      return Left(ErrorHandler.handle(e).failure);
+    } catch (e) {
+      log('Fallback error: $e', name: 'ApiClient');
+      return Left(DataSource.DEFAULT.getFailure());
+    }
+  }
+
+  /// تحميل ملف من رابط خارجي مع تتبع التقدم ودعم الرابط البديل
+  /// Download file from external URL with progress tracking and fallback
   Future<Either<Failure, dynamic>> downloadFile({
     required String url,
     void Function(int received, int total)? onProgress,
     Duration? timeout,
+    String? fallbackUrl,
   }) async {
     try {
       log('Downloading from: $url', name: 'ApiClient');
@@ -104,9 +140,48 @@ class ApiClient {
       return Right(response.data);
     } on DioException catch (e) {
       log('Download failed: ${e.message}', name: 'ApiClient');
+
+      // إذا فشل التحميل ووجد رابط بديل، حاول منه
+      if (fallbackUrl != null) {
+        return _downloadFallback(fallbackUrl, onProgress, timeout);
+      }
+
       return Left(ErrorHandler.handle(e).failure);
     } catch (e) {
       log('Download error: $e', name: 'ApiClient');
+
+      if (fallbackUrl != null) {
+        return _downloadFallback(fallbackUrl, onProgress, timeout);
+      }
+
+      return Left(DataSource.DEFAULT.getFailure());
+    }
+  }
+
+  /// تحميل بديل من GitLab عند فشل GitHub
+  Future<Either<Failure, dynamic>> _downloadFallback(
+    String fallbackUrl,
+    void Function(int, int)? onProgress,
+    Duration? timeout,
+  ) async {
+    try {
+      log('Trying fallback download: $fallbackUrl', name: 'ApiClient');
+      final response = await Dio().get(
+        fallbackUrl,
+        options: Options(receiveTimeout: timeout ?? const Duration(minutes: 5)),
+        onReceiveProgress: (received, total) {
+          if (total != -1) {
+            onProgress?.call(received, total);
+          }
+        },
+      );
+      log('Fallback download completed', name: 'ApiClient');
+      return Right(response.data);
+    } on DioException catch (e) {
+      log('Fallback download also failed: ${e.message}', name: 'ApiClient');
+      return Left(ErrorHandler.handle(e).failure);
+    } catch (e) {
+      log('Fallback download error: $e', name: 'ApiClient');
       return Left(DataSource.DEFAULT.getFailure());
     }
   }

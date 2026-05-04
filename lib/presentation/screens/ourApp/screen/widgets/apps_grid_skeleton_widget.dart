@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class AppsGridSkeleton extends StatelessWidget {
-  const AppsGridSkeleton({required this.crossAxisCount});
+  const AppsGridSkeleton({super.key, required this.crossAxisCount});
   final int crossAxisCount;
 
   @override
